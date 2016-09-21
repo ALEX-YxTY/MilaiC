@@ -61,6 +61,14 @@
                         android:layout_alignParentBottom="true"
                         android:text="10"/>
                     <TextView
+                        android:id="@+id/tv_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tv_money"
+                        android:layout_alignParentBottom="true"
+                        android:text="米"
+                        android:visibility="gone"/>
+                    <TextView
                         android:id="@+id/tv_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -24,6 +24,8 @@ public class CouponDetailsActivity extends BaseActivity {
 
     @BindView(R.id.tv_1)
     TextView tv1;
+    @BindView(R.id.tv_2)
+    TextView tv2;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_number)
@@ -58,8 +60,9 @@ public class CouponDetailsActivity extends BaseActivity {
         tvNumber.setText(coupon.getCouponSn());
         if (coupon.isMi()) {
             tv1.setVisibility(View.INVISIBLE);
-            tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 1) + "米");
+            tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
             tvValue.setVisibility(View.GONE);
+            tv2.setVisibility(View.VISIBLE);
         } else {
             tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 1));
             tvValue.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0) + "元使用");

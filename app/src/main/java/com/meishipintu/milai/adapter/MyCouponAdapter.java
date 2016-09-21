@@ -46,15 +46,18 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.MyCoup
         holder.tvName.setText(coupon.getName());
         holder.tvTime.setText(coupon.getEndTime());
         if (coupon.isMi()) {
-            holder.tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0) + "米");
-            holder.tvYuan.setVisibility(View.INVISIBLE);
-            holder.tvCondition.setVisibility(View.INVISIBLE);
+            holder.tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
+            holder.tvYuan.setVisibility(View.GONE);
+            holder.tvMi.setVisibility(View.VISIBLE);
+            holder.tvCondition.setVisibility(View.GONE);
             holder.tvNumber.setText(coupon.getCouponShow());
         } else {
             holder.tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
+            holder.tvCondition.setVisibility(View.VISIBLE);
             holder.tvCondition.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0)
                     + "元使用");
             holder.tvYuan.setVisibility(View.VISIBLE);
+            holder.tvMi.setVisibility(View.GONE);
             holder.tvNumber.setText(StringUtils.stringWithSpace(coupon.getCouponSn()));
         }
 
@@ -89,6 +92,8 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.MyCoup
         TextView tvTime;
         @BindView(R.id.yuan)
         TextView tvYuan;
+        @BindView(R.id.mi)
+        TextView tvMi;
 
         public MyCouponViewHolder(View itemView) {
             super(itemView);
