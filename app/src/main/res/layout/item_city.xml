@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_30"
+        android:textSize="@dimen/tv_54"
+        android:textColor="@color/black_gray"
+        android:background="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/transparent_40_off_gray">
+
+
+        <!--图标：iv_Icon-->
+        <!--标题栏：tv_title_notice-->
+        <!--时间：tv_time-->
+        <!--内容：tv_notice_content-->
+    </View>
+</LinearLayout>

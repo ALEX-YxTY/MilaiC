@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\workshop-android\\MilaiC\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\encode.xml",
+        "source": "D:\\workshop-android\\MilaiC\\zxing\\build\\intermediates\\bundles\\debug\\res\\menu\\encode.xml"
+    },
+    {
+        "merged": "D:\\workshop-android\\MilaiC\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\history.xml",
+        "source": "D:\\workshop-android\\MilaiC\\zxing\\build\\intermediates\\bundles\\debug\\res\\menu\\history.xml"
+    },
+    {
+        "merged": "D:\\workshop-android\\MilaiC\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\capture.xml",
+        "source": "D:\\workshop-android\\MilaiC\\zxing\\build\\intermediates\\bundles\\debug\\res\\menu\\capture.xml"
+    },
+    {
+        "merged": "E:\\lz1\\milai4\\MilaiC\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\capture.xml",
+        "source": "E:\\lz1\\milai4\\MilaiC\\zxing\\build\\intermediates\\bundles\\debug\\res\\menu\\capture.xml"
+    },
+    {
+        "merged": "E:\\lz1\\milai4\\MilaiC\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\history.xml",
+        "source": "E:\\lz1\\milai4\\MilaiC\\zxing\\build\\intermediates\\bundles\\debug\\res\\menu\\history.xml"
+    },
+    {
+        "merged": "E:\\lz1\\milai4\\MilaiC\\zxing\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\encode.xml",
+        "source": "E:\\lz1\\milai4\\MilaiC\\zxing\\build\\intermediates\\bundles\\debug\\res\\menu\\encode.xml"
+    }
+]

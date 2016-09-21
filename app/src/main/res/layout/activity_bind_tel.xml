@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context="com.meishipintu.milai.activitys.BindTelActivity">
+
+    <include layout="@layout/title_bar_transparent_back2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_136"
+        android:layout_marginRight="@dimen/margin_136"
+        android:layout_marginTop="@dimen/margin_136">
+
+        <LinearLayout
+            android:id="@+id/ll_v_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_118">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/margin_18">
+
+                <EditText
+                    android:id="@+id/et_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/margin_20"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/trans_black"
+                    android:hint="@string/hint_input_username"
+                    android:textColorHint="@color/tv_gray_normal"
+                    android:textSize="@dimen/tv_42"
+                    android:layout_below="@id/ll_v_code"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="@color/black_gray"
+                    android:layout_below="@id/et_tel" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_get_v_code"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:text="@string/verify_code"
+                android:textColor="@color/tv_gray_normal"
+                android:background="@drawable/selector_rectangle_transparent_btn"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_vCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_58"
+            android:padding="@dimen/margin_18"
+            android:background="@android:color/transparent"
+            android:textColor="@color/trans_black"
+            android:hint="@string/input_verification_code"
+            android:textColorHint="@color/tv_gray_normal"
+            android:textSize="@dimen/tv_42"
+            android:layout_below="@id/ll_v_code"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/black_gray"
+            android:layout_below="@id/et_vCode" />
+
+
+        <Button
+            android:id="@+id/bt_bind_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_rectangle_transparent_btn"
+            android:padding="@dimen/margin_22"
+            android:text="@string/bind"
+            android:textColor="@drawable/selector_text_color_btn"
+            android:textSize="@dimen/tv_62"
+            android:layout_below="@id/et_vCode"
+            android:layout_marginTop="@dimen/margin_88"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_62">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/tv_gray_normal"
+                android:textSize="@dimen/tv_36"
+                android:text="@string/login_hint1"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:textSize="@dimen/tv_36"
+                android:text="@string/login_hint2"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

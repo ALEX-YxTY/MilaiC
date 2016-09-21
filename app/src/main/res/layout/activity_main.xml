@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.meishipintu.milai.activitys.MainActivity">
+
+    <include android:id="@+id/title_bar"
+        layout="@layout/title_bar_location_scan" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_tab"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_task"
+            style="@style/my_tab"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/btn_mlyq"
+            android:text="米来有钱"
+            android:textColor="@drawable/selector_text_color_rg"
+            android:textSize="14sp"
+            android:drawablePadding="@dimen/margin_5"/>
+
+        <RadioButton
+            android:id="@+id/rb_welfare"
+            style="@style/my_tab"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/btn_mlzone"
+            android:text="用米地带"
+            android:textColor="@drawable/selector_text_color_rg"
+            android:drawablePadding="@dimen/margin_5"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            style="@style/my_tab"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/btn_mine"
+            android:text="我的米来"
+            android:textColor="@drawable/selector_text_color_rg"
+            android:drawablePadding="@dimen/margin_5"
+            android:textSize="14sp" />
+    </RadioGroup>
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@color/gray"
+        android:layout_above="@id/rg_tab"
+        />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_viewPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_bar"
+        android:layout_above="@id/line1"/>
+
+</RelativeLayout>

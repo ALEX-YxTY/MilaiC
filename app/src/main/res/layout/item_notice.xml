@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_activity"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_title_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="活动通知"
+                android:textSize="18dp"/>
+            <TextView
+                android:id="@id/tv_time"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title_notice"
+                android:text="08/10"
+                android:textSize="16dp"/>
+            <RelativeLayout
+                android:id="@+id/rl_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_time">
+                <TextView
+                    android:id="@+id/tv_notice_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:text="啊阿斯科利卢具卡是啊就开始达科技时代家啊可是卡就是的卡就是大家十大健康"
+                    android:textSize="18dp"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_notice_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/btn_rignt"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/rl_2">
+            </View>
+        </RelativeLayout>
+
+</LinearLayout>
+<!--图标：iv_Icon-->
+<!--标题栏：tv_title_notice-->
+<!--时间：tv_time-->
+<!--内容：tv_notice_content-->

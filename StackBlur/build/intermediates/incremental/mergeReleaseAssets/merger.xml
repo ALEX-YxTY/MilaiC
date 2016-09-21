@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\workshop-android\MilaiC\StackBlur\assets"><file name="ic_launcher.png" path="D:\workshop-android\MilaiC\StackBlur\assets\ic_launcher.png"/></source><source path="D:\workshop-android\MilaiC\StackBlur\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\workshop-android\MilaiC\StackBlur\build-types\release\assets"/></dataSet></merger>

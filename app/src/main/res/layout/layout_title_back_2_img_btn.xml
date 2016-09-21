@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/more_title_h"
+    android:background="@color/orange"
+    >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/margin_88"
+        android:layout_marginRight="@dimen/margin_88"
+        android:textColor="@color/white"
+        android:textSize="@dimen/more_title_txt_sz" />
+
+    <Button
+        android:id="@+id/btn_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_26"
+        android:background="@color/transparent"
+        android:drawableLeft="@drawable/btn_back_white"
+        android:drawablePadding="0dp"
+        android:padding="@dimen/margin_8"
+        android:textColor="@color/tv_title"
+        android:textSize="@dimen/tv_36"    
+        />
+
+    <Button
+        android:id="@+id/btn_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin_26"
+        android:padding="0dip"
+        android:textColor="@color/tv_cafe"
+        android:textSize="@dimen/tv_34"
+        android:visibility="gone"/>
+
+</RelativeLayout>

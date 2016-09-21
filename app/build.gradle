@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
+
+    defaultConfig {
+        applicationId "com.meishipintu.milai"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 14
+        versionName "1.2.0"
+
+        ndk() {
+            moduleName "jnitest"
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "2c928c993cc6eb1e9e639927", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default"
+        ]
+    }
+
+
+    buildTypes {
+        release {
+            //设置混淆
+            minifyEnabled false
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile project(':zxing')
+    compile project(':StackBlur')
+    //butterknife
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    compile 'com.jakewharton:butterknife:8.1.0'
+    //retrofit2.0 & okHttp
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.+'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.+'
+    //RxJava & RxAndroid
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    // And ProGuard rules for RxJava!
+    compile 'com.artemzin.rxjava:proguard-rules:1.1.9.0'
+    //Picasso
+    compile 'com.squareup.picasso:picasso:2.+'
+    //高德定位
+    compile files('libs/AMap_Location_V2.8.0_20160811.jar')
+    compile files('libs/umeng_social_sdk.jar')
+    compile files('libs/SocialSDK_WeiXin_1.jar')
+    compile files('libs/SocialSDK_WeiXin_2.jar')
+    compile files('libs/SocialSDK_QQZone_3.jar')
+    compile files('libs/open_sdk_r5756.jar')
+    compile files('libs/mta-sdk-1.6.2.jar')
+    //jpush
+    compile 'cn.jiguang:jpush:2.1.9'
+    //修改全局字体的库
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    //roundImageView
+    compile 'com.makeramen:roundedimageview:2.2.1'
+
+}

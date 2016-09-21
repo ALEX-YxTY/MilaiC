@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.meishipintu.milai.activitys.PurchaseHistoryActivity">
+
+    <include layout="@layout/title_bar_back"
+        android:id="@+id/title_bar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_below="@id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_22"
+        android:layout_marginLeft="@dimen/margin_18"
+        android:listSelector="@android:color/transparent"
+        />
+
+</RelativeLayout>
+    <!--android:listSelector="@android:color/transparent"无点击效果，就是设成透明点击-->
+    <!--android:dividerHeight="@null"分割线高0-->
+    <!--android:divider="@null">-->

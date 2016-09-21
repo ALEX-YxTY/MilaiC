@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bg_gray">#f5f5f5</color>
+    <color name="light_light_gray">#eeeeee</color>
+    <color name="mid_gray">#888888</color>
+    <color name="mid_dark_gray">#AFAFAF</color>
+    <color name="black_alpha">#207B7B7B</color>
+    <!-- loadable listview -->
+    <color name="list_more_text_color">#000000</color>
+    <color name="title_sep">#f2dbbf</color>
+    <!-- main page -->
+    <color name="yellow_dialog_getgrab">#FFCE00</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="yellow">#EEB422</color>
+    <color name="red_orange">#ff7000</color>
+    <color name="orange">#fd4f00</color>
+    <color name="red_orange_dark">#994000</color>
+    <color name="red">#ff0000</color>
+    <color name="btn_yellow">#f39603</color>
+    <color name="black_half_tr">#801C1C01</color>
+    <drawable name="black_half_tr">#99000000</drawable>
+    <drawable name="translucent_background">#e0000000</drawable>
+    <drawable name="yellow_half_tr">#99EEB422</drawable>
+    <color name="dark_gray">#FF404040</color>
+    <color name="middle_gray">#69727c</color>
+    <color name="loadabe_list_foot_text_color">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- umeng -->
+    <color name="accent_1">#ff29549f</color>
+    <color name="whats_on_separator">#4d000000</color>
+
+    <!-- new ui -->
+    <color name="tv_title">#bfbfbf</color>
+    <color name="tv_cafe">#5d4e47</color>
+    <color name="dialog_tv">#baa088</color>
+    <color name="tv_share_bog_txt">#6f6f6f</color>
+
+    <!-- 主页 -->
+    <color name="mainpage_recommender_name">#b4aeac</color>
+    <color name="mainpage_shadow">#a3100800</color>
+    <color name="mainpage_line">#fcac2e</color>
+
+    <!-- 侧边栏 -->
+    <color name="tv_item_title">#baa088</color>
+    <color name="menu_tab_tv_color">#eaddcc</color>
+    <color name="month_name_color">#61523c</color>
+    <color name="month_name_bg">#2b2b2b</color>
+
+    <!-- 更多 -->
+    <color name="more_options_text_color">#5d4e47</color>
+    <color name="copyright_text_color">#b2b2b2</color>
+    <color name="sep_up">#d4cec7</color>
+    <color name="sep_down">#ffffff</color>
+    <!-- 起始页 -->
+    <color name="start_page_tv_color">#8a8a8a</color>
+
+    <color name="trans_black">#99000000</color>
+    <color name="transparent_black">#4000</color>
+    <drawable name="trans_yellow">#99EEB422</drawable>
+
+    <color name="countdown_pop_txt">#af9682</color>
+
+    <!-- 点菜 -->
+    <color name="bg_sel_dish_done">#80ffffff</color>
+    <color name="bg_ticket_gray">#ededed</color>
+
+    <color name="dash_dot">#887c75</color>
+    <color name="bg_app">#ededed</color>
+    <color name="dim_bg">#80000000</color>
+    <color name="trans_white">#D8ffffff</color>
+
+    <color name="main_bg">#f2f2f2</color>
+    <color name="item_neighbor_shop_border">#e3e3e3</color>
+    <color name="bg_refresh_my_loc">#dddddd</color>
+
+    <color name="buttonblue">#3aaaeb</color>
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="coupon_red">#AF4F4F</color>
+    <color name="black_gray">#82000000</color>
+
+    <color name="dark">#FF222222</color>
+    <color name="light">#FFEEEEEE</color>
+    <color name="gray">#55887c75</color>
+    <color name="transparent_40_off_gray">#90887c75</color>
+    <color name="light_gray">#f0ece9</color>
+    <color name="black">#000000</color>
+    <color name="transparent_white">#dfff</color>
+    <color name="tv_gray">#959595</color>
+    <color name="tv_title_gray">#434343</color>
+    <color name="tv_gray_normal">#7d7d7d</color>
+    <color name="gray_background">#f0ece9</color>
+
+</resources>

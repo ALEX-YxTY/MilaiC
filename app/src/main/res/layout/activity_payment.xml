@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/MiLai"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <include layout="@layout/title_bar_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/margin_18"
+            android:background="@drawable/bg_detail_erweima">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_centerHorizontal="true"
+                android:textSize="22dp"
+                android:text="小郭同学"/>
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:textSize="22dp"
+                android:layout_centerHorizontal="true"
+                android:text="135 1234 5678"/>
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/iv_QRcode"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:scaleType="fitXY"
+                android:layout_below="@+id/tv_phone"
+                android:background="@drawable/default_msg_pic"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="*付款时，请出示您的二维码"
+            android:layout_below="@id/rl"
+            android:layout_marginTop="@dimen/margin_22"
+            />
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="*此码定时更新，仅限当面支付"
+            android:layout_above="@+id/tv_1"
+            android:visibility="gone"/>
+
+        <com.meishipintu.milai.views.CircleImageView
+            android:layout_marginTop="40dp"
+            android:id="@+id/headportrait"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bg_mine_ava"
+            app:border_width="2dp"
+            app:border_color="@color/dark"/>
+    </RelativeLayout>
+</LinearLayout>
