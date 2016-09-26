@@ -10,6 +10,7 @@ import com.meishipintu.milai.beans.ConsumeRecordInfo;
 import com.meishipintu.milai.beans.Coupon;
 import com.meishipintu.milai.beans.GetVCodeRequest;
 import com.meishipintu.milai.beans.GrabRiceLog;
+import com.meishipintu.milai.beans.HttpResult;
 import com.meishipintu.milai.beans.LoginInfo;
 import com.meishipintu.milai.beans.LoginInfoTel;
 import com.meishipintu.milai.beans.Notice;
@@ -115,6 +116,7 @@ public class NetApi {
         });
 
     }
+
     public Observable<List<Notice>> getNotice() {
 
         return netService.getNoticeHttp().map(new MyResultFunc<List<Notice>>());
@@ -178,9 +180,7 @@ public class NetApi {
     }
 
     public Observable<List<Task>> getTask(int cityId, int page) {
-
         return netService.getTaskHttp(cityId,page).map(new MyResultFunc<List<Task>>());
-
     }
 
     public Observable<String> getMi(String uid) {
@@ -350,7 +350,7 @@ public class NetApi {
         });
     }
 
-    public Observable<AppInfo> getSystemInfo(int app_type) {
+    public Observable<AppInfo> getSystemInfo(final int app_type) {
         return netService.getSystemLHttp(app_type).map(new MyResultFunc<AppInfo>());
     }
 

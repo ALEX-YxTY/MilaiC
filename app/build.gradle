@@ -27,7 +27,7 @@ android {
     buildTypes {
         release {
             //设置混淆
-            minifyEnabled false
+            minifyEnabled true
             // 移除无用的resource文件
 //            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -56,9 +56,9 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.+'
     //RxJava & RxAndroid
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxjava:1.2.0'
     // And ProGuard rules for RxJava!
-    compile 'com.artemzin.rxjava:proguard-rules:1.1.9.0'
+    compile 'com.artemzin.rxjava:proguard-rules:1.2.0.0'
     //Picasso
     compile 'com.squareup.picasso:picasso:2.+'
     //高德定位

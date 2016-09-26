@@ -4,6 +4,7 @@ import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
 import com.meishipintu.milai.beans.GetVCodeRequest;
 import com.meishipintu.milai.beans.GrabRiceLog;
+import com.meishipintu.milai.beans.HttpResult;
 import com.meishipintu.milai.beans.LoginInfo;
 import com.meishipintu.milai.beans.LoginInfoTel;
 import com.meishipintu.milai.beans.Notice;

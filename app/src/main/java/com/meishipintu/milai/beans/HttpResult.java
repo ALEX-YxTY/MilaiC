@@ -1,4 +1,4 @@
-package com.meishipintu.milai.netDao;
+package com.meishipintu.milai.beans;
 
 /**
  * Created by Administrator on 2016/7/10.
