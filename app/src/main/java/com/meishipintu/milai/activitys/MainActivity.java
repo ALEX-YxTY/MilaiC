@@ -1,11 +1,15 @@
 package com.meishipintu.milai.activitys;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -28,6 +32,7 @@ import com.meishipintu.milai.fragments.WelfareFragment;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.tasks.MyAsy;
 import com.meishipintu.milai.utils.ConstansUtils;
+import com.meishipintu.milai.utils.DialogUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.utils.SystemUtils;
@@ -44,6 +49,9 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements WelfareFragment.LoggingStatusListener{
 
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private static final int REQUEST_STORAGE_PERMISSION = 300;
+
     private ArrayList<Fragment> fragmentList;
     private MyFragmentPageAdapter adapter;
     private NetApi netApi;
@@ -54,6 +62,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private WelfareFragment welfareFragment;
     private LoginFragment loginFragment;
     private MineFragment mineFragment;
+
+    private String fileDir = "";
 
     @BindView(R.id.tv_location)
     TextView tvLocation;
@@ -79,6 +89,40 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
     @OnClick(R.id.iv_scan)
     void getScaner() {
+        cameraWapper();
+    }
+
+    //请求相机权限包装方法
+    private void cameraWapper() {
+
+        Log.i("test", "cameraWapper click");
+
+        int hasLoactionPermission = ContextCompat.checkSelfPermission(this
+                , Manifest.permission.CAMERA);
+        if (hasLoactionPermission != PackageManager.PERMISSION_GRANTED) {       //未授权
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this
+                    , Manifest.permission.CAMERA)) {                            //系统申请权限框不再弹出
+                Log.i("test", "dialog show ," + System.currentTimeMillis());
+                DialogUtils.showCustomDialog(this, "本应用需要获取相机权限"
+                        , new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MainActivity.this
+                                        ,new String[]{Manifest.permission.CAMERA}
+                                        , REQUEST_CAMERA_PERMISSION);
+                                dialog.dismiss();
+                            }
+                        });
+                return;
+            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest
+                    .permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            return;
+        }
+        startScan();
+    }
+
+    private void startScan() {
         //启动扫描页面
         Intent intent = new Intent(MainActivity.this, CaptureHanlderActivity.class);
         intent.putExtra("CHECK_CODE", 0);       //0 - 从主页启动
@@ -156,7 +200,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        new MyAsy(MainActivity.this).execute(appInfo.getApp_file());
+                                        fileDir = appInfo.getApp_file();
+                                        downloadWapper();
                                     }
                                 });
                                 builder.setNegativeButton("稍后再说", null);
@@ -167,6 +212,37 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                         }
                     }
                 });
+    }
+
+    //申请读写sd卡权限包装方法
+    private void downloadWapper() {
+        int hasStoragePermission = ContextCompat.checkSelfPermission(this
+                , android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (hasStoragePermission != PackageManager.PERMISSION_GRANTED) {        //未授权
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this
+                    , android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {    //系统申请权限框不再弹出
+                DialogUtils.showCustomDialog(this, "本应用需要获取读写内存卡权限"
+                        , new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android
+                                        .Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+                                dialog.dismiss();
+                            }
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                return;
+            }
+            //系统框弹出时直接申请
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{android
+                    .Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_STORAGE_PERMISSION);
+            return;
+        }
+        new MyAsy(MainActivity.this).execute(fileDir);
     }
 
     private void initFragment() {
@@ -387,4 +463,33 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
     /*-------------------------下拉刷新个上拉加载分割线---------------------*/
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //授权通过
+                    cameraWapper();
+                } else {
+                    //拒绝授权
+                    Toast.makeText(this, "无相机权限，无法进行扫描操作，请在系统设置中增加应用的相应授权", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            case REQUEST_STORAGE_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //授权通过
+                    downloadWapper();
+                } else {
+                    //拒绝授权
+                    Toast.makeText(this, "无读写内存卡权限，无法进行下载任务,请在系统设置中增加应用的相应授权", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
+
+    }
 }
