@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择头像"
+        android:textSize="@dimen/tv_43"
+        android:padding="@dimen/margin_28"
+        android:background="@color/gray"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/tv_from_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍照"
+        android:textSize="@dimen/tv_43"
+        android:textColor="@color/buttonblue"
+        android:padding="@dimen/margin_24"
+        android:clickable="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/tv_from_album"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="从相册获取"
+        android:textColor="@color/buttonblue"
+        android:textSize="@dimen/tv_43"
+        android:padding="@dimen/margin_24"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_weight="1"
+        android:clickable="true"/>
+
+
+
+
+</LinearLayout>
