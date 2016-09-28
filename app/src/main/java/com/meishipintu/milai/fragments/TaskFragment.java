@@ -98,7 +98,7 @@ public class TaskFragment extends BaseFragment  {
                                 myProgressBar.setVisibility(View.INVISIBLE);
                                 Log.e("没有跟多内容", "没有跟多内容");
                             }
-                            else if(tasks.size()!=0){
+                            else {
                                 list.addAll(tasks);
                                 handler.sendEmptyMessage(LOAD_SUCCESS);
                                 mSwipeRefreshLayout.setRefreshing(false);

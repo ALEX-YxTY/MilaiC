@@ -464,7 +464,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     /*-------------------------下拉刷新个上拉加载分割线---------------------*/
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
+            , @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CAMERA_PERMISSION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {

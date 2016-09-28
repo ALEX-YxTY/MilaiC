@@ -22,7 +22,9 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -115,9 +117,14 @@ public interface NetService {
     @POST("mspt/member/verifytel")
     Observable<ResponseBody> getVerifyCodeHttp(@Body GetVCodeRequest getVCodeRequest);
 
+
     //获取系统信息
     @FormUrlEncoded
     @POST("http://b.milaipay.com/test/getSystem")
     Observable<HttpResult<AppInfo>> getSystemLHttp(@Field("app_type") int app_type);
 
+//    //上传头像
+//    @Multipart
+//    @POST("mspt/shop/addtippicture")
+//    Observable<ResponseBody> addHeaderPic(@Part("pic") MultiP);
 }

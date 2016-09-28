@@ -11,6 +11,7 @@ import com.meishipintu.milai.R;
 import com.meishipintu.milai.beans.Coupon;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.NumUtil;
+import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.views.CircleImageView;
 
 import butterknife.BindView;
@@ -57,7 +58,7 @@ public class CouponDetailsActivity extends BaseActivity {
     private void initUI() {
         Coupon coupon = (Coupon) intent.getExtras().get("coupon");
         tvName.setText(coupon.getName());
-        tvNumber.setText(coupon.getCouponSn());
+        tvNumber.setText(StringUtils.stringWithSpace(coupon.getCouponSn()));
         if (coupon.isMi()) {
             tv1.setVisibility(View.INVISIBLE);
             tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
@@ -67,7 +68,7 @@ public class CouponDetailsActivity extends BaseActivity {
             tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 1));
             tvValue.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0) + "元使用");
         }
-        QrUtil.createQRCodeImage(coupon.getCouponSn(), ibQuan);
+        QrUtil.createQRCodeImage(StringUtils.stringWithSpace(coupon.getCouponSn()), ibQuan);
         tvTime.setText("有效期至：" + coupon.getEndTime());
     }
 

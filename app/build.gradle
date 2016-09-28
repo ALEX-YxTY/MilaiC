@@ -75,5 +75,4 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     //roundImageView
     compile 'com.makeramen:roundedimageview:2.2.1'
-
 }
