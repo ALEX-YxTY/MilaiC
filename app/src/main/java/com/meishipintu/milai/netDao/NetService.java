@@ -17,6 +17,8 @@ import com.meishipintu.milai.beans.Welfare;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -108,7 +110,7 @@ public interface NetService {
     //获取我的商户券
     @FormUrlEncoded
     @POST("merchant/Activity/getUserCoupon")
-    Observable<ResponseBody> getCouponHttp(@Field("uid") String uid);
+    Observable<ResponseBody> getCouponHttp(@Field("uid") String uid, @Field("status") int status);
 
 
     //用类型传参时要添加头部信息
@@ -123,8 +125,9 @@ public interface NetService {
     @POST("http://b.milaipay.com/test/getSystem")
     Observable<HttpResult<AppInfo>> getSystemLHttp(@Field("app_type") int app_type);
 
-//    //上传头像
-//    @Multipart
-//    @POST("mspt/shop/addtippicture")
-//    Observable<ResponseBody> addHeaderPic(@Part("pic") MultiP);
+    //    //上传头像
+    @Multipart
+    @POST("mspt/shop/addtippicture")
+    Observable<ResponseBody> addHeaderPicHttp(@Part MultipartBody.Part file1
+            , @Part MultipartBody.Part uid);
 }

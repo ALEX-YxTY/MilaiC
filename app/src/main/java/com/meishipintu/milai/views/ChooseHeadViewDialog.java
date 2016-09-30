@@ -18,6 +18,11 @@ public class ChooseHeadViewDialog extends Dialog {
 
     OnItemClickListener listener;
 
+    public ChooseHeadViewDialog(Context context, OnItemClickListener listener) {
+        super(context);
+        this.listener = listener;
+    }
+
     public ChooseHeadViewDialog(Context context, int themeResId, OnItemClickListener listener) {
         super(context, themeResId);
         this.listener = listener;
@@ -28,7 +33,7 @@ public class ChooseHeadViewDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_view_select);
         ButterKnife.bind(this);
-        getWindow().setBackgroundDrawableResource(R.drawable.shape_dialog_round_cornerl);
+        getWindow().setBackgroundDrawableResource(R.color.transparent);
     }
 
     @OnClick({R.id.tv_from_camera, R.id.tv_from_album})

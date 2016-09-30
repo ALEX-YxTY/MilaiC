@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.application.Cookies;
+import com.meishipintu.milai.beans.LoginInfo;
 import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.beans.UserInfo;
@@ -33,6 +35,7 @@ import com.meishipintu.milai.utils.DialogUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.utils.ToastUtils;
+import com.meishipintu.milai.utils.UriUtils;
 import com.meishipintu.milai.views.ChooseHeadViewDialog;
 import com.meishipintu.milai.views.CircleImageView;
 import com.squareup.picasso.Picasso;
@@ -47,6 +50,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -61,6 +65,8 @@ public class UserInfoSettingActivity extends BaseActivity {
     private UserDetailInfo userDetailInfo;
     private NetApi netApi;
     private Picasso picasso;
+    private File tempFile;              //用于存放图片缓存
+    private boolean headViewChanged = false;    //表示是否跟换了头像
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -98,6 +104,28 @@ public class UserInfoSettingActivity extends BaseActivity {
         getUserDetailInfo();
     }
 
+    public void getUserDetailInfo() {
+        Uid uid = new Uid(Cookies.getUserId());
+        netApi.getUserDetailInfo(uid).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UserDetailInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        reFreshUI();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(UserDetailInfo userDetailInfo) {
+                        UserInfoSettingActivity.this.userDetailInfo = userDetailInfo;
+                    }
+                });
+    }
+
     @OnClick({R.id.iv_back, R.id.save, R.id.iv_head_view})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -119,6 +147,30 @@ public class UserInfoSettingActivity extends BaseActivity {
                 }
                 int sex = rgTab.getCheckedRadioButtonId() == R.id.rb_male ? 0 : 1;
                 userDetailInfo.setSex(sex);
+
+                //如果修改了头像，则上传头像
+                if (headViewChanged) {
+                    netApi.addHeaderPicHttp(tempFile,Cookies.getUserId()).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<String>() {
+                                @Override
+                                public void onCompleted() {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onNext(String urlString) {
+                                    Log.i("test", "urlString:" + urlString);
+                                    //缓存头像图片目录
+                                    Cookies.setUserUrl(urlString);
+                                }
+                            });
+                }
 
                 Log.i("test", "userinfopost:" + userDetailInfo.toString());
                 netApi.updateUserDetail(userDetailInfo).subscribeOn(Schedulers.io())
@@ -150,9 +202,8 @@ public class UserInfoSettingActivity extends BaseActivity {
                         });
                 break;
             case R.id.iv_head_view:
-
-                new ChooseHeadViewDialog(this, R.style.CustomDialog
-                        , new ChooseHeadViewDialog.OnItemClickListener() {
+                tempFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "avator.jpg");
+                new ChooseHeadViewDialog(this, R.style.CustomDialog, new ChooseHeadViewDialog.OnItemClickListener() {
                     @Override
                     public void onClickCamera(View view, Dialog dialog) {
                         dialog.dismiss();
@@ -176,6 +227,7 @@ public class UserInfoSettingActivity extends BaseActivity {
                 break;
         }
     }
+
 
     //申请相机权限的包装方法
     private void cameraWapper() {
@@ -209,7 +261,8 @@ public class UserInfoSettingActivity extends BaseActivity {
 
         //调用相机
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra("return-data", true);
+        //获取相机元图片，不经过压缩，并保存在uir位置
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
         //调用系统相机
         startActivityForResult(intent, CHOOSE_FROM_CAMERA);
     }
@@ -217,98 +270,21 @@ public class UserInfoSettingActivity extends BaseActivity {
 
     //启动相机裁剪功能
     private void startPicCrop(Uri fileUri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(Uri.fromFile(new File(fileName)), "image/*");
-        intent.setDataAndType(fileUri, "image/*");
-        intent.putExtra("crop", "true");// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-        intent.putExtra("aspectX", 1);// aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 150);// outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);   //裁剪之后的数据是通过Intent返回
-        startActivityForResult(intent, USER_AVARTAR_CROP);
-    }
-
-    //将ContentUri装华为FileUri
-    /*
-        在Android4.4以后，系统通过选择相册图片返回的Uri为Content开头的Uri，而裁剪图片只能识别File开头的Uri
-        但是部分SDK做了修改，此处实现Uri的转换
-     */
-    private Uri convertUri(Uri contentUri) {
-        if (contentUri.toString().startsWith("file")) {
-            return contentUri;
-        } else {
-            InputStream is;
-            try {
-                //Uri ----> InputStream
-                is = getContentResolver().openInputStream(contentUri);
-                //InputStream ----> Bitmap
-                Bitmap bm = BitmapFactory.decodeStream(is);
-                //关闭流
-                is.close();
-                return saveBitmap(bm);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return null;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-    }
-
-    /**
-     * 将Bitmap写入SD卡中的一个文件中,并返回写入文件的Uri
-     * @param bm
-     * @return file开头Uri
-     *
-     * 因为应用可用内存最大值问题，如果不做保存直接使用Uri.parse(MediaStore.Images
-     * .Media.insertImage(getContentResolver(), bitmap, null,null))转换，并将此Uri传给
-     * 裁剪应用，图片质量会大幅下降，因此先将图片保存，并通过文件生成Uri
-     */
-    private Uri saveBitmap(Bitmap bm) {
-        //新建文件夹用于存放裁剪后的图片
-        File tempFile = new File(getCacheDir(), "avator.png");
         try {
-            //打开文件输出流
-            FileOutputStream fos = new FileOutputStream(tempFile);
-            //将bitmap压缩后写入输出流(参数依次为图片格式、图片质量和输出流)
-            bm.compress(Bitmap.CompressFormat.PNG, 85, fos);
-            //刷新输出流
-            fos.flush();
-            //关闭输出流
-            fos.close();
-            //返回File类型的Uri
-            return Uri.fromFile(tempFile);
-        } catch (FileNotFoundException e) {
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.setDataAndType(fileUri, "image/*");
+            intent.putExtra("crop", "true");// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+            intent.putExtra("aspectX", 1);// aspectX aspectY 是宽高的比例
+            intent.putExtra("aspectY", 1);
+            intent.putExtra("outputX", 150);// outputX outputY 是裁剪图片宽高
+            intent.putExtra("outputY", 150);
+            intent.putExtra("return-data", true);   //裁剪之后的数据是通过Intent返回
+            startActivityForResult(intent, USER_AVARTAR_CROP);
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            Log.i("test", "crop error");
         }
-    }
 
-    public void getUserDetailInfo() {
-        Uid uid = new Uid(Cookies.getUserId());
-        netApi.getUserDetailInfo(uid).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserDetailInfo>() {
-                    @Override
-                    public void onCompleted() {
-                        reFreshUI();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNext(UserDetailInfo userDetailInfo) {
-                        UserInfoSettingActivity.this.userDetailInfo = userDetailInfo;
-                    }
-                });
     }
 
     private void reFreshUI() {
@@ -343,24 +319,30 @@ public class UserInfoSettingActivity extends BaseActivity {
                         return;
                     }else{
                         Uri fileUri = data.getData();
-                        fileUri = convertUri(fileUri);
+                        Log.i("test", "Uri before:" + fileUri);
+                        fileUri = UriUtils.convertUri(fileUri, this);
                         Log.i("test", "Uri:" + fileUri.toString());
                         startPicCrop(fileUri);
                     }
                     break;
                 case CHOOSE_FROM_CAMERA:                //相机返回
                     //获得拍的照片
-                    if(data == null){
-                        return;
-                    }else{
-                        Bundle extras = data.getExtras();
-                        if (extras != null){
-                            Bitmap bm = extras.getParcelable("data");
-                            Uri uri = saveBitmap(bm);
-                            Log.i("test", "Uri:" + uri.toString());
-                            startPicCrop(uri);
-                        }
-                    }
+//                    if(data == null){
+//                        return;
+//                    }else{
+//                        Bundle extras = data.getExtras();
+//                        if (extras != null){
+//                            Bitmap bm = extras.getParcelable("data");
+//                            Log.i("test", "bitmap:" + bm.toString());
+//                            Uri uri = saveBitmap(bm);
+//                            Log.i("test", "Uri:" + uri.toString());
+//                            picasso.load(uri).into(ivHeadView);
+//                            startPicCrop(uri);
+//                        }
+//                    }
+                    Log.i("test", "file length:" + tempFile.length());
+                    //直接从文件读取原图并进入裁剪
+                    startPicCrop(Uri.fromFile(tempFile));
                     break;
                 case USER_AVARTAR_CROP:                 //裁剪图片返回
                     if (data != null) {
@@ -368,7 +350,11 @@ public class UserInfoSettingActivity extends BaseActivity {
                         if (extras != null) {
                             Bitmap photo = extras.getParcelable("data");
                             ivHeadView.setImageBitmap(photo);
-//                            doAddPic(photo);
+                            //将剪切后图片保存在缓存文件中
+                            UriUtils.saveBitmap(photo, tempFile);
+                            Log.i("test", "tempfile.length:" + tempFile.length());
+                            //标识头像已更换
+                            headViewChanged = true;
                         }
                     }
                     break;

@@ -304,7 +304,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                 break;
             case 2:     //登录|我的米来
                 rgTab.check(R.id.rb_mine);
-                if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+                if (StringUtils.isNullOrEmpty(Cookies.getUserId())||!Cookies.getAutoLogin()) {
                     tvTitle.setText(R.string.login);
                     optionVisible(false, false, false);
 
@@ -351,6 +351,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     isLogging = false;
                     //还原显示
                     ivSetting.setVisibility(View.GONE);
+                    //还原标题
+                    tvTitle.setText(R.string.login);
                 } else if (resultCode == ConstansUtils.LOG_IN){
                     //登陆成功
                     Bundle bundle = data.getExtras();
@@ -378,6 +380,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     //刷新登录状态
                     isLogging = true;
                     ivSetting.setVisibility(View.VISIBLE);
+                    tvTitle.setText(R.string.mine);
                 }
                 break;
             case ConstansUtils.SCAN_MAIN:

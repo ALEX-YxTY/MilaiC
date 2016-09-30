@@ -1,5 +1,6 @@
 package com.meishipintu.milai.netDao;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -27,10 +28,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -47,9 +52,11 @@ public class NetApi {
     private NetService netService;
     private Retrofit retrofit = null;
 
+    private final String URL = "http://a.milaipay.com/";
+
     private NetApi() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://a.milaipay.com/")
+                .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -208,8 +215,8 @@ public class NetApi {
         return netService.getMiLogHttp(uid).map(new MyResultFunc<List<GrabRiceLog>>());
     }
 
-    public Observable<List<Coupon>> getCoupon(String uid){
-        return netService.getCouponHttp(uid).flatMap(new Func1<ResponseBody, Observable<List<Coupon>>>() {
+    public Observable<List<Coupon>> getCoupon(String uid, int status){
+        return netService.getCouponHttp(uid, status).flatMap(new Func1<ResponseBody, Observable<List<Coupon>>>() {
             @Override
             public Observable<List<Coupon>> call(ResponseBody responseBody) {
                 try {
@@ -217,7 +224,7 @@ public class NetApi {
                     if (jsonObject.getInt("status") == 1) {
                         JSONArray data = jsonObject.getJSONArray("data");
                         List<Coupon> couponList = new ArrayList<>();
-                        for(int i =0;i<data.length();i++) {
+                        for (int i = 0; i < data.length(); i++) {
                             JSONObject json = (JSONObject) data.get(i);
                             Coupon coupon = new Coupon();
                             coupon.setCouponSn(json.getString("coupon_sn"));
@@ -225,7 +232,7 @@ public class NetApi {
                             coupon.setValue(json.getDouble("value"));
                             coupon.setMinPrice(json.getDouble("min_price"));
                             coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
-                            coupon.setMi(json.getInt("is_mi") > 0 );
+                            coupon.setMi(json.getInt("is_mi") > 0);
                             coupon.setCouponShow(json.getString("couponShow"));
                             couponList.add(coupon);
                         }
@@ -363,6 +370,33 @@ public class NetApi {
                     Log.i("test", "response:" + jsonObject.toString());
                     if (jsonObject.getInt("result") == 1) {
                         return Observable.just(jsonObject.toString());
+                    } else {
+                        throw new RuntimeException(jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e.getMessage());
+                }
+            }
+        });
+    }
+
+    public Observable<String> addHeaderPicHttp(File photeFile, String uid) {
+        //将file类型转化为MultipartBody.part类型
+        RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/*"), photeFile);
+        MultipartBody.Part photo = MultipartBody.Part.createFormData("picture", "avator.jpg", photoRequestBody);
+        MultipartBody.Part uidPart = MultipartBody.Part.createFormData("uid", uid);
+        return netService.addHeaderPicHttp(photo, uidPart).flatMap(new Func1<ResponseBody, Observable<String>>() {
+            @Override
+            public Observable<String> call(ResponseBody responseBody) {
+                try {
+                    JSONObject jsonObject = new JSONObject(responseBody.string());
+                    Log.i("test", "response:" + jsonObject.toString());
+                    if (jsonObject.getInt("result") == 1) {
+                        return Observable.just(URL + jsonObject.getString("picture"));
                     } else {
                         throw new RuntimeException(jsonObject.getString("msg"));
                     }

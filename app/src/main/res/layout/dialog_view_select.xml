@@ -2,47 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择头像"
+        android:text="更换头像"
         android:textSize="@dimen/tv_43"
-        android:padding="@dimen/margin_28"
-        android:background="@color/gray"/>
+        android:textColor="#555"
+        android:padding="@dimen/margin_32"
+        android:background="@drawable/shape_dialog_round_corner_top"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
-    <TextView
-        android:id="@+id/tv_from_camera"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="拍照"
-        android:textSize="@dimen/tv_43"
-        android:textColor="@color/buttonblue"
-        android:padding="@dimen/margin_24"
-        android:clickable="true"
-        />
+        android:orientation="vertical"
+        android:background="@drawable/shape_dialog_round_corner_bottom">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/untransparent_gray"/>
+        <TextView
+            android:id="@+id/tv_from_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="拍照"
+            android:textSize="@dimen/tv_43"
+            android:textColor="@color/buttonblue"
+            android:padding="@dimen/margin_28"
+            android:clickable="true"
+            />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
-    <TextView
-        android:id="@+id/tv_from_album"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="从相册获取"
-        android:textColor="@color/buttonblue"
-        android:textSize="@dimen/tv_43"
-        android:padding="@dimen/margin_24"
-        android:layout_marginBottom="@dimen/margin_5"
-        android:layout_weight="1"
-        android:clickable="true"/>
-
-
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/untransparent_gray"/>
+        <TextView
+            android:id="@+id/tv_from_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="从相册获取"
+            android:textColor="@color/buttonblue"
+            android:textSize="@dimen/tv_43"
+            android:padding="@dimen/margin_28"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:clickable="true"
+            />
+    </LinearLayout>
 
 </LinearLayout>

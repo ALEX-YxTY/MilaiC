@@ -51,6 +51,11 @@ public class Cookies {
         return sp.getString("url", "");
     }
 
+    public static void setUserUrl(String url) {
+        SharedPreferences.Editor editor = MilaiApplication.getSingleton().getSp().edit();
+        editor.putString("url", url);
+        editor.commit();
+    }
     public static void setUserInfo(UserInfo userInfo) {
         SharedPreferences.Editor editor = MilaiApplication.getSingleton().getSp().edit();
         editor.putString("user_id", userInfo.getUid());

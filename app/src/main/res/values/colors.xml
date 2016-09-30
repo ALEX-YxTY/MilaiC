@@ -85,6 +85,7 @@
     <color name="dark">#FF222222</color>
     <color name="light">#FFEEEEEE</color>
     <color name="gray">#55887c75</color>
+    <color name="untransparent_gray">#e4e4e4</color>
     <color name="transparent_40_off_gray">#90887c75</color>
     <color name="light_gray">#f0ece9</color>
     <color name="black">#000000</color>

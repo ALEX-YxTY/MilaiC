@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import com.google.zxing.client.android.QrUtil;
 import com.meishipintu.milai.R;
+import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Coupon;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.NumUtil;
 import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.views.CircleImageView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +22,7 @@ import butterknife.OnClick;
 
 public class CouponDetailsActivity extends BaseActivity {
 
-
+    private Picasso picasso;
     private Intent intent;
 
     @BindView(R.id.tv_1)
@@ -50,6 +52,7 @@ public class CouponDetailsActivity extends BaseActivity {
         Immersive.immersive(0x99999999, 0, this);
         setContentView(R.layout.activity_coupon_details);
         ButterKnife.bind(this);
+        picasso = Picasso.with(this);
         tvTitle.setText(R.string.coupon_detail);
         intent = getIntent();
         initUI();
@@ -59,6 +62,9 @@ public class CouponDetailsActivity extends BaseActivity {
         Coupon coupon = (Coupon) intent.getExtras().get("coupon");
         tvName.setText(coupon.getName());
         tvNumber.setText(StringUtils.stringWithSpace(coupon.getCouponSn()));
+        if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
+            picasso.load(Cookies.getUserUrl()).into(headportrait);
+        }
         if (coupon.isMi()) {
             tv1.setVisibility(View.INVISIBLE);
             tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));

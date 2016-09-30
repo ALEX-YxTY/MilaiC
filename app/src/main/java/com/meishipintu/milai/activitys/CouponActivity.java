@@ -60,7 +60,7 @@ public class CouponActivity extends BaseActivity {
     }
 
     private void getData() {
-        netApi.getCoupon(Cookies.getUserId()).subscribeOn(Schedulers.io())
+        netApi.getCoupon(Cookies.getUserId(), 1).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Coupon>>() {
                     @Override

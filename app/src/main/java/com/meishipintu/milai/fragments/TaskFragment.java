@@ -13,6 +13,7 @@ import com.meishipintu.milai.activitys.TaskDetailActivity;
 import com.meishipintu.milai.adapter.MyTaskAdapter;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,9 +117,11 @@ public class TaskFragment extends BaseFragment  {
         adapter = new MyTaskAdapter(list, getActivity(), new MyTaskAdapter.TaskOnItemClickListener() {
             @Override
             public void onItemClick(View view, String detail) {
-                Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-                intent.putExtra("detail", detail);
-                startActivity(intent);
+                if (!StringUtils.isNullOrEmpty(detail) && detail.startsWith("http")) {
+                    Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+                    intent.putExtra("detail", detail);
+                    startActivity(intent);
+                }
             }
         });
         return adapter;
