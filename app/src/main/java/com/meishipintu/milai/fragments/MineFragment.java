@@ -23,6 +23,7 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.views.CircleImageView;
 import com.squareup.picasso.Picasso;
@@ -190,7 +191,7 @@ public class MineFragment extends Fragment {
                             tvMotto.setText(userDetailInfo.getSignature());
                         }
                         if (!StringUtils.isNullOrEmpty(userDetailInfo.getUrl())) {
-                            picasso.load(userDetailInfo.getUrl()).into(civHead);
+                            picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(civHead);
                         }
                     }
                 });

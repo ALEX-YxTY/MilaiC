@@ -4,6 +4,7 @@ package com.meishipintu.milai.utils;
  * Created by Administrator on 2016/8/2.
  */
 public class ConstansUtils {
+    public final static String URL = "http://a.milaipay.com/";
 
     public final static int TIME_DELAYED = 2000;        //splash页延时常量2s
 

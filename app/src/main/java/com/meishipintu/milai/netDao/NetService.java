@@ -127,7 +127,7 @@ public interface NetService {
 
     //    //上传头像
     @Multipart
-    @POST("mspt/shop/addtippicture")
-    Observable<ResponseBody> addHeaderPicHttp(@Part MultipartBody.Part file1
-            , @Part MultipartBody.Part uid);
+    @POST("mspt/member_detail/adduserpic")
+    Observable<ResponseBody> addHeaderPicHttp(@Part MultipartBody.Part file1, @Part("uid") RequestBody uid);
+
 }

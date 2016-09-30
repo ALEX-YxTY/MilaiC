@@ -31,6 +31,7 @@ import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.DialogUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.StringUtils;
@@ -291,7 +292,7 @@ public class UserInfoSettingActivity extends BaseActivity {
         tvTel.setText(userDetailInfo.getTel());
         Log.i("test", "userinfonow:" + userDetailInfo.toString());
         if (!StringUtils.isNullOrEmpty(userDetailInfo.getUrl())) {
-            picasso.load(userDetailInfo.getUrl()).into(ivHeadView);
+            picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(ivHeadView);
         }
         if (!StringUtils.isNullOrEmpty(userDetailInfo.getName())) {
             etNickName.setHint(userDetailInfo.getName());

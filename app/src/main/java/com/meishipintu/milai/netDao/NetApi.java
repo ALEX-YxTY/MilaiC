@@ -22,6 +22,7 @@ import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.beans.Welfare;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.DateUtils;
 
 import org.json.JSONArray;
@@ -52,11 +53,10 @@ public class NetApi {
     private NetService netService;
     private Retrofit retrofit = null;
 
-    private final String URL = "http://a.milaipay.com/";
 
     private NetApi() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
+                .baseUrl(ConstansUtils.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -388,15 +388,16 @@ public class NetApi {
         //将file类型转化为MultipartBody.part类型
         RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/*"), photeFile);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("picture", "avator.jpg", photoRequestBody);
-        MultipartBody.Part uidPart = MultipartBody.Part.createFormData("uid", uid);
-        return netService.addHeaderPicHttp(photo, uidPart).flatMap(new Func1<ResponseBody, Observable<String>>() {
+//        MultipartBody.Part uidPart = MultipartBody.Part.createFormData("uid", uid);
+        RequestBody uidRequest = RequestBody.create(null, uid);
+        return netService.addHeaderPicHttp(photo, uidRequest).flatMap(new Func1<ResponseBody, Observable<String>>() {
             @Override
             public Observable<String> call(ResponseBody responseBody) {
                 try {
                     JSONObject jsonObject = new JSONObject(responseBody.string());
                     Log.i("test", "response:" + jsonObject.toString());
                     if (jsonObject.getInt("result") == 1) {
-                        return Observable.just(URL + jsonObject.getString("picture"));
+                        return Observable.just(ConstansUtils.URL + jsonObject.getString("picture"));
                     } else {
                         throw new RuntimeException(jsonObject.getString("msg"));
                     }
