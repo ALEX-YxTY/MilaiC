@@ -70,77 +70,77 @@ public abstract class BaseFragment extends Fragment {
     };
 
 
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
-                , @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_task_welfare, container, false);
-            ButterKnife.bind(this, view);
-            fragment = getFragment();
-            adapter = getAdapter();
-            rv.setItemAnimator(new DefaultItemAnimator());
-            rv.setLayoutManager(new LinearLayoutManager(fragment.getActivity()));
-            BaseFragment.this.isVisible();
-            rv.setAdapter(adapter);
-            if(++a<=1)//避免在切换到minefragment再切回taskfragment时候重复调用
-                getData(handler,1);
-            myProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_task_welfare, container, false);
+        ButterKnife.bind(this, view);
+        fragment = getFragment();
+        adapter = getAdapter();
+        rv.setItemAnimator(new DefaultItemAnimator());
+        rv.setLayoutManager(new LinearLayoutManager(fragment.getActivity()));
+        BaseFragment.this.isVisible();
+        rv.setAdapter(adapter);
+        if(++a<=1)//避免在切换到minefragment再切回taskfragment时候重复调用
+            getData(handler,1);
+        myProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
 
- //----------------------分割线已下是设置下拉的---------------------------------
-            mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefreshLayout);
-            mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
-                    android.R.color.holo_red_light, android.R.color.holo_orange_light,
-                    android.R.color.holo_green_light);//设置颜色
-            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    getData(handler,2);
-                }
-            });
+//----------------------分割线已下是设置下拉的---------------------------------
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);//设置颜色
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(handler,2);
+            }
+        });
 //-----------------------------分割线已上是设置下拉的--------------------------------
 
 
-            mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
-                    .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
-                            .getDisplayMetrics()));
+        mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                        .getDisplayMetrics()));
 
 
-            return view;
-        }
+        return view;
+    }
 
-        @Override
-        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
 
-            final LinearLayoutManager layoutManager;
-            layoutManager = new LinearLayoutManager(getActivity());
-            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            rv.setLayoutManager(layoutManager);
+        final LinearLayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(layoutManager);
 
-            rv.addOnScrollListener(new RecyclerView.OnScrollListener() {/*判断当前显示是否为最后一页*/
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {/*判断当前显示是否为最后一页*/
 
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    int visible = layoutManager.getChildCount();
-                    Log.i("visible", visible + "");
-                    int total = layoutManager.getItemCount();
-                    int past = layoutManager.findFirstCompletelyVisibleItemPosition();
-                    if ((visible + past) >= total) {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visible = layoutManager.getChildCount();
+                Log.i("visible", visible + "");
+                int total = layoutManager.getItemCount();
+                int past = layoutManager.findFirstCompletelyVisibleItemPosition();
+                if ((visible + past) >= total) {
 
 //                        Toast.makeText(getContext(), "111111", Toast.LENGTH_LONG).show();
-                        b=1;
-                        Log.e("b", b+ "");
-                    }
-                    else{
-                        b=0;
-                    }
+                    b=1;
+                    Log.e("b", b+ "");
                 }
-            });
+                else{
+                    b=0;
+                }
+            }
+        });
 
-        }
+    }
 
     public void gesture(){/*用来判断手指滑动，是否是上拉*/
         myTouchListener = new MainActivity.MyTouchListener() {

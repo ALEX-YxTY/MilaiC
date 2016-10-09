@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.LoginActivity;
+import com.meishipintu.milai.activitys.LoginNewActivity;
 import com.meishipintu.milai.utils.ConstansUtils;
 
 import butterknife.ButterKnife;
@@ -27,8 +28,9 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.ll_login)
     void login() {
-        //进入登陆界面
-        Intent intent = new Intent(getContext(), LoginActivity.class);
+        //进入新登陆界面
+//        Intent intent = new Intent(getContext(), LoginActivity.class);
+        Intent intent = new Intent(getContext(), LoginNewActivity.class);
         getActivity().startActivityForResult(intent, ConstansUtils.LOGGING_SITUATION);
     }
 

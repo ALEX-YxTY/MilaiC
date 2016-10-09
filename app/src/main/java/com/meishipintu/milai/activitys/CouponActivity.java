@@ -1,7 +1,6 @@
 package com.meishipintu.milai.activitys;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +19,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -44,11 +42,12 @@ public class CouponActivity extends BaseActivity {
         setContentView(R.layout.activity_coupon);
         ButterKnife.bind(this);
         tvTitle.setText(R.string.my_coupon);
+        netApi = NetApi.getInstance();
         initData();
     }
 
     private void initData() {
-        netApi = NetApi.getInstance();
+
 
         data = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(CouponActivity.this));

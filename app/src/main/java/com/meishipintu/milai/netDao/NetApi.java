@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
@@ -98,6 +99,10 @@ public class NetApi {
             }
         });
 
+    }
+
+    public Observable<UserInfo> loginNew(String mobile, String verify) {
+        return netService.loginHttpNew(mobile, verify).map(new MyResultFunc<UserInfo>());
     }
 
     public Observable<String> register(RegisterInfo registerInfo){
@@ -216,6 +221,9 @@ public class NetApi {
     }
 
     public Observable<List<Coupon>> getCoupon(String uid, int status){
+        if (status == 0) {
+            status = 4;
+        }
         return netService.getCouponHttp(uid, status).flatMap(new Func1<ResponseBody, Observable<List<Coupon>>>() {
             @Override
             public Observable<List<Coupon>> call(ResponseBody responseBody) {

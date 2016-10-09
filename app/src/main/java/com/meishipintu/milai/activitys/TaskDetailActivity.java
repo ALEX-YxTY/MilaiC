@@ -67,4 +67,5 @@ public class TaskDetailActivity extends BaseActivity {
         wv.reload();
         wv.onPause();
     }
+
 }

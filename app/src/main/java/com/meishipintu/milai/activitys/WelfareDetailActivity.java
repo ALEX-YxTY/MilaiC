@@ -214,4 +214,8 @@ public class WelfareDetailActivity extends BaseActivity {
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        return true;
+    }
 }

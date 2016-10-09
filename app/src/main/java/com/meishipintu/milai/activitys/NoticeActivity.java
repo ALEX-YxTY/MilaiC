@@ -83,4 +83,9 @@ public class NoticeActivity extends BaseActivity {
     public void onClick() {
         onBackPressed();
     }
+
+    @Override
+    public boolean useSwipeBack() {
+        return true;
+    }
 }

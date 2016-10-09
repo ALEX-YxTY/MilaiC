@@ -89,6 +89,11 @@ public class ContactActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        //使用左滑返回
+        return true;
+    }
 
     public void Email() {
         Intent data = new Intent(Intent.ACTION_SENDTO);

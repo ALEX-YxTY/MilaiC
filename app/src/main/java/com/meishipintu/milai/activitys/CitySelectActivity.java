@@ -203,6 +203,11 @@ public class CitySelectActivity extends BaseActivity {
         mLocationOption.setNeedAddress(true);
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        //使用左滑返回
+        return true;
+    }
 
     @OnClick({R.id.iv_back, R.id.local_city})
     public void onClick(View view) {

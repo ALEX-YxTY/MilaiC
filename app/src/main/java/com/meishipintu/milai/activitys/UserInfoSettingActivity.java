@@ -134,73 +134,7 @@ public class UserInfoSettingActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.save:
-                if (!StringUtils.isNullOrEmpty(etNickName.getText().toString())) {
-                    userDetailInfo.setName(etNickName.getText().toString());
-                }
-                if (!StringUtils.isNullOrEmpty(etRealName.getText().toString())) {
-                    userDetailInfo.setRealname(etRealName.getText().toString());
-                }
-                if (!StringUtils.isNullOrEmpty(etAddress.getText().toString())) {
-                    userDetailInfo.setAddress(etAddress.getText().toString());
-                }
-                if (!StringUtils.isNullOrEmpty(etSignature.getText().toString())) {
-                    userDetailInfo.setSignature(etSignature.getText().toString());
-                }
-                int sex = rgTab.getCheckedRadioButtonId() == R.id.rb_male ? 0 : 1;
-                userDetailInfo.setSex(sex);
-
-                //如果修改了头像，则上传头像
-                if (headViewChanged) {
-                    netApi.addHeaderPicHttp(tempFile,Cookies.getUserId()).subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Subscriber<String>() {
-                                @Override
-                                public void onCompleted() {
-
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-
-                                @Override
-                                public void onNext(String urlString) {
-                                    Log.i("test", "urlString:" + urlString);
-                                    //缓存头像图片目录
-                                    Cookies.setUserUrl(urlString);
-                                }
-                            });
-                }
-
-                Log.i("test", "userinfopost:" + userDetailInfo.toString());
-                netApi.updateUserDetail(userDetailInfo).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<String>() {
-                            @Override
-                            public void onCompleted() {
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onNext(String s) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(UserInfoSettingActivity.this);
-                                builder.setMessage(s)
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Cookies.setSex(rgTab.getCheckedRadioButtonId() == R.id.rb_male ? 0 : 1);
-                                                Cookies.setUserName(etNickName.getText().toString());
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                builder.create().show();
-                            }
-                        });
+                onSave();
                 break;
             case R.id.iv_head_view:
                 tempFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "avator.jpg");
@@ -227,6 +161,77 @@ public class UserInfoSettingActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    //保存修改
+    private void onSave() {
+        if (!StringUtils.isNullOrEmpty(etNickName.getText().toString())) {
+            userDetailInfo.setName(etNickName.getText().toString());
+        }
+        if (!StringUtils.isNullOrEmpty(etRealName.getText().toString())) {
+            userDetailInfo.setRealname(etRealName.getText().toString());
+        }
+        if (!StringUtils.isNullOrEmpty(etAddress.getText().toString())) {
+            userDetailInfo.setAddress(etAddress.getText().toString());
+        }
+        if (!StringUtils.isNullOrEmpty(etSignature.getText().toString())) {
+            userDetailInfo.setSignature(etSignature.getText().toString());
+        }
+        int sex = rgTab.getCheckedRadioButtonId() == R.id.rb_male ? 0 : 1;
+        userDetailInfo.setSex(sex);
+
+        //如果修改了头像，则上传头像
+        if (headViewChanged) {
+            netApi.addHeaderPicHttp(tempFile,Cookies.getUserId()).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onNext(String urlString) {
+                            Log.i("test", "urlString:" + urlString);
+                            //缓存头像图片目录
+                            Cookies.setUserUrl(urlString);
+                        }
+                    });
+        }
+
+        Log.i("test", "userinfopost:" + userDetailInfo.toString());
+        netApi.updateUserDetail(userDetailInfo).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserInfoSettingActivity.this);
+                        builder.setMessage(s)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Cookies.setSex(rgTab.getCheckedRadioButtonId() == R.id.rb_male ? 0 : 1);
+                                        Cookies.setUserName(etNickName.getText().toString());
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.create().show();
+                    }
+                });
     }
 
 
@@ -365,6 +370,10 @@ public class UserInfoSettingActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
@@ -387,4 +396,8 @@ public class UserInfoSettingActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        return true;
+    }
 }

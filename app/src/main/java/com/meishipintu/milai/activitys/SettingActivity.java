@@ -119,4 +119,8 @@ public class SettingActivity extends BaseActivity {
                 });
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        return true;
+    }
 }

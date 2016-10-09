@@ -161,9 +161,6 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         netApi = NetApi.getInstance();
         initUI();
         checkVersion();
-        if (!Cookies.getUserId().equals("")&&Cookies.getAutoLogin()) {
-            JPushInterface.setAliasAndTags(this, Cookies.getUserId(), null);
-        }
     }
 
     private void initUI() {
@@ -251,7 +248,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         fragmentList = new ArrayList<>();
         fragmentList.add(taskFragment);
         fragmentList.add(welfareFragment);
-        if ((!StringUtils.isNullOrEmpty(Cookies.getUserId()))&&Cookies.getAutoLogin()) {
+        if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
             mineFragment = MineFragment.getInstance();
             fragmentList.add(mineFragment);
             isLogging = true;       //状态为正在登录
@@ -343,7 +340,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     //擦除缓存
                     Cookies.clearUserInfo();
                     //还原登录参数
-                    Cookies.setAutoLogin(true);
+//                    Cookies.setAutoLogin(true);
                     //解绑Jpush
                     JPushInterface.setAliasAndTags(this, "", null);
 
@@ -357,7 +354,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     //登陆成功
                     Bundle bundle = data.getExtras();
                     UserInfo userInfo = (UserInfo) bundle.get("user_info");
-                    boolean savePassword = data.getBooleanExtra("save_password", true);
+//                    boolean savePassword = data.getBooleanExtra("save_password", true);
                     if (mineFragment == null) {
                         mineFragment = MineFragment.getInstance();
                     }
@@ -371,9 +368,9 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     //写入缓存
                     Cookies.clearUserInfo();
                     Cookies.setUserInfo(userInfo);
-                    if (!savePassword) {
-                        Cookies.setAutoLogin(false);
-                    }
+//                    if (!savePassword) {
+//                        Cookies.setAutoLogin(false);
+//                    }
                     //绑定Jpush
                     JPushInterface.setAliasAndTags(this, Cookies.getUserId(), null);
 

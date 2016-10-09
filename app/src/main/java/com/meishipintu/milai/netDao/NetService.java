@@ -1,5 +1,6 @@
 package com.meishipintu.milai.netDao;
 
+import com.google.gson.JsonObject;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
 import com.meishipintu.milai.beans.GetVCodeRequest;
@@ -13,7 +14,10 @@ import com.meishipintu.milai.beans.ResetPwdInfo;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
+import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.beans.Welfare;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -39,6 +43,11 @@ public interface NetService {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("mspt/member/loginTel")
     Observable<ResponseBody> loginHttp(@Body LoginInfoTel info);
+
+    //手机号登录新接口
+    @FormUrlEncoded
+    @POST("merchant/Activity/mobile_login")
+    Observable<HttpResult<UserInfo>> loginHttpNew(@Field("mobile") String mobile, @Field("verify") String verify);
 
     //用类型传参时要添加头部信息
     //第三方登录

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.CouponActivity;
+import com.meishipintu.milai.activitys.CouponActivityTabLayout;
 import com.meishipintu.milai.activitys.MineIncomeActivity;
 import com.meishipintu.milai.activitys.NoticeActivity;
 import com.meishipintu.milai.activitys.PaymentActivity;
@@ -68,7 +69,8 @@ public class MineFragment extends Fragment {
     @OnClick(R.id.rl_use_coupon)
     void myCoupon() {
         //我的卡券页面
-        Intent intent = new Intent(getContext(), CouponActivity.class);
+        Intent intent = new Intent(getContext(), CouponActivityTabLayout.class);
+//        Intent intent = new Intent(getContext(), CouponActivity.class);
         startActivity(intent);
     }
 

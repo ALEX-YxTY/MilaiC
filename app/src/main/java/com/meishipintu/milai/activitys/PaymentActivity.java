@@ -118,26 +118,16 @@ public class PaymentActivity extends BaseActivity {
         onBackPressed();
     }
 
-//    private void initDecodeString() {
-//        try
-//        {
-//            // 从字符串中得到私钥
-//            // PrivateKey privateKey = RSAUtils.loadPrivateKey(PRIVATE_KEY);
-//            // 从文件中得到私钥
-//            InputStream inPrivate = getResources().getAssets().open("milaicpr.pem");
-//            PrivateKey privateKey = RsaUtils.loadPrivateKey(inPrivate);
-//            byte[] decryptByte = RsaUtils.decryptData(Base64.decode(afterencrypt, Base64.DEFAULT), privateKey);
-//            String decryptStr = new String(decryptByte);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         timer.cancel();
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        return true;
+    }
 }
 
 

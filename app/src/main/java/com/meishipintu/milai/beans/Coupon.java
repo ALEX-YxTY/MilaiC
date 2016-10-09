@@ -69,4 +69,19 @@ public class Coupon implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+
+    @Override
+    public String toString() {
+        return "Coupon{" +
+                "value=" + value +
+                ", endTime='" + endTime + '\'' +
+                ", couponSn='" + couponSn + '\'' +
+                ", minPrice=" + minPrice +
+                ", name='" + name + '\'' +
+                ", isMi=" + isMi +
+                ", couponShow='" + couponShow + '\'' +
+                '}';
+    }
+
 }

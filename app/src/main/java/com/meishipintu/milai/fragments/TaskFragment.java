@@ -94,7 +94,7 @@ public class TaskFragment extends BaseFragment  {
                         public void onNext(List<Task> tasks) {
                             if(tasks.size()==0&&parameter==3){
                                 currentPage--;
-                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
                                 mSwipeRefreshLayout.setRefreshing(false);
                                 myProgressBar.setVisibility(View.INVISIBLE);
                                 Log.e("没有跟多内容", "没有跟多内容");

@@ -83,4 +83,8 @@ public class CouponDetailsActivity extends BaseActivity {
         onBackPressed();
     }
 
+    @Override
+    public boolean useSwipeBack() {
+        return true;
+    }
 }
