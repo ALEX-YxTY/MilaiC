@@ -1,7 +1,7 @@
 package com.meishipintu.milai.fragments;
 
-
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,38 +17,31 @@ import com.meishipintu.milai.beans.Coupon;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/9/29 0029.
+ * Created by Administrator on 2016/10/9.
  */
 
-public class CouponFragment extends Fragment {
+public class MyIncomeFragment extends Fragment {
+
     private RecyclerView rv;
-    private MyCouponAdapter adapter;
-    private List<Coupon> coupon;
+    private RecyclerView.Adapter adapter;
 
-
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  LayoutInflater.from(getActivity()).inflate(R.layout.activity_coupon, null);
         rv= (RecyclerView) view.findViewById(R.id.rv);
-        //通过getArguments获取数据
-        if (getArguments().get("data") != null) {
-            coupon = (List<Coupon>) getArguments().get("data");
+        if (getArguments().get("adapter") != null) {
+            adapter = (RecyclerView.Adapter) getArguments().get("adapter");
         }
-        initData();
+        initRv();
         return view;
     }
-    private void initData() {
 
+    private void initRv() {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setItemAnimator(new DefaultItemAnimator());
-        adapter = new MyCouponAdapter(getActivity(),coupon);
-        rv.setAdapter(adapter);
-
-    }
-
-    public void refreshUI() {
         if (adapter != null) {
-            adapter.notifyDataSetChanged();
+            rv.setAdapter(adapter);
         }
     }
 

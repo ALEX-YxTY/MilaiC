@@ -216,8 +216,14 @@ public class NetApi {
         });
     }
 
-    public Observable<List<GrabRiceLog>> getMiLog(String uid){
-        return netService.getMiLogHttp(uid).map(new MyResultFunc<List<GrabRiceLog>>());
+    public Observable<GrabRiceLog> getMiLog(String uid){
+        return netService.getMiLogHttp(uid).map(new MyResultFunc<List<GrabRiceLog>>())
+                .flatMap(new Func1<List<GrabRiceLog>, Observable<GrabRiceLog>>() {
+            @Override
+            public Observable<GrabRiceLog> call(List<GrabRiceLog> grabRiceLogs) {
+                return Observable.from(grabRiceLogs);
+            }
+        });
     }
 
     public Observable<List<Coupon>> getCoupon(String uid, int status){
@@ -330,11 +336,11 @@ public class NetApi {
         });
     }
 
-    public Observable<List<ConsumeRecordInfo>> getConsumeRecord(String uid, int page) {
+    public Observable<ConsumeRecordInfo> getConsumeRecord(String uid, int page) {
         return netService.getConsumeLogHttp(uid,page).flatMap(new Func1<ResponseBody
-                , Observable<List<ConsumeRecordInfo>>>() {
+                , Observable<ConsumeRecordInfo>>() {
             @Override
-            public Observable<List<ConsumeRecordInfo>> call(ResponseBody responseBody) {
+            public Observable<ConsumeRecordInfo> call(ResponseBody responseBody) {
                 try {
                     JSONObject jsonObject = new JSONObject(responseBody.string());
                     if (jsonObject.getInt("status") != 1) {
@@ -354,7 +360,7 @@ public class NetApi {
                             info.setRealPay((float) jsInfo.getDouble("total_fee"));
                             list.add(info);
                         }
-                        return Observable.just(list);
+                        return Observable.from(list);
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e.getMessage());

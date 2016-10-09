@@ -12,6 +12,7 @@ import com.meishipintu.milai.beans.ConsumeRecordInfo;
 import com.meishipintu.milai.utils.DateUtils;
 import com.meishipintu.milai.utils.NumUtil;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/8/25.
  */
-public class MyConsumRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyConsumRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Serializable {
 
     private List<ConsumeRecordInfo> list;
     private Context context;
@@ -29,7 +30,7 @@ public class MyConsumRecordAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final int TYPE_BODY = 1;
     private final int TYPE_TAIL = 0;
 
-    public MyConsumRecordAdapter(List<ConsumeRecordInfo> list, Context context) {
+    public MyConsumRecordAdapter(Context context, List<ConsumeRecordInfo> list) {
         this.list = list;
         this.context = context;
     }

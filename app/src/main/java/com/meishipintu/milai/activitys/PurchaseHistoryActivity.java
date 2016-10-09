@@ -63,16 +63,17 @@ public class PurchaseHistoryActivity extends BaseActivity {
     private void initRecyclerView() {
         rv.setLayoutManager(new LinearLayoutManager(PurchaseHistoryActivity.this));
         rv.setItemAnimator(new DefaultItemAnimator());
-        adapter = new MyConsumRecordAdapter(data, PurchaseHistoryActivity.this);
+        adapter = new MyConsumRecordAdapter(PurchaseHistoryActivity.this, data);
         rv.setAdapter(adapter);
     }
 
     private void initData(int page, boolean refreshing) {
         netApi.getConsumeRecord(Cookies.getUserId(), page).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<ConsumeRecordInfo>>() {
+                .subscribe(new Subscriber<ConsumeRecordInfo>() {
                     @Override
                     public void onCompleted() {
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -81,10 +82,8 @@ public class PurchaseHistoryActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(List<ConsumeRecordInfo> consumeRecordInfos) {
-                        Log.i("test", "list.size:" + consumeRecordInfos.size());
-                        data.addAll(consumeRecordInfos);
-                        adapter.notifyDataSetChanged();
+                    public void onNext(ConsumeRecordInfo consumeRecordInfo) {
+                        data.add(consumeRecordInfo);
                     }
                 });
     }

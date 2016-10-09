@@ -13,6 +13,7 @@ import com.meishipintu.milai.beans.GrabRiceLog;
 import com.meishipintu.milai.utils.DateUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/8/22.
  */
-public class MyGrabRiceLogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyGrabRiceLogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Serializable{
 
     private static final int ITEM_TAIL = 1;
     private static final int ITEM_BODY = 0;

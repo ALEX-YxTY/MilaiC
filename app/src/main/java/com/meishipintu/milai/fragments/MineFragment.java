@@ -26,6 +26,7 @@ import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.StringUtils;
+import com.meishipintu.milai.utils.ToastUtils;
 import com.meishipintu.milai.views.CircleImageView;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
@@ -62,8 +63,9 @@ public class MineFragment extends Fragment {
     @OnClick(R.id.rl_use_mi)
     void useMi() {
         //用米支付页面
-        Intent intent = new Intent(getContext(), PaymentActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getContext(), PaymentActivity.class);
+//        startActivity(intent);
+        ToastUtils.show(getActivity(), "此功能暂未开放，尽情期待");
     }
 
     @OnClick(R.id.rl_use_coupon)
@@ -110,8 +112,7 @@ public class MineFragment extends Fragment {
     @OnClick(R.id.rl_my_consume)
     void myConsume() {
         //我的消费记录
-        Intent intent = new Intent(getContext(), PurchaseHistoryActivity.class);
-        startActivity(intent);
+        ToastUtils.show(getActivity(), "此功能暂未开放，尽情期待");
     }
 
     @OnClick(R.id.rl_user_info)

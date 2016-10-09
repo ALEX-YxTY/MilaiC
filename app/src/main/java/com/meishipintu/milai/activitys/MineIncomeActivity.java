@@ -1,79 +1,105 @@
 package com.meishipintu.milai.activitys;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
+import com.meishipintu.milai.adapter.CouponFragmentAdapter;
+import com.meishipintu.milai.adapter.MyConsumRecordAdapter;
 import com.meishipintu.milai.adapter.MyGrabRiceLogAdapter;
 import com.meishipintu.milai.animes.NumAnim;
 import com.meishipintu.milai.application.Cookies;
+import com.meishipintu.milai.beans.ConsumeRecordInfo;
 import com.meishipintu.milai.beans.GrabRiceLog;
+import com.meishipintu.milai.fragments.MyIncomeFragment;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.StringUtils;
+import com.meishipintu.milai.utils.ToastUtils;
+import com.meishipintu.milai.views.LoadingProgressDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MineIncomeActivity extends BaseActivity {
 
-    private List<GrabRiceLog> list;
-    private MyGrabRiceLogAdapter adapter;
-    private NetApi netApi;
+    private List<GrabRiceLog> grabList;
+    private MyGrabRiceLogAdapter grabRiceAdapter;
+    private List<ConsumeRecordInfo> consumeList;
+    private MyConsumRecordAdapter consumeAdapter;
+    private MyIncomeFragment grabRiceFragment, consumeFragment;
 
-    private static final int TYPE_head = 0;//头
-    private static final int TYPE_body = 1;//身
-    private static final int TYPE_tail = 2;//尾
-    private static final int TYPE_ending = 3;//结尾的点
+    private NetApi netApi;
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_mi)
     TextView tvMi;
-    @BindView(R.id.recyclerView)
-    RecyclerView rv;
-    @BindView(R.id.SwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshingLayout;
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Immersive.immersive(0x99999999,0,this);
+        Immersive.immersive(0x99999999, 0, this);
         setContentView(R.layout.activity_income);
         ButterKnife.bind(this);
 
         tvTitle.setText(R.string.my_coin_mi);
         netApi = NetApi.getInstance();
-        list = new ArrayList<>();
-        adapter = new MyGrabRiceLogAdapter(MineIncomeActivity.this, list);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setItemAnimator(new DefaultItemAnimator());
-        rv.setAdapter(adapter);
 
+        initFragment();
+        initTabAndViewPager();
         getMi();
         getList();
-//        listAdapter = new MyListAdapter(this);
-//        listView.setAdapter(listAdapter);
+
     }
 
-    @OnClick(R.id.iv_back)
-    public void onClick() {
-        onBackPressed();
+    private void initFragment() {
+        grabList = new ArrayList<>();
+        consumeList = new ArrayList<>();
+
+        grabRiceAdapter = new MyGrabRiceLogAdapter(this, grabList);
+        grabRiceFragment = new MyIncomeFragment();
+        Bundle bundleGrab = new Bundle();
+        bundleGrab.putSerializable("adapter", grabRiceAdapter);
+        grabRiceFragment.setArguments(bundleGrab);
+
+        consumeAdapter = new MyConsumRecordAdapter(this, consumeList);
+        consumeFragment = new MyIncomeFragment();
+        Bundle bundleConsume = new Bundle();
+        bundleConsume.putSerializable("adapter", consumeAdapter);
+        consumeFragment.setArguments(bundleConsume);
+    }
+
+    private void initTabAndViewPager() {
+        viewPager.setCurrentItem(0);
+        CouponFragmentAdapter pagerAdapter = new CouponFragmentAdapter(getSupportFragmentManager());
+
+        pagerAdapter.addFragment(grabRiceFragment,getResources().getString(R.string.grab_log));
+        pagerAdapter.addFragment(consumeFragment, getResources().getString(R.string.consume));
+
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
     //获取米数
@@ -87,7 +113,7 @@ public class MineIncomeActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(MineIncomeActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MineIncomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -101,36 +127,51 @@ public class MineIncomeActivity extends BaseActivity {
 
     //获取抢米记录
     private void getList() {
-        netApi.getMiLog(Cookies.getUserId()).subscribeOn(Schedulers.io())
+        final LoadingProgressDialog dialog = new LoadingProgressDialog(this);
+        dialog.show();
+        Observable getMiLog = netApi.getMiLog(Cookies.getUserId());
+        Observable getConsume = netApi.getConsumeRecord(Cookies.getUserId(), 1);
+        Observable.merge(getMiLog,getConsume).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<GrabRiceLog>>() {
+                .subscribe(new Subscriber() {
                     @Override
                     public void onCompleted() {
+                        dialog.dismiss();
+                        grabRiceAdapter.notifyDataSetChanged();
+                        consumeAdapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(MineIncomeActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        ToastUtils.show(MineIncomeActivity.this, e.getMessage());
                     }
 
                     @Override
-                    public void onNext(List<GrabRiceLog> grabRiceLogs) {
-                        Log.i("test", "getinfo");
-                        for (GrabRiceLog log : grabRiceLogs) {
-                            Log.i("test", "log:" + log.toString());
-                        }
-                        if (grabRiceLogs.size() > 0 ) {
-                            if (mSwipeRefreshingLayout.isRefreshing()) {
-                                mSwipeRefreshingLayout.setRefreshing(false);
-                            }
-                            list.addAll(grabRiceLogs);
-                            adapter.notifyDataSetChanged();
+                    public void onNext(Object o) {
+                        if (o instanceof GrabRiceLog) {
+                            grabList.add((GrabRiceLog) o);
+                        } else if (o instanceof ConsumeRecordInfo) {
+                            consumeList.add((ConsumeRecordInfo) o);
                         }
                     }
                 });
-
     }
 
+    //开启左滑返回功能
+    @Override
+    public boolean useSwipeBack() {
+        if (viewPager.getCurrentItem() == 0) {
+            return true;
+        }
+        return super.useSwipeBack();
+    }
+
+
+    @OnClick(R.id.iv_back)
+    public void onClick() {
+        onBackPressed();
+    }
 }
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:background="@drawable/bg_my_mi">
 
         <ImageView
@@ -51,17 +52,24 @@
             />
 
     </RelativeLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/SwipeRefreshLayout"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_18"
-            >
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        app:paddingStart="@dimen/margin_18"
+        app:paddingEnd="@dimen/margin_18"
+        app:tabIndicatorColor="@color/orange"
+        app:tabSelectedTextColor="@color/orange"
+        />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_18"
+        >
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
