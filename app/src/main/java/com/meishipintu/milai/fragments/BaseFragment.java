@@ -47,6 +47,7 @@ public abstract class BaseFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     //抽象方法
     public abstract Fragment getFragment();
+
     public abstract void  getData(Handler handler,int parameter);
 
     public abstract RecyclerView.Adapter getAdapter();

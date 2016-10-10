@@ -64,27 +64,6 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             MyCouponViewHolder holder = (MyCouponViewHolder) holder1;
             final Coupon coupon = data.get(position);
             Log.i("test", "coupon_type:" + mCoupon_type);
-            //根据卡券类型调整显示
-            switch (mCoupon_type) {
-                case ConstansUtils.COUPON_MACHINE_CODE:
-                    holder.coupon.setBackgroundResource(R.drawable.bg_machine_coupon);
-                    holder.circle.setBackgroundResource(R.drawable.shape_cicrle_machine);
-                    holder.tvMoney.setTextColor(context.getResources().getColor(R.color.machine_blue));
-                    holder.tvMi.setTextColor(context.getResources().getColor(R.color.machine_blue));
-                    holder.tvYuan.setTextColor(context.getResources().getColor(R.color.machine_blue));
-                    break;
-                case ConstansUtils.COUPON_USAD:
-                    holder.circle.setBackgroundResource(R.drawable.shape_cicrle_unuse);
-                    holder.tvMoney.setTextColor(context.getResources().getColor(R.color.unused_gray));
-                    holder.tvMi.setTextColor(context.getResources().getColor(R.color.unused_gray));
-                    holder.tvYuan.setTextColor(context.getResources().getColor(R.color.unused_gray));
-                    holder.tvName.setTextColor(context.getResources().getColor(R.color.unused_gray));
-                    holder.tvNumber.setTextColor(context.getResources().getColor(R.color.unused_gray));
-                    holder.used.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    break;
-            }
 
             holder.tvName.setText(coupon.getName());
             holder.tvTime.setText(coupon.getEndTime());
@@ -117,6 +96,30 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 });
             }
+
+            //根据卡券类型调整显示
+            switch (mCoupon_type) {
+                case ConstansUtils.COUPON_MACHINE_CODE:
+                    holder.coupon.setBackgroundResource(R.drawable.bg_machine_coupon);
+                    holder.circle.setBackgroundResource(R.drawable.shape_cicrle_machine);
+                    holder.tvMoney.setTextColor(context.getResources().getColor(R.color.machine_blue));
+                    holder.tvMi.setTextColor(context.getResources().getColor(R.color.machine_blue));
+                    holder.tvYuan.setTextColor(context.getResources().getColor(R.color.machine_blue));
+                    holder.tvNumber.setText(StringUtils.stringWithSpace(coupon.getMachineCode()));
+                    break;
+                case ConstansUtils.COUPON_USAD:
+                    holder.circle.setBackgroundResource(R.drawable.shape_cicrle_unuse);
+                    holder.tvMoney.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvMi.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvYuan.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvName.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvNumber.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.used.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 

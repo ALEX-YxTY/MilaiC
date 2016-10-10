@@ -48,7 +48,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder>{
         holder.tvTitle.setText(task.getTitle());
         holder.tvContent.setText(DateUtils.getTimePeriodWithSlash(task.getStart_time()
                 ,task.getEnd_time())+" • "+task.getSub_name());
-        picasso.load("http://" + task.getLogo()).into(holder.ivTask);
+        picasso.load("http://" + task.getLogo()).placeholder(R.drawable.bg_erweima).into(holder.ivTask);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

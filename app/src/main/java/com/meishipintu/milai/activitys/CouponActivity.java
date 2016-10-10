@@ -52,7 +52,7 @@ public class CouponActivity extends BaseActivity {
         data = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(CouponActivity.this));
         rv.setItemAnimator(new DefaultItemAnimator());
-        adapter = new MyCouponAdapter(CouponActivity.this, data);
+        adapter = new MyCouponAdapter(CouponActivity.this, data, 11);
         rv.setAdapter(adapter);
 
         getData();

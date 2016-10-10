@@ -14,6 +14,33 @@ public class Coupon implements Serializable{
     private String name;
     private boolean isMi;
     private String couponShow;
+    private String machineCode;
+    private boolean isMachineCode;
+    private boolean machineCodeUsed;
+
+    public String getMachineCode() {
+        return machineCode;
+    }
+
+    public void setMachineCode(String machineCode) {
+        this.machineCode = machineCode;
+    }
+
+    public boolean isMachineCode() {
+        return isMachineCode;
+    }
+
+    public void setIsMachineCode(boolean machineCode) {
+        isMachineCode = machineCode;
+    }
+
+    public boolean isMachineCodeUsed() {
+        return machineCodeUsed;
+    }
+
+    public void setMachineCodeUsed(boolean machineCodeUsed) {
+        this.machineCodeUsed = machineCodeUsed;
+    }
 
     public String getCouponShow() {
         return couponShow;

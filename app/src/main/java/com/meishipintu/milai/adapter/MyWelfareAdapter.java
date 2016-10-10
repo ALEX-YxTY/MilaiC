@@ -43,7 +43,7 @@ public class MyWelfareAdapter extends RecyclerView.Adapter<MyWelfareViewHolder> 
     @Override
     public void onBindViewHolder(MyWelfareViewHolder holder, final int position) {
         final Welfare welfare = list.get(position);
-        picasso.load("http://" + welfare.getLogo()).into(holder.ivWelfare);
+        picasso.load("http://" + welfare.getLogo()).placeholder(R.drawable.bg_erweima).into(holder.ivWelfare);
         holder.tvTitle.setText(welfare.getTitle());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

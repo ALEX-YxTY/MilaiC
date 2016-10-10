@@ -227,7 +227,6 @@ public class NetApi {
     }
 
     /**
-     *
      * @param uid
      * @param status 1- 未使用 2-已使用 3-已过期 4-机器码
      * @return
@@ -236,6 +235,7 @@ public class NetApi {
         if (status == 0) {
             status = 4;
         }
+        final int finalStatus = status;
         return netService.getCouponHttp(uid, status).flatMap(new Func1<ResponseBody, Observable<List<Coupon>>>() {
             @Override
             public Observable<List<Coupon>> call(ResponseBody responseBody) {
@@ -254,6 +254,11 @@ public class NetApi {
                             coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
                             coupon.setMi(json.getInt("is_mi") > 0);
                             coupon.setCouponShow(json.getString("couponShow"));
+                            if (finalStatus == 4) {
+                                coupon.setMachineCode(json.getString("ticket_number"));
+                                coupon.setIsMachineCode(json.getInt("is_ticket") > 0);
+                                coupon.setMachineCodeUsed(json.getInt("use_time") > 0);
+                            }
                             couponList.add(coupon);
                         }
                         return Observable.just(couponList);
