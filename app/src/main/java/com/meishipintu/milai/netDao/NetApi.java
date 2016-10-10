@@ -226,6 +226,12 @@ public class NetApi {
         });
     }
 
+    /**
+     *
+     * @param uid
+     * @param status 1- 未使用 2-已使用 3-已过期 4-机器码
+     * @return
+     */
     public Observable<List<Coupon>> getCoupon(String uid, int status){
         if (status == 0) {
             status = 4;

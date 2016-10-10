@@ -14,6 +14,7 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Coupon;
 import com.meishipintu.milai.fragments.CouponFragment;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.ToastUtils;
 
@@ -38,7 +39,6 @@ public class CouponActivityTabLayout extends BaseActivity {
     ViewPager vPager;
 
     private NetApi netApi;
-    private CouponFragment selectFragment;
 
     private List<Coupon> coupon;
     private List<Coupon> usedcoupons;
@@ -71,16 +71,19 @@ public class CouponActivityTabLayout extends BaseActivity {
         couponFragment=new CouponFragment();
         Bundle bundleCanUse = new Bundle();
         bundleCanUse.putSerializable("data", (Serializable) coupon);
+        bundleCanUse.putInt("coupon_type", ConstansUtils.COUPON_USABLE);
         couponFragment.setArguments(bundleCanUse);
 
         usedCouponFragment =new CouponFragment();
         Bundle bundleUsed = new Bundle();
         bundleUsed.putSerializable("data", (Serializable) usedcoupons);
+        bundleUsed.putInt("coupon_type", ConstansUtils.COUPON_USAD);
         usedCouponFragment.setArguments(bundleUsed);
 
         machinecouponsFragment =new CouponFragment();
         Bundle bundleMachine = new Bundle();
         bundleMachine.putSerializable("data", (Serializable) machinecoupons);
+        bundleMachine.putInt("coupon_type", ConstansUtils.COUPON_MACHINE_CODE);
         machinecouponsFragment.setArguments(bundleMachine);
     }
 
@@ -99,46 +102,44 @@ public class CouponActivityTabLayout extends BaseActivity {
 
     }
 
-    private void getData() {
-        for(int tense=0;tense<3;tense++) {
-            final int finalTense = tense;
-            netApi.getCoupon(Cookies.getUserId(),tense).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<List<Coupon>>() {
-                        @Override
-                        public void onCompleted() {
-                        }
+    private void getData(final int page) {
+        netApi.getCoupon(Cookies.getUserId(),page).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Coupon>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            ToastUtils.show(CouponActivityTabLayout.this, e.getMessage());
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.show(CouponActivityTabLayout.this, e.getMessage());
+                    }
 
-                        @Override
-                        public void onNext(List<Coupon> coupons) {
-                            switch (finalTense){
-                                case 0:    //机器码
-                                    machinecoupons.clear();
-                                    machinecoupons.addAll(coupons);
-                                    selectFragment = machinecouponsFragment;
-                                    break;
-                                case 1:     //未使用
-                                    coupon.clear();
-                                    coupon.addAll(coupons);
-                                    selectFragment = couponFragment;
-                                    break;
-                                case 2:     //已使用
-                                    usedcoupons.clear();
-                                    usedcoupons.addAll(coupons);
-                                    selectFragment = usedCouponFragment;
-                                    break;
-                                default:
-                                    break;
-                            }/*上面一段代码解析：因为想在进入米券页面时，同时获取到未使用、已使用和已过期三个状态时的数据。所以过去到getdata(1)后再获取getdata(2)..等获取完成后刷新*/
-                            selectFragment.refreshUI();
+                    @Override
+                    public void onNext(List<Coupon> coupons) {
+                        switch (page){
+                            case 0:    //机器码
+                                machinecoupons.clear();
+                                machinecoupons.addAll(coupons);
+                                machinecouponsFragment.refreshUI();
+                                getData(1);
+                                break;
+                            case 1:     //未使用
+                                coupon.clear();
+                                coupon.addAll(coupons);
+                                couponFragment.refreshUI();
+                                getData(2);
+                                break;
+                            case 2:     //已使用
+                                usedcoupons.clear();
+                                usedcoupons.addAll(coupons);
+                                usedCouponFragment.refreshUI();
+                                break;
+                            default:
+                                break;
                         }
-                    });
-        }
+                    }
+                });
     }
 
     @OnClick(R.id.iv_back)
@@ -158,7 +159,7 @@ public class CouponActivityTabLayout extends BaseActivity {
     protected void onResume() {
         super.onResume();
         //初始化数据
-        getData();
+        getData(0);
     }
 }
 

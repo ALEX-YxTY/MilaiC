@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ import java.util.List;
  */
 
 public class CouponFragment extends Fragment {
+
     private RecyclerView rv;
     private MyCouponAdapter adapter;
     private List<Coupon> coupon;
+    private int coupon_type;
 
 
     @Override
@@ -34,14 +37,15 @@ public class CouponFragment extends Fragment {
         if (getArguments().get("data") != null) {
             coupon = (List<Coupon>) getArguments().get("data");
         }
+        coupon_type = getArguments().getInt("coupon_type");
         initData();
         return view;
     }
-    private void initData() {
 
+    private void initData() {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setItemAnimator(new DefaultItemAnimator());
-        adapter = new MyCouponAdapter(getActivity(),coupon);
+        adapter = new MyCouponAdapter(getActivity(), coupon, coupon_type);
         rv.setAdapter(adapter);
 
     }

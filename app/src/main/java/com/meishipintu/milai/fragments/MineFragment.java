@@ -13,12 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
-import com.meishipintu.milai.activitys.CouponActivity;
 import com.meishipintu.milai.activitys.CouponActivityTabLayout;
 import com.meishipintu.milai.activitys.MineIncomeActivity;
 import com.meishipintu.milai.activitys.NoticeActivity;
-import com.meishipintu.milai.activitys.PaymentActivity;
-import com.meishipintu.milai.activitys.PurchaseHistoryActivity;
 import com.meishipintu.milai.activitys.UserInfoSettingActivity;
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Uid;
@@ -72,7 +69,6 @@ public class MineFragment extends Fragment {
     void myCoupon() {
         //我的卡券页面
         Intent intent = new Intent(getContext(), CouponActivityTabLayout.class);
-//        Intent intent = new Intent(getContext(), CouponActivity.class);
         startActivity(intent);
     }
 

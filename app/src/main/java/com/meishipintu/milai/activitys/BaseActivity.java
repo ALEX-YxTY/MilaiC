@@ -53,7 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     //控件之前获取事件，而写在onTouchEvent中则可能事件已被消费而获取不到
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Log.i("test", "ontouch:" + useSwipeBack());
         if (useSwipeBack()) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:

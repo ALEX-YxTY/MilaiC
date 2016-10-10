@@ -44,4 +44,9 @@
         <item name="android:windowNoTitle">true</item><!--无标题-->
         <!--<item name="android:backgroundDimEnabled">false</item>&lt;!&ndash;模糊&ndash;&gt;-->
     </style>
+
+    <style name="TabStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize"> 18sp</item>
+        <item name="android:textColor">@color/tvgray</item>
+    </style>
 </resources>

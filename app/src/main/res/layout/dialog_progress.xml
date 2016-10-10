@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_18"
             android:text="加载中，请稍后~"
-            android:textSize="@dimen/tv_36"/>
+            android:textSize="@dimen/tv_36"
+            android:layout_marginBottom="@dimen/margin_32"/>
     </LinearLayout>
 </RelativeLayout>

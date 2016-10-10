@@ -27,4 +27,9 @@ public class ConstansUtils {
 
     public static final int LOGIN_FIRST = 8001;                 //活动介绍页面，未登录的返回值result
     public static final int IS_LOGGING = 8000;                  //从主页进入活动详情页面request
+
+    public static final int COUPON_MACHINE_CODE = 11;           //机器码
+    public static final int COUPON_USABLE = 22;                 //未使用
+    public static final int COUPON_USAD = 33;                   //已使用
+
 }

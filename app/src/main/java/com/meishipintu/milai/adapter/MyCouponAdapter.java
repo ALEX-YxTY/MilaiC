@@ -8,11 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.CouponDetailsActivity;
 import com.meishipintu.milai.beans.Coupon;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.NumUtil;
 import com.meishipintu.milai.utils.StringUtils;
 
@@ -30,14 +34,17 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_EMPTY = 1;
     private static final int TYPE_NORMAL = 2;
 
+
     private List<Coupon> data;
     private Context context;
 
-    private boolean isEmpty ;
+    private boolean isEmpty;
+    private int mCoupon_type;
 
-    public MyCouponAdapter(Context context, List<Coupon> list) {
+    public MyCouponAdapter(Context context, List<Coupon> list, int mCoupon_type) {
         this.data = list;
         this.context = context;
+        this.mCoupon_type = mCoupon_type;
     }
 
     @Override
@@ -56,6 +63,29 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (getItemViewType(position) == TYPE_NORMAL) {
             MyCouponViewHolder holder = (MyCouponViewHolder) holder1;
             final Coupon coupon = data.get(position);
+            Log.i("test", "coupon_type:" + mCoupon_type);
+            //根据卡券类型调整显示
+            switch (mCoupon_type) {
+                case ConstansUtils.COUPON_MACHINE_CODE:
+                    holder.coupon.setBackgroundResource(R.drawable.bg_machine_coupon);
+                    holder.circle.setBackgroundResource(R.drawable.shape_cicrle_machine);
+                    holder.tvMoney.setTextColor(context.getResources().getColor(R.color.machine_blue));
+                    holder.tvMi.setTextColor(context.getResources().getColor(R.color.machine_blue));
+                    holder.tvYuan.setTextColor(context.getResources().getColor(R.color.machine_blue));
+                    break;
+                case ConstansUtils.COUPON_USAD:
+                    holder.circle.setBackgroundResource(R.drawable.shape_cicrle_unuse);
+                    holder.tvMoney.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvMi.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvYuan.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvName.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.tvNumber.setTextColor(context.getResources().getColor(R.color.unused_gray));
+                    holder.used.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
+
             holder.tvName.setText(coupon.getName());
             holder.tvTime.setText(coupon.getEndTime());
             if (coupon.isMi()) {
@@ -74,16 +104,19 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 holder.tvNumber.setText(StringUtils.stringWithSpace(coupon.getCouponSn()));
             }
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, CouponDetailsActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("coupon", coupon);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
-                }
-            });
+            //已使用无点击效果
+            if (mCoupon_type != ConstansUtils.COUPON_USAD) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, CouponDetailsActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("coupon", coupon);
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
+                    }
+                });
+            }
         }
     }
 
@@ -121,6 +154,12 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView tvYuan;
         @BindView(R.id.mi)
         TextView tvMi;
+        @BindView(R.id.circle)
+        RelativeLayout circle;
+        @BindView(R.id.used)
+        ImageView used;
+        @BindView(R.id.coupon)
+        LinearLayout coupon;
 
         public MyCouponViewHolder(View itemView) {
             super(itemView);

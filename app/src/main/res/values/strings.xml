@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="more">更多</string>
-    <string name="grab_log">抢米记录</string>
+    <string name="grab_log">抢米明细</string>
     <string name="get_grab">抢米中</string>
     <string name="get_grab_failed">抢米失败鸟</string>
     <!-- 注册登陆忘记密码-->
@@ -560,7 +560,7 @@
     <string name="register_empty2">验证码不能为空</string>
     <string name="register_empty3">手机号码不能为空</string>
     <string name="register_vcode_wrong">您输入的验证码不正确</string>
-    <string name="consume">消费记录</string>
+    <string name="consume">用米明细</string>
     <string name="coupon_detail">米券详情</string>
     <string name="name_notice">通知</string>
     <string name="login_please">请先登录</string>
