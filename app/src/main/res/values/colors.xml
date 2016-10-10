@@ -17,6 +17,7 @@
     <color name="yellow">#EEB422</color>
     <color name="red_orange">#ff7000</color>
     <color name="orange">#fd4f00</color>
+    <color name="text">#434343</color>
     <color name="red_orange_dark">#994000</color>
     <color name="red">#ff0000</color>
     <color name="btn_yellow">#f39603</color>
@@ -85,6 +86,9 @@
     <color name="dark">#FF222222</color>
     <color name="light">#FFEEEEEE</color>
     <color name="gray">#55887c75</color>
+    <color name="unused_gray">#7d7d7d</color>
+    <color name="machine_blue">#467bbe</color>
+    <color name="tvgray">#a0a0a0</color>
     <color name="untransparent_gray">#e4e4e4</color>
     <color name="transparent_40_off_gray">#90887c75</color>
     <color name="light_gray">#f0ece9</color>

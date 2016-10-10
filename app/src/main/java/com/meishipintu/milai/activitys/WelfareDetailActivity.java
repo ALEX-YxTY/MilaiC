@@ -179,7 +179,7 @@ public class WelfareDetailActivity extends BaseActivity {
                 break;
             case R.id.change:
                 if (isLogging) {
-                    startActivity(new Intent(WelfareDetailActivity.this, PaymentActivity.class));
+                    startActivity(new Intent(WelfareDetailActivity.this, ExchangeActivity.class));
                 } else {
                     Toast.makeText(this, R.string.login_please, Toast.LENGTH_SHORT).show();
                     setResult(ConstansUtils.LOGIN_FIRST);

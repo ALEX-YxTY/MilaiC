@@ -145,16 +145,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
-        <!--我的券新页面-->
-        <activity android:name=".activitys.CouponActivityTabLayout"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
-        <!-- 我的券页面 -->
+        <!-- 我的券新页面 -->
         <activity
-            android:name=".activitys.CouponActivity"
+            android:name=".activitys.CouponActivityTabLayout"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitys.ExchangeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <!-- 我的券详情页面 -->
         <activity
@@ -249,7 +248,6 @@
                 <category android:name="com.meishipintu.milai" />
             </intent-filter>
         </receiver>
-
 
     </application>
 
