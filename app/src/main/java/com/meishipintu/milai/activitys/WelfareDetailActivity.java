@@ -148,6 +148,7 @@ public class WelfareDetailActivity extends BaseActivity {
     private void initUi() {
         picasso.load("http://" + welfare.getLogo()).into(ivWelfare);
         tvTitle.setText(welfare.getTitle());
+        Log.e("tvTitle",welfare.getTitle());
         tvActDesc.setText(welfare.getAct_desc());
         tvShopDesc.setText(Html.fromHtml(welfare.getShop_desc()));
         tvShopDesc.setMovementMethod(LinkMovementMethod.getInstance());

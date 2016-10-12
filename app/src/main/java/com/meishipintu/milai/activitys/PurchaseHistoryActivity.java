@@ -33,14 +33,6 @@ public class PurchaseHistoryActivity extends BaseActivity {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-//    ListView listView;
-//    MyListAdapter listAdapter;
-//    ViewHolder holder = null;
-//    private static final int TYPE_head = 0;//头
-//    private static final int TYPE_body = 1;//身
-//    private static final int TYPE_tail = 2;//尾
-//    private static final int TYPE_ending = 3;//结尾的点
-
     private List<ConsumeRecordInfo> data;
     private MyConsumRecordAdapter adapter;
     private NetApi netApi;

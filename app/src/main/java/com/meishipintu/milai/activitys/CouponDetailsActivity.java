@@ -61,7 +61,13 @@ public class CouponDetailsActivity extends BaseActivity {
     private void initUI() {
         Coupon coupon = (Coupon) intent.getExtras().get("coupon");
         tvName.setText(coupon.getName());
-        tvNumber.setText(StringUtils.stringWithSpace(coupon.getCouponSn()));
+        String number = coupon.getCouponSn();
+        if (coupon.isMachineCode()) {
+            number = coupon.getMachineCode();
+        }
+        tvNumber.setText(StringUtils.stringWithSpace(number));
+        QrUtil.createQRCodeImage(StringUtils.stringWithSpace(number), ibQuan);
+
         if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
             picasso.load(Cookies.getUserUrl()).into(headportrait);
         }
@@ -74,7 +80,6 @@ public class CouponDetailsActivity extends BaseActivity {
             tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 1));
             tvValue.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0) + "元使用");
         }
-        QrUtil.createQRCodeImage(StringUtils.stringWithSpace(coupon.getCouponSn()), ibQuan);
         tvTime.setText("有效期至：" + coupon.getEndTime());
     }
 

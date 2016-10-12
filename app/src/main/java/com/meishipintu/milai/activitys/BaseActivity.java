@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.meishipintu.milai.R;
 import com.meishipintu.milai.utils.Immersive;
 
 import cn.jpush.android.api.JPushInterface;
@@ -65,6 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     Log.i("test", "event:" + deltX + "," + deltY);
                     if (deltX > 300 && Math.abs(deltY)< 200) {
                         onBackPressed();
+                        overridePendingTransition(0, R.anim.slide_right_out);
                         return true;
                     }
                     break;

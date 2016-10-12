@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:id="@+id/ll_1"
             android:layout_width="30dp"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/day"
@@ -53,7 +53,7 @@
             android:layout_toEndOf="@+id/tv_qiang" />
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:background="#000000"
             android:layout_below="@+id/dian"
             android:layout_marginLeft="9dp"
@@ -63,15 +63,16 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
         <View
             android:layout_width="30dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:id="@+id/kon">
         </View>
         <View
             android:layout_width="1dp"
-            android:layout_height="match_parent"
+            android:layout_height="55dp"
             android:background="#000000"
             android:layout_marginLeft="9dp"
             android:layout_marginRight="10dp"
@@ -80,8 +81,8 @@
         </View>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp">
             <ImageView
                 android:id="@+id/iv_photo"
                 android:layout_width="50dp"
@@ -90,36 +91,39 @@
                 android:src="@drawable/account_touxiang"/>
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="110dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_photo"
                 android:text="抢米免费坐地铁"/>
             <TextView
                 android:id="@+id/state"
-                android:layout_width="110dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_photo"
                 android:layout_below="@+id/tv_name"
+                android:layout_marginTop="@dimen/margin_15"
                 android:text="被你抢了"/>
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:layout_alignParentRight="true"
                 android:text="10:35"/>
             <TextView
                 android:id="@+id/tv_mi"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/tv_time"
+                android:layout_marginTop="@dimen/margin_15"
                 android:text="100米"
                 android:textColor="@color/orange"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/iv_photo"
+                android:layout_marginTop="3dp"
                 android:background="@color/gray">
             </View>
         </RelativeLayout>

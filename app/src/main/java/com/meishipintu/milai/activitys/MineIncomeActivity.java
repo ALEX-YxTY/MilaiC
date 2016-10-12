@@ -13,10 +13,12 @@ import android.widget.Toast;
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.adapter.CouponFragmentAdapter;
 import com.meishipintu.milai.adapter.MyConsumRecordAdapter;
+import com.meishipintu.milai.adapter.MyExchangeRiceLogAdapter;
 import com.meishipintu.milai.adapter.MyGrabRiceLogAdapter;
 import com.meishipintu.milai.animes.NumAnim;
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.ConsumeRecordInfo;
+import com.meishipintu.milai.beans.ExchangeRiceLog;
 import com.meishipintu.milai.beans.GrabRiceLog;
 import com.meishipintu.milai.fragments.MyIncomeFragment;
 import com.meishipintu.milai.netDao.NetApi;
@@ -41,8 +43,8 @@ public class MineIncomeActivity extends BaseActivity {
 
     private List<GrabRiceLog> grabList;
     private MyGrabRiceLogAdapter grabRiceAdapter;
-    private List<ConsumeRecordInfo> consumeList;
-    private MyConsumRecordAdapter consumeAdapter;
+    private List<ExchangeRiceLog> consumeList;
+    private MyExchangeRiceLogAdapter consumeAdapter;
     private MyIncomeFragment grabRiceFragment, consumeFragment;
 
     private NetApi netApi;
@@ -83,7 +85,7 @@ public class MineIncomeActivity extends BaseActivity {
         bundleGrab.putSerializable("adapter", grabRiceAdapter);
         grabRiceFragment.setArguments(bundleGrab);
 
-        consumeAdapter = new MyConsumRecordAdapter(this, consumeList);
+        consumeAdapter = new MyExchangeRiceLogAdapter(this, consumeList);
         consumeFragment = new MyIncomeFragment();
         Bundle bundleConsume = new Bundle();
         bundleConsume.putSerializable("adapter", consumeAdapter);
@@ -130,7 +132,7 @@ public class MineIncomeActivity extends BaseActivity {
         final LoadingProgressDialog dialog = new LoadingProgressDialog(this);
         dialog.show();
         Observable getMiLog = netApi.getMiLog(Cookies.getUserId());
-        Observable getConsume = netApi.getConsumeRecord(Cookies.getUserId(), 1);
+        Observable getConsume = netApi.getExchangeLog(Cookies.getUserId());
         Observable.merge(getMiLog,getConsume).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber() {
@@ -151,8 +153,8 @@ public class MineIncomeActivity extends BaseActivity {
                     public void onNext(Object o) {
                         if (o instanceof GrabRiceLog) {
                             grabList.add((GrabRiceLog) o);
-                        } else if (o instanceof ConsumeRecordInfo) {
-                            consumeList.add((ConsumeRecordInfo) o);
+                        } else if (o instanceof ExchangeRiceLog) {
+                            consumeList.add((ExchangeRiceLog) o);
                         }
                     }
                 });

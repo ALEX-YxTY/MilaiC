@@ -209,7 +209,7 @@ public class WelfareFragment extends BaseFragment {
                             if( welfares.size()==0&&parameter==3){
                                 Log.e("test3",  welfares.size() + "");
                                 currentPage--;
-//                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
                                 mSwipeRefreshLayout.setRefreshing(false);
                                 myProgressBar.setVisibility(View.INVISIBLE);
                             }

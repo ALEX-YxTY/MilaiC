@@ -3,6 +3,7 @@ package com.meishipintu.milai.netDao;
 import com.google.gson.JsonObject;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
+import com.meishipintu.milai.beans.ExchangeRiceLog;
 import com.meishipintu.milai.beans.GetVCodeRequest;
 import com.meishipintu.milai.beans.GrabRiceLog;
 import com.meishipintu.milai.beans.HttpResult;
@@ -108,6 +109,11 @@ public interface NetService {
     @FormUrlEncoded
     @POST("merchant/Activity/getUserGrabRiceLog")
     Observable<HttpResult<List<GrabRiceLog>>> getMiLogHttp(@Field("uid") String uid);
+
+    //获取兑换米记录
+    @FormUrlEncoded
+    @POST("merchant/Activity/exchange_log")
+    Observable<HttpResult<List<ExchangeRiceLog>>> getExchangeLogHttp(@Field("uid") String uid);
 
     //获取消费记录
     @FormUrlEncoded

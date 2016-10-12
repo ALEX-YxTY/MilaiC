@@ -10,6 +10,7 @@ import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
 import com.meishipintu.milai.beans.ConsumeRecordInfo;
 import com.meishipintu.milai.beans.Coupon;
+import com.meishipintu.milai.beans.ExchangeRiceLog;
 import com.meishipintu.milai.beans.GetVCodeRequest;
 import com.meishipintu.milai.beans.GrabRiceLog;
 import com.meishipintu.milai.beans.HttpResult;
@@ -224,6 +225,16 @@ public class NetApi {
                 return Observable.from(grabRiceLogs);
             }
         });
+    }
+
+    public Observable<ExchangeRiceLog> getExchangeLog(String uid){
+        return netService.getExchangeLogHttp(uid).map(new MyResultFunc<List<ExchangeRiceLog>>())
+                .flatMap(new Func1<List<ExchangeRiceLog>, Observable<ExchangeRiceLog>>() {
+                    @Override
+                    public Observable<ExchangeRiceLog> call(List<ExchangeRiceLog> grabRiceLogs) {
+                        return Observable.from(grabRiceLogs);
+                    }
+                });
     }
 
     /**

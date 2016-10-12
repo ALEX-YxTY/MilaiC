@@ -465,6 +465,7 @@
     <!-- 加排队 -->
     <string name="my_coin_mi">我的米</string>
     <string name="my_coupon">我的米券</string>
+    <string name="exchange">兑换权益</string>
     <string name="my_line_up">我的预约</string>
     <string name="my_payment">消费记录</string>
     <string name="sys_seting">账户设置</string>

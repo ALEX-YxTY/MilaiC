@@ -14,6 +14,7 @@ import com.meishipintu.milai.adapter.MyTaskAdapter;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.StringUtils;
+import com.meishipintu.milai.views.LoadingProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +50,17 @@ public class TaskFragment extends BaseFragment  {
     public Fragment getFragment() {
         return TaskFragment.this;
     }
-    /*parameter 用于判断GETDATA是从那调用的  parameter==1是初始化页面调用的，parameter==2是下拉刷新时候调用的，parameter==3是上拉加载时候调用的*/
+
+    /*
+        parameter 用于判断GETDATA是从那调用的  parameter==1是初始化页面调用的
+        ，parameter==2是下拉刷新时候调用的，parameter==3是上拉加载时候调用的
+    */
     @Override
     public void getData(final Handler handler , final int parameter) {
         switch (parameter){
             case 1:
                 currentPage=1;
+                mSwipeRefreshLayout.setRefreshing(true);
                 break;
             case 2:
                 list.clear();
@@ -76,14 +82,10 @@ public class TaskFragment extends BaseFragment  {
                     .subscribe(new Subscriber<List<Task>>() {
                         @Override
                         public void onCompleted() {
-                            Log.e("test1", "1");
-
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.e("test2", "2");
-//                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                             Toast.makeText(getActivity(), "无网络链接", Toast.LENGTH_SHORT).show();
                             mSwipeRefreshLayout.setRefreshing(false);
                             myProgressBar.setVisibility(View.INVISIBLE);
@@ -94,7 +96,7 @@ public class TaskFragment extends BaseFragment  {
                         public void onNext(List<Task> tasks) {
                             if(tasks.size()==0&&parameter==3){
                                 currentPage--;
-//                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
                                 mSwipeRefreshLayout.setRefreshing(false);
                                 myProgressBar.setVisibility(View.INVISIBLE);
                                 Log.e("没有跟多内容", "没有跟多内容");
@@ -106,7 +108,6 @@ public class TaskFragment extends BaseFragment  {
                                 myProgressBar.setVisibility(View.INVISIBLE);
                                 Log.e("test3", list.size() + "");
                             }
-
                         }
                     });
         Log.e("test4", currentPage+"");
@@ -127,21 +128,17 @@ public class TaskFragment extends BaseFragment  {
         return adapter;
 
     }
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
         if(getUserVisibleHint()) {
             gesture();//开启上拉触发
-
-
         } else {
             if(myTouchListener!=null&&getActivity()!=null) {
                 ((MainActivity) getActivity()).unRegisterMyTouchListener(myTouchListener);//关闭上拉触发
             }
-
         }
     }
-
-
 
 }

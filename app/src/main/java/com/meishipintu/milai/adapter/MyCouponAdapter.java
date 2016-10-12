@@ -106,6 +106,9 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.tvMi.setTextColor(context.getResources().getColor(R.color.machine_blue));
                     holder.tvYuan.setTextColor(context.getResources().getColor(R.color.machine_blue));
                     holder.tvNumber.setText(StringUtils.stringWithSpace(coupon.getMachineCode()));
+                    if (coupon.isMachineCodeUsed()) {
+                        holder.used.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case ConstansUtils.COUPON_USAD:
                     holder.circle.setBackgroundResource(R.drawable.shape_cicrle_unuse);
