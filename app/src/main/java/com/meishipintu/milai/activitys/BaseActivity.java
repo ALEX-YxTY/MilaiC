@@ -64,7 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     float deltX = event.getRawX() - actionX;
                     float deltY = event.getRawY() - actionY;
                     Log.i("test", "event:" + deltX + "," + deltY);
-                    if (deltX > 300 && Math.abs(deltY)< 200) {
+                    if (deltX > 250 && Math.abs(deltY)< 200) {
                         onBackPressed();
                         overridePendingTransition(0, R.anim.slide_right_out);
                         return true;

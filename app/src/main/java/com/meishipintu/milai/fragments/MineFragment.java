@@ -62,7 +62,7 @@ public class MineFragment extends Fragment {
         //用米支付页面
 //        Intent intent = new Intent(getContext(), PaymentActivity.class);
 //        startActivity(intent);
-        ToastUtils.show(getActivity(), "此功能暂未开放，尽情期待");
+        ToastUtils.show(getActivity(), "此功能暂未开放，敬请期待");
     }
 
     @OnClick(R.id.rl_use_coupon)
@@ -108,7 +108,7 @@ public class MineFragment extends Fragment {
     @OnClick(R.id.rl_my_consume)
     void myConsume() {
         //我的消费记录
-        ToastUtils.show(getActivity(), "此功能暂未开放，尽情期待");
+        ToastUtils.show(getActivity(), "此功能暂未开放，敬请期待");
     }
 
     @OnClick(R.id.rl_user_info)

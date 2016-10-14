@@ -10,6 +10,8 @@ public class Welfare implements Serializable{
     private String id;
     private String title;
     private String logo;
+    private String detail_logo;
+    private String rice;
     private String act_desc;
     private String shop_desc;
     private String start_time;
@@ -80,12 +82,30 @@ public class Welfare implements Serializable{
         this.cityid = cityid;
     }
 
+    public String getDetail_logo() {
+        return detail_logo;
+    }
+
+    public void setDetail_logo(String detail_logo) {
+        this.detail_logo = detail_logo;
+    }
+
+    public String getRice() {
+        return rice;
+    }
+
+    public void setRice(String rice) {
+        this.rice = rice;
+    }
+
     @Override
     public String toString() {
-        return "Task{" +
+        return "Welfare{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", logo='" + logo + '\'' +
+                ", detail_logo='" + detail_logo + '\'' +
+                ", rice='" + rice + '\'' +
                 ", act_desc='" + act_desc + '\'' +
                 ", shop_desc='" + shop_desc + '\'' +
                 ", start_time='" + start_time + '\'' +
@@ -93,4 +113,5 @@ public class Welfare implements Serializable{
                 ", cityid='" + cityid + '\'' +
                 '}';
     }
+
 }

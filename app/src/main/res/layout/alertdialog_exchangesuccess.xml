@@ -8,21 +8,31 @@
         android:layout_height="194dp">
         <ImageView
             android:id="@+id/Close_button"
-            android:layout_width="56dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_cancle"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"/>
         <TextView
-            android:id="@+id/tv_content_1"
-            android:layout_marginTop="28dp"
+            android:id="@+id/tv_name"
+            android:layout_marginTop="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textColor="#181818"
-            android:text="即将从你的账户扣除50米,"
-            android:textSize="16sp"/>
+            android:textColor="#1b1b1b"
+            android:text="恭喜兑换成功,"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tv_content_1"
+            android:layout_marginTop="27dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:textColor="#626262"
+            android:text="此卡券已放入您的账户中"
+            android:textSize="14sp"/>
         <TextView
             android:id="@+id/tv_content_2"
             android:layout_marginTop="16dp"
@@ -30,20 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content_1"
             android:layout_centerHorizontal="true"
-            android:textColor="#181818"
-            android:text="您确认要兑换"
-            android:textSize="16sp"/>
-        <TextView
-            android:id="@+id/tv_content_3"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_content_2"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:textColor="#181818"
-            android:text="【50元计次地铁卡】吗？"
-            android:textSize="16sp"/>
+            android:textColor="#626262"
+            android:text="请去【我的米来】-【我的米券】查看。"
+            android:textSize="14sp"/>
         <RelativeLayout
             android:id="@+id/confirm_button"
             android:layout_width="match_parent"

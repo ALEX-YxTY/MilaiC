@@ -180,7 +180,13 @@ public class WelfareDetailActivity extends BaseActivity {
                 break;
             case R.id.change:
                 if (isLogging) {
-                    startActivity(new Intent(WelfareDetailActivity.this, ExchangeActivity.class));
+//                    Intent intent=new Intent(WelfareDetailActivity.this, ExchangeActivity.class);
+                    Intent intent=new Intent(WelfareDetailActivity.this, CouponActivityTabLayout.class);
+                    Bundle bundle=new Bundle();
+                    //传递name参数为tinyphp
+                    bundle.putSerializable("welfare", welfare);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(this, R.string.login_please, Toast.LENGTH_SHORT).show();
                     setResult(ConstansUtils.LOGIN_FIRST);

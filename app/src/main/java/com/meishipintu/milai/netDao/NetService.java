@@ -1,6 +1,5 @@
 package com.meishipintu.milai.netDao;
 
-import com.google.gson.JsonObject;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
 import com.meishipintu.milai.beans.ExchangeRiceLog;
@@ -17,8 +16,6 @@ import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.beans.Welfare;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -90,6 +87,11 @@ public interface NetService {
     @FormUrlEncoded
     @POST("merchant/Activity/index ")
     Observable<HttpResult<List<Welfare>>> getWelfareHttp(@Field("cityid") int cityId, @Field("page") int page);
+
+    //获取Exchange页面信息
+    @FormUrlEncoded
+    @POST("/merchant/Activity/exchange_goods")
+    Observable<ResponseBody> getExchangeHttp(@Field("activity_id") String activity_id, @Field("mobile") String mobile);
 
     //获取抢米页面信息
     @FormUrlEncoded

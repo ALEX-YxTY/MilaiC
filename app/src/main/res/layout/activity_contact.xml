@@ -52,7 +52,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_below="@id/iv_2"
                         android:textColor="@color/tv_title_gray"
-                        android:text="电话客服"/>
+                        android:text="邮件反馈"/>
                 </RelativeLayout>
             </RelativeLayout>
             <View

@@ -14,7 +14,6 @@ import com.meishipintu.milai.adapter.MyTaskAdapter;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.StringUtils;
-import com.meishipintu.milai.views.LoadingProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,10 +95,9 @@ public class TaskFragment extends BaseFragment  {
                         public void onNext(List<Task> tasks) {
                             if(tasks.size()==0&&parameter==3){
                                 currentPage--;
-                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), "客官~木有更多的信息咯！", Toast.LENGTH_SHORT).show();
                                 mSwipeRefreshLayout.setRefreshing(false);
                                 myProgressBar.setVisibility(View.INVISIBLE);
-                                Log.e("没有跟多内容", "没有跟多内容");
                             }
                             else {
                                 list.addAll(tasks);

@@ -1,10 +1,8 @@
 package com.meishipintu.milai.netDao;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
@@ -192,6 +190,28 @@ public class NetApi {
         return netService.getWelfareHttp(cityId,page).map(new MyResultFunc<List<Welfare>>());
     }
 
+    public Observable<String> getExchange(String activity_id, String mobile) {
+        return netService.getExchangeHttp(activity_id,mobile).map(new Func1<ResponseBody, String>() {
+            @Override
+            public String call(ResponseBody listHttpResult) {
+                try {
+                    String result = listHttpResult.string();
+                    JSONObject jsonObject = new JSONObject(result);
+                    if (jsonObject.getInt("status") == 1) {
+                        return jsonObject.getString("msg");
+                    } else {
+                        throw new RuntimeException(jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return "";
+            }
+        });
+    }
+
     public Observable<List<Task>> getTask(int cityId, int page) {
         return netService.getTaskHttp(cityId,page).map(new MyResultFunc<List<Task>>());
     }
@@ -268,7 +288,7 @@ public class NetApi {
                             if (finalStatus == 4) {
                                 coupon.setMachineCode(json.getString("ticket_number"));
                                 coupon.setIsMachineCode(json.getInt("is_ticket") > 0);
-                                coupon.setMachineCodeUsed(json.getInt("use_time") > 0);
+                                coupon.setMachineCodeUsed(json.getLong("use_time") > 0);
                             }
                             couponList.add(coupon);
                         }
