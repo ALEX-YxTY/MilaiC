@@ -17,6 +17,15 @@ public class Welfare implements Serializable{
     private String start_time;
     private String end_time;
     private String cityid;
+    private int flag;       //  标注跳转位置 1-机器码，2-未使用，3-兑换页, 4-不跳转
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public String getId() {
         return id;

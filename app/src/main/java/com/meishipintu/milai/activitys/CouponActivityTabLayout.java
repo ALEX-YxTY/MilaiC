@@ -57,6 +57,10 @@ public class CouponActivityTabLayout extends BaseActivity {
         initFragment();
         //初始化tabLayout和viewpager
         initTabAndViewPager();
+        //初始化显示选项卡
+        if(getIntent().getBooleanExtra("showCanUse", false)){
+            vPager.setCurrentItem(1);               //显示未使用
+        }
     }
 
     private void initFragment() {

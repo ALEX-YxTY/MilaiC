@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.meishipintu.milai.R;
+import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.utils.Immersive;
 
 import butterknife.BindView;
@@ -51,7 +52,8 @@ public class TaskDetailActivity extends BaseActivity {
                 }
             }
         });
-        wv.loadUrl(url);
+        wv.loadUrl(url + "/uid/" + Cookies.getUserId());
+//        wv.loadUrl(url + "/uid/112233");
     }
 
 

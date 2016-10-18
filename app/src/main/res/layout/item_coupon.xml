@@ -38,7 +38,7 @@
                             android:id="@+id/tv_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/tv_80"
+                            android:textSize="@dimen/tv_76"
                             android:textColor="@color/orange"
                             android:text="10"/>
 
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginRight="@dimen/margin_20"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/tv_45"
+                        android:textSize="@dimen/tv_46"
                         android:textColor="@color/black"
                         android:text="若客咖啡"/>
                     <TextView
@@ -76,11 +76,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_30"
-                        android:textSize="@dimen/tv_52"
+                        android:textSize="@dimen/tv_45"
                         android:layout_marginRight="@dimen/margin_20"
                         android:layout_below="@+id/tv_name"
                         android:textColor="@color/black"
-                        android:text="8000 1968 6753"/>
+                        android:text="8000 2312 5246"/>
 
             </RelativeLayout>
 

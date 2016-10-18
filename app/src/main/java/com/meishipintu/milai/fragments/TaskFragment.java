@@ -8,11 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.MainActivity;
 import com.meishipintu.milai.activitys.TaskDetailActivity;
 import com.meishipintu.milai.adapter.MyTaskAdapter;
+import com.meishipintu.milai.application.Cookies;
+import com.meishipintu.milai.application.RxBus;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -117,9 +121,14 @@ public class TaskFragment extends BaseFragment  {
             @Override
             public void onItemClick(View view, String detail) {
                 if (!StringUtils.isNullOrEmpty(detail) && detail.startsWith("http")) {
-                    Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-                    intent.putExtra("detail", detail);
-                    startActivity(intent);
+                    if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+                        Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+                        intent.putExtra("detail", detail);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
+                        RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
+                    }
                 }
             }
         });

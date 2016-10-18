@@ -180,13 +180,23 @@ public class WelfareDetailActivity extends BaseActivity {
                 break;
             case R.id.change:
                 if (isLogging) {
-//                    Intent intent=new Intent(WelfareDetailActivity.this, ExchangeActivity.class);
-                    Intent intent=new Intent(WelfareDetailActivity.this, CouponActivityTabLayout.class);
-                    Bundle bundle=new Bundle();
-                    //传递name参数为tinyphp
-                    bundle.putSerializable("welfare", welfare);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                    if (welfare.getFlag() != 4) {
+                        Intent intent;
+                        if (welfare.getFlag() == 3) {
+                            intent=new Intent(WelfareDetailActivity.this, ExchangeActivity.class);
+                            Bundle bundle=new Bundle();
+                            //传递name参数为tinyphp
+                            bundle.putSerializable("welfare", welfare);
+                            intent.putExtras(bundle);
+                        }else{
+                            intent=new Intent(WelfareDetailActivity.this, CouponActivityTabLayout.class);
+                            if (welfare.getFlag() == 2) {
+                                intent.putExtra("showCanUse", true);
+                            }
+                        }
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Toast.makeText(this, R.string.login_please, Toast.LENGTH_SHORT).show();
                     setResult(ConstansUtils.LOGIN_FIRST);

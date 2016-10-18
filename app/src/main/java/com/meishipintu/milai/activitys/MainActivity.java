@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.adapter.MyFragmentPageAdapter;
 import com.meishipintu.milai.application.Cookies;
+import com.meishipintu.milai.application.RxBus;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.fragments.LoginFragment;
@@ -44,7 +45,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements WelfareFragment.LoggingStatusListener{
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private WelfareFragment welfareFragment;
     private LoginFragment loginFragment;
     private MineFragment mineFragment;
+    private Subscription subscription;      //标注和消息总线的连接情况
 
     private String fileDir = "";
 
@@ -161,6 +165,14 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         netApi = NetApi.getInstance();
         initUI();
         checkVersion();
+        subscription = RxBus.getDefault().getObservable(Integer.class).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                if (integer == ConstansUtils.LOGIN_FIRST) {
+                    selectFragment(2);          //跳转登录界面
+                }
+            }
+        });
     }
 
     private void initUI() {
@@ -400,9 +412,18 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         }
     }
 
+    //解除与总线的绑定
+    @Override
+    protected void onDestroy() {
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
+        super.onDestroy();
+    }
+
     /*
-        Welfare.LoggingStatusListener
-     */
+            Welfare.LoggingStatusListener
+         */
     @Override
     public boolean getLoggingStatus() {
         return isLogging;
