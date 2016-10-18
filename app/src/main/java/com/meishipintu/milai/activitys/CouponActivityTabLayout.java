@@ -3,9 +3,6 @@ package com.meishipintu.milai.activitys;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.meishipintu.milai.R;
@@ -92,7 +89,7 @@ public class CouponActivityTabLayout extends BaseActivity {
 
         CouponFragmentAdapter pagerAdapter = new CouponFragmentAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment( machinecouponsFragment,"机器码");
+        pagerAdapter.addFragment( machinecouponsFragment,"提货码");
         pagerAdapter.addFragment(couponFragment,"未使用");
         pagerAdapter.addFragment(usedCouponFragment,"已使用");
 

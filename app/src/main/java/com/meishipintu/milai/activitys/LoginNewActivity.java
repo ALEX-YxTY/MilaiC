@@ -11,18 +11,11 @@ import android.widget.Toast;
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.GetVCodeRequest;
-import com.meishipintu.milai.beans.LoginInfo;
-import com.meishipintu.milai.beans.LoginInfoTel;
 import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.tasks.MyTimeDelayTask;
 import com.meishipintu.milai.utils.ConstansUtils;
-import com.meishipintu.milai.utils.MessageDigestGenerator;
 import com.meishipintu.milai.utils.StringUtils;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,7 +79,7 @@ public class LoginNewActivity extends BaseActivity {
 
                                 @Override
                                 public void onNext(UserInfo userInfo) {
-                                    Log.i("test", "userInfo:" + userInfo.toString());
+//                                    Log.i("test", "userInfo:" + userInfo.toString());
                                     Intent intent = new Intent();
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("user_info", userInfo);

@@ -311,7 +311,7 @@ public class NetApi {
             public Observable<String> call(ResponseBody responseBody) {
                 try {
                     JSONObject jsonObject = new JSONObject(responseBody.string());
-                    Log.i("test", "jsonObject:" + jsonObject.toString());
+//                    Log.i("test", "jsonObject:" + jsonObject.toString());
                     if (jsonObject.getInt("result") == 1) {
                         return Observable.just(jsonObject.getString("verify"));
                     } else {

@@ -14,6 +14,7 @@
     <!-- main page -->
     <color name="yellow_dialog_getgrab">#FFCE00</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#AAAAAA</color>
     <color name="yellow">#EEB422</color>
     <color name="red_orange">#ff7000</color>
     <color name="orange">#fd4f00</color>

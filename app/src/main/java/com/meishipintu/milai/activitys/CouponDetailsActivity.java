@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.google.zxing.client.android.QrUtil;
 import com.meishipintu.milai.R;
-import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Coupon;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.NumUtil;
@@ -68,9 +67,9 @@ public class CouponDetailsActivity extends BaseActivity {
         tvNumber.setText(StringUtils.stringWithSpace(number));
         QrUtil.createQRCodeImage(StringUtils.stringWithSpace(number), ibQuan);
 
-        if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
-            picasso.load(Cookies.getUserUrl()).into(headportrait);
-        }
+//        if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
+//            picasso.load(ConstansUtils.URL + Cookies.getUserUrl()).into(headportrait);
+//        }
         if (coupon.isMi()) {
             tv1.setVisibility(View.INVISIBLE);
             tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));

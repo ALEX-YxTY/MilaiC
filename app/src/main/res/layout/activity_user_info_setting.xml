@@ -107,9 +107,9 @@
                     android:textColorHint="@color/orange"
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
-                    android:cursorVisible="false"
+                    android:textCursorDrawable="@color/black"
                     android:inputType="text"
-                    android:background="@null" />
+                    android:background="@null"/>
 
                 <View
                     android:layout_alignParentBottom="true"
@@ -141,9 +141,9 @@
                     android:textColor="@color/orange"
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
-                    android:background="@null"
-                    android:cursorVisible="false"
+                    android:textCursorDrawable="@color/black"
                     android:inputType="text"
+                    android:background="@null"
                     android:hint="保密"
                     />
 
@@ -232,8 +232,8 @@
                     android:textColor="@color/orange"
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
-                    android:background="@null"
                     android:cursorVisible="false"
+                    android:background="@null"
                     android:inputType="text"
                     android:hint="未设置"
                     />

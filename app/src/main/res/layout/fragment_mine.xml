@@ -64,6 +64,7 @@
         android:id="@+id/rl_use_mi"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:background="@drawable/touchable_background_white"
         android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_my_mi"
@@ -86,6 +87,7 @@
             android:id="@+id/rl_use_coupon"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@drawable/touchable_background_white"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_coupon"
@@ -108,6 +110,7 @@
             android:id="@+id/rl_notify"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@drawable/touchable_background_white"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_notice"
@@ -141,6 +144,7 @@
             android:paddingRight="@dimen/margin_46"
             android:id="@+id/rl_my_mi"
             android:layout_width="match_parent"
+            android:background="@drawable/touchable_background_white"
             android:layout_height="@dimen/margin_118">
             <TextView
                 android:layout_width="wrap_content"
@@ -167,6 +171,7 @@
             android:paddingRight="@dimen/margin_46"
             android:id="@+id/rl_my_consume"
             android:layout_width="match_parent"
+            android:background="@drawable/touchable_background_white"
             android:layout_height="@dimen/margin_118"
             >
             <TextView
@@ -194,6 +199,7 @@
             android:paddingRight="@dimen/margin_46"
             android:id="@+id/rl_share"
             android:layout_width="match_parent"
+            android:background="@drawable/touchable_background_white"
             android:layout_height="@dimen/margin_118">
             <TextView
                 android:layout_width="wrap_content"

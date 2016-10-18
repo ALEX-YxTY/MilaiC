@@ -6,6 +6,7 @@
     android:paddingTop="@dimen/margin_30"
     android:paddingLeft="@dimen/margin_30"
     android:paddingRight="@dimen/margin_30"
+    android:paddingBottom="@dimen/margin_30"
     >
 
     <LinearLayout

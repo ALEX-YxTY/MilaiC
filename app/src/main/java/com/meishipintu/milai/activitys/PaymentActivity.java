@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.zxing.client.android.QrUtil;
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.application.Cookies;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.JniTest;
 import com.meishipintu.milai.utils.StringUtils;
@@ -58,7 +59,7 @@ public class PaymentActivity extends BaseActivity {
 
         picasso = Picasso.with(this);
         if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
-            picasso.load(Cookies.getUserUrl()).into(headportrait);
+            picasso.load(ConstansUtils.URL + Cookies.getUserUrl()).into(headportrait);
         }
         tvName.setText(Cookies.getUserName());
         tvPhone.setText(Cookies.getTel());
