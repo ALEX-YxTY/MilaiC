@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray_background">
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/shape_shadow" />
     <!--头部个人信息栏-->
     <RelativeLayout
         android:id="@+id/rl_user_info"
@@ -12,6 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_20"
         android:background="@color/white">
+
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"

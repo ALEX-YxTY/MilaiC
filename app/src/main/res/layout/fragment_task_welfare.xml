@@ -21,4 +21,9 @@
         android:layout_alignParentBottom="true">
     </include>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shape_shadow" />
+
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.meishipintu.milai.activitys;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -16,7 +15,6 @@ import com.meishipintu.milai.utils.Immersive;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 
 public class TaskDetailActivity extends BaseActivity {
 
@@ -30,10 +28,10 @@ public class TaskDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Immersive.immersive(0x99999999,0,this);
+        Immersive.immersive(0x99999999, 0, this);
         setContentView(R.layout.activity_task_detail);
         ButterKnife.bind(this);
-        tvTitle.setVisibility(View.GONE);
+        tvTitle.setText(R.string.app_name);
         String url = getIntent().getStringExtra("detail");
         initWebView(url);
     }
@@ -57,11 +55,6 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.iv_back)
-    public void onClick() {
-        onBackPressed();
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -70,4 +63,15 @@ public class TaskDetailActivity extends BaseActivity {
         wv.onPause();
     }
 
+    @OnClick({R.id.iv_back, R.id.iv_share})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                onBackPressed();
+                break;
+            case R.id.iv_share:
+                //分享页面
+                break;
+        }
+    }
 }

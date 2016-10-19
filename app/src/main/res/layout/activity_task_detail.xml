@@ -5,13 +5,16 @@
     android:layout_height="match_parent"
     tools:context="com.meishipintu.milai.activitys.TaskDetailActivity">
 
+    <include layout="@layout/title_bar_back_share"
+        android:id="@+id/title_bar"/>
+
     <WebView
         android:id="@+id/web_view"
+        android:layout_below="@id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
 
-    <include layout="@layout/title_bar_transparent_back"
-        android:id="@+id/title_bar"/>
+
 
     <ProgressBar
         android:id="@+id/pb"
