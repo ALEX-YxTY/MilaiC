@@ -119,11 +119,12 @@ public class TaskFragment extends BaseFragment  {
     public RecyclerView.Adapter getAdapter() {
         adapter = new MyTaskAdapter(list, getActivity(), new MyTaskAdapter.TaskOnItemClickListener() {
             @Override
-            public void onItemClick(View view, String detail) {
+            public void onItemClick(View view, String detail, String shareTitle) {
                 if (!StringUtils.isNullOrEmpty(detail) && detail.startsWith("http")) {
                     if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
                         Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                         intent.putExtra("detail", detail);
+                        intent.putExtra("shareTitle", shareTitle);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();

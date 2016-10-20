@@ -96,9 +96,9 @@ public class MineFragment extends Fragment {
                         SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
                 };
         new ShareAction(getActivity()).setDisplayList(displaylist)
-                .withText("快来使用米来吧~")
-                .withTitle("米来")
-                .withTargetUrl("https://www.pgyer.com/milai_c")
+                .withTitle("下载关注米来")
+                .withText("支付级数字营销传播者")
+                .withTargetUrl("http://a.milaipay.com/wap/share")
                 .withMedia(new UMImage(getActivity()
                         , BitmapFactory.decodeResource(getResources(), R.drawable.icon_small)))
                 .setListenerList(umShareListener)

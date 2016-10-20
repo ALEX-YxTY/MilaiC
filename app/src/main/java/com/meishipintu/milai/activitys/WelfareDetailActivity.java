@@ -11,6 +11,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -66,6 +67,8 @@ public class WelfareDetailActivity extends BaseActivity {
     TextView tvActDesc;
     @BindView(R.id.tv_shop_desc)
     TextView tvShopDesc;
+    @BindView(R.id.change)
+    Button change;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,12 +151,18 @@ public class WelfareDetailActivity extends BaseActivity {
     private void initUi() {
         picasso.load("http://" + welfare.getLogo()).into(ivWelfare);
         tvTitle.setText(welfare.getTitle());
-        Log.e("tvTitle",welfare.getTitle());
+        Log.e("tvTitle", welfare.getTitle());
         tvActDesc.setText(welfare.getAct_desc());
         tvShopDesc.setText(Html.fromHtml(welfare.getShop_desc()));
         tvShopDesc.setMovementMethod(LinkMovementMethod.getInstance());
         //因为simpleDateFormat的线程问题，只能写在一句中
         tvTime.setText("活动时间：" + DateUtils.getTimePeriod(welfare.getStart_time(), welfare.getEnd_time()));
+        if (welfare.getFlag() == 1 || welfare.getFlag() == 2) {
+            change.setText("我要查看");
+        }
+        if (welfare.getFlag() == 4) {
+            change.setBackgroundResource(R.drawable.shape_button_unable);
+        }
     }
 
     @OnClick({R.id.iv_back, R.id.iv_share, R.id.change})
@@ -183,13 +192,13 @@ public class WelfareDetailActivity extends BaseActivity {
                     if (welfare.getFlag() != 4) {
                         Intent intent;
                         if (welfare.getFlag() == 3) {
-                            intent=new Intent(WelfareDetailActivity.this, ExchangeActivity.class);
-                            Bundle bundle=new Bundle();
+                            intent = new Intent(WelfareDetailActivity.this, ExchangeActivity.class);
+                            Bundle bundle = new Bundle();
                             //传递name参数为tinyphp
                             bundle.putSerializable("welfare", welfare);
                             intent.putExtras(bundle);
-                        }else{
-                            intent=new Intent(WelfareDetailActivity.this, CouponActivityTabLayout.class);
+                        } else {
+                            intent = new Intent(WelfareDetailActivity.this, CouponActivityTabLayout.class);
                             if (welfare.getFlag() == 2) {
                                 intent.putExtra("showCanUse", true);
                             }
