@@ -35,19 +35,6 @@
             android:layout_centerInParent="true"
             android:text="@string/city_sel"/>
 
-        <TextView
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/orange"
-            android:textSize="@dimen/tv_45"
-            android:text="@string/save"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_22"
-            android:clickable="true"
-            android:visibility="gone"/>
-
         <ImageView
             android:id="@+id/iv_share"
             android:layout_width="28dp"
