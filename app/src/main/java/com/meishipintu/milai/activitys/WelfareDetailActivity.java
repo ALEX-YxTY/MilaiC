@@ -173,16 +173,17 @@ public class WelfareDetailActivity extends BaseActivity {
                 break;
             case R.id.iv_share:
 //                Toast.makeText(this,"分享",Toast.LENGTH_SHORT).show();
+                //友盟分享
                 final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
                         {
                                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
                                 SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
                         };
                 new ShareAction(this).setDisplayList(displaylist)
-                        .withText("快来使用米来吧~")
-                        .withTitle("米来")
-                        .withTargetUrl("https://www.pgyer.com/milai_c")
-                        .withMedia(new UMImage(WelfareDetailActivity.this
+                        .withTitle("下载关注米来")
+                        .withText("支付级数字营销传播者")
+                        .withTargetUrl("http://a.milaipay.com/wap/share")
+                        .withMedia(new UMImage(this
                                 , BitmapFactory.decodeResource(getResources(), R.drawable.icon_small)))
                         .setListenerList(umShareListener)
                         .open();

@@ -30,8 +30,7 @@
             android:textColor="@color/tv_gray"
             android:layout_marginTop="@dimen/margin_40"
             android:text="点击修改头像"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+            android:layout_centerHorizontal="true" />
         
         
     </RelativeLayout>
@@ -47,6 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:descendantFocusability="beforeDescendants"
             >
 
             <!--手机号-->
@@ -107,7 +109,8 @@
                     android:textColorHint="@color/orange"
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
-                    android:textCursorDrawable="@color/black"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:inputType="text"
                     android:background="@null"/>
 
@@ -141,7 +144,8 @@
                     android:textColor="@color/orange"
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
-                    android:textCursorDrawable="@color/black"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:inputType="text"
                     android:background="@null"
                     android:hint="保密"
@@ -232,7 +236,8 @@
                     android:textColor="@color/orange"
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
-                    android:cursorVisible="false"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:background="@null"
                     android:inputType="text"
                     android:hint="未设置"
@@ -269,18 +274,12 @@
                     android:textSize="@dimen/tv_46"
                     android:gravity="center_vertical"
                     android:background="@null"
-                    android:cursorVisible="false"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@drawable/shape_cursor"
                     android:inputType="text"
                     android:hint="个性签名"
                     android:textColorHint="@color/orange"
                     />
-
-                <View
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/gray">
-                </View>
             </RelativeLayout>
 
         </LinearLayout>

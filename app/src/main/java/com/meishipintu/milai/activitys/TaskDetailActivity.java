@@ -43,6 +43,12 @@ public class TaskDetailActivity extends BaseActivity {
         tvTitle.setText(R.string.app_name);
         url = getIntent().getStringExtra("detail");
         shareTitle = getIntent().getStringExtra("shareTitle");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //webview在onResume中初始化以解决onPause中webview被暂定的问题
         initWebView(url);
     }
 
