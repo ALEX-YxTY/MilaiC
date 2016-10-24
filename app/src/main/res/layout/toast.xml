@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toast"
+    android:padding="@dimen/margin_22"
+    android:paddingLeft="@dimen/margin_32"
+    android:paddingRight="@dimen/margin_32"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/iv_toast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_toast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更换头像"
+            android:textSize="@dimen/tv_42"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@id/iv_toast"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

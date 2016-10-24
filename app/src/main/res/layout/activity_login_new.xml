@@ -95,32 +95,32 @@
             android:layout_below="@id/et_vCode"
             android:layout_marginTop="@dimen/margin_102"/>
 
-        <LinearLayout
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_62">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_62">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/tv_gray_normal"
-                android:textSize="@dimen/tv_36"
-                android:text="@string/login_hint1"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:textSize="@dimen/tv_36"
-                android:text="@string/login_hint2"
-                android:textColor="@color/black"
-                />
-        </LinearLayout>
-
-    </RelativeLayout>
+            android:textColorHint="@color/tv_gray_normal"
+            android:textSize="@dimen/tv_36"
+            android:text="@string/login_hint1"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:textSize="@dimen/tv_36"
+            android:text="@string/login_hint2"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
 
     <include layout="@layout/title_bar_transparent_back2" />
 

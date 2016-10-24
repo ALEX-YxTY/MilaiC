@@ -38,7 +38,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_gray"
+            android:textColor="@color/black"
             android:textSize="@dimen/tv_54"
             android:layout_centerInParent="true"
             android:text="米 来"/>

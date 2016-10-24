@@ -18,6 +18,7 @@ import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.StringUtils;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +131,8 @@ public class TaskFragment extends BaseFragment  {
                         Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
                         RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
                     }
+                } else {
+                    ToastUtils.show(getActivity(), "即将上线");
                 }
             }
         });

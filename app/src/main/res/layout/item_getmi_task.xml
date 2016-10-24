@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:textColor="@color/white"
-        android:textSize="@dimen/tv_50"
+        android:textSize="@dimen/tv_45"
         android:layout_alignLeft="@id/tv_content"
         android:layout_alignParentBottom="true"
         android:paddingBottom="30dp"/>

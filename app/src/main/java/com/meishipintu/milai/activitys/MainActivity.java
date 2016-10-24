@@ -37,6 +37,7 @@ import com.meishipintu.milai.utils.DialogUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.utils.SystemUtils;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private ArrayList<Fragment> fragmentList;
     private MyFragmentPageAdapter adapter;
     private NetApi netApi;
+    private long exitTime = 0l;         //标注点击返回按钮的时间，初始值为0
 
     public boolean isLogging = false;       //判断用户是否登录中
 
@@ -466,20 +468,17 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
     @Override
     public void onBackPressed() {
-        //showLogoutDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("提醒")
-                .setMessage("是否退出登录")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //解绑Jpush
-                        JPushInterface.setAliasAndTags(MainActivity.this, "", null);
-                        MainActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("取消", null);
-        builder.create().show();
+
+        //两次点击返回键（Toast.SHORT显示时间内）
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            ToastUtils.show(this, "再按一次退出米来");
+            exitTime = System.currentTimeMillis();
+        } else {
+            //解绑Jpush
+            JPushInterface.setAliasAndTags(MainActivity.this, "", null);
+            MainActivity.super.onBackPressed();
+        }
+
     }
 
     /*-------------------------下拉刷新个上拉加载分割线---------------------*/
