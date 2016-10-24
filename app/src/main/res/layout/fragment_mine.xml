@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray_background">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@drawable/shape_shadow" />
+
     <!--头部个人信息栏-->
     <RelativeLayout
         android:id="@+id/rl_user_info"
@@ -20,12 +22,13 @@
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginTop="@dimen/margin_36"
             android:layout_toRightOf="@+id/civ_head_view"
             android:text="用户名"
-            android:textColor="@color/black_gray"/>
+            android:textColor="@color/black"/>
+
         <TextView
-            android:id="@+id/tv_tel"
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_22"
@@ -33,7 +36,21 @@
             android:layout_below="@+id/tv_user_name"
             android:text="电话："
             android:textColor="@color/black_gray"
+            android:textSize="@dimen/margin_30"
             />
+
+        <TextView
+            android:id="@+id/tv_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_22"
+            android:layout_toRightOf="@+id/tv"
+            android:layout_below="@+id/tv_user_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/margin_30"
+
+            />
+
         <com.meishipintu.milai.views.CircleImageView
             android:id="@+id/civ_head_view"
             android:layout_width="70dp"
@@ -46,6 +63,7 @@
             android:src="@drawable/bg_mine_ava"
             app:border_width="2dp"
             app:border_color="@color/dark" />
+
         <TextView
             android:id="@+id/tv_motto"
             android:layout_width="match_parent"
@@ -56,6 +74,7 @@
             android:paddingLeft="@dimen/margin_10"
             android:layout_below="@+id/civ_head_view"
             android:textColor="@color/black_gray"/>
+
     </RelativeLayout>
 
     <!--中部按键栏-->
@@ -155,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/tv_42"
                 android:text="我的米"
-                android:textColor="@color/black_gray"
+                android:textColor="@color/black"
                 android:layout_centerVertical="true"/>
             <ImageView
                 android:layout_width="9dp"
@@ -183,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/tv_42"
                 android:text="消费记录"
-                android:textColor="@color/black_gray"
+                android:textColor="@color/black"
                 android:layout_centerVertical="true"/>
             <ImageView
                 android:layout_width="9dp"
@@ -210,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/tv_42"
                 android:text="告诉朋友"
-                android:textColor="@color/black_gray"
+                android:textColor="@color/black"
                 android:layout_centerVertical="true"/>
             <ImageView
                 android:layout_width="9dp"

@@ -185,7 +185,7 @@ public class MineFragment extends Fragment {
                     public void onNext(UserDetailInfo userDetailInfo) {
                         Log.i("test", "Mine:onGetResult" + userDetailInfo);
                         tvUserName.setText(userDetailInfo.getName());
-                        tvTel.setText("电话： " + userDetailInfo.getTel());
+                        tvTel.setText(userDetailInfo.getTel());
                         if (!StringUtils.isNullOrEmpty(userDetailInfo.getSignature())) {
                             tvMotto.setText(userDetailInfo.getSignature());
                         }
