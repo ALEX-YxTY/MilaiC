@@ -153,8 +153,10 @@ public class WelfareDetailActivity extends BaseActivity {
         tvTitle.setText(welfare.getTitle());
         Log.e("tvTitle", welfare.getTitle());
         tvActDesc.setText(welfare.getAct_desc());
+
         tvShopDesc.setText(Html.fromHtml(welfare.getShop_desc()));
         tvShopDesc.setMovementMethod(LinkMovementMethod.getInstance());
+
         //因为simpleDateFormat的线程问题，只能写在一句中
         tvTime.setText("活动时间：" + DateUtils.getTimePeriod(welfare.getStart_time(), welfare.getEnd_time()));
         if (welfare.getFlag() == 1 || welfare.getFlag() == 2) {

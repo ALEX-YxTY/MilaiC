@@ -59,7 +59,11 @@ public class PaymentActivity extends BaseActivity {
 
         picasso = Picasso.with(this);
         if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
-            picasso.load(ConstansUtils.URL + Cookies.getUserUrl()).into(headportrait);
+            if (Cookies.getUserUrl().startsWith("http")) {
+                picasso.load(Cookies.getUserUrl()).into(headportrait);
+            } else {
+                picasso.load(ConstansUtils.URL + Cookies.getUserUrl()).into(headportrait);
+            }
         }
         tvName.setText(Cookies.getUserName());
         tvPhone.setText(Cookies.getTel());

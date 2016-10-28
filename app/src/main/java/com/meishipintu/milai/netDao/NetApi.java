@@ -279,11 +279,15 @@ public class NetApi {
                             JSONObject json = (JSONObject) data.get(i);
                             Coupon coupon = new Coupon();
                             coupon.setCouponSn(json.getString("coupon_sn"));
+                            coupon.setMi_desc(json.getString("mi_desc"));
+                            coupon.setTitle(json.getString("title"));
+                            coupon.setDescription(json.getString("description"));
+                            coupon.setShare_img(json.getString("share_img"));
                             coupon.setName(json.getString("name"));
                             coupon.setValue(json.getDouble("value"));
                             coupon.setMinPrice(json.getDouble("min_price"));
                             coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
-                            coupon.setMi(json.getInt("is_mi") > 0);
+                            coupon.setMi(json.getInt("is_mi") ==1);
                             coupon.setCouponShow(json.getString("couponShow"));
                             if (finalStatus == 4) {
                                 coupon.setMachineCode(json.getString("ticket_number"));

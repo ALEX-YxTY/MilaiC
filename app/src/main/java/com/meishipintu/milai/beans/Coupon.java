@@ -12,14 +12,50 @@ public class Coupon implements Serializable{
     private String couponSn;
     private double minPrice;
     private String name;
-    private boolean isMi;
+    private boolean isMi;//1是米0不是米
     private String couponShow;
     private String machineCode;
+    private String mi_desc;//我的米来米劵解释
+    private String title;//
+    private String description;//
+    private String share_img;//
     private boolean isMachineCode;
     private boolean machineCodeUsed;
 
     public String getMachineCode() {
         return machineCode;
+    }
+
+    public String getMi_desc() {
+        return mi_desc;
+    }
+
+    public void setMi_desc(String mi_desc) {
+        this.mi_desc = mi_desc;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getShare_img() {
+        return share_img;
+    }
+
+    public void setShare_img(String share_img) {
+        this.share_img = share_img;
     }
 
     public void setMachineCode(String machineCode) {
@@ -109,7 +145,13 @@ public class Coupon implements Serializable{
                 ", name='" + name + '\'' +
                 ", isMi=" + isMi +
                 ", couponShow='" + couponShow + '\'' +
+                ", machineCode='" + machineCode + '\'' +
+                ", mi_desc='" + mi_desc + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", share_img='" + share_img + '\'' +
+                ", isMachineCode=" + isMachineCode +
+                ", machineCodeUsed=" + machineCodeUsed +
                 '}';
     }
-
 }

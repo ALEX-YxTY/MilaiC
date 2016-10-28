@@ -86,7 +86,7 @@
         <RelativeLayout
         android:id="@+id/rl_use_mi"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/touchable_background_white"
         android:layout_weight="1">
             <ImageView
@@ -109,7 +109,7 @@
         <RelativeLayout
             android:id="@+id/rl_use_coupon"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/touchable_background_white"
             android:layout_weight="1">
             <ImageView
@@ -132,7 +132,7 @@
         <RelativeLayout
             android:id="@+id/rl_notify"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/touchable_background_white"
             android:layout_weight="1">
             <ImageView

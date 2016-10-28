@@ -120,20 +120,38 @@ public class TaskFragment extends BaseFragment  {
     public RecyclerView.Adapter getAdapter() {
         adapter = new MyTaskAdapter(list, getActivity(), new MyTaskAdapter.TaskOnItemClickListener() {
             @Override
-            public void onItemClick(View view, String detail, String shareTitle) {
-                if (!StringUtils.isNullOrEmpty(detail) && detail.startsWith("http")) {
-                    if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
-                        Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-                        intent.putExtra("detail", detail);
-                        intent.putExtra("shareTitle", shareTitle);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
-                        RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
-                    }
-                } else {
-                    ToastUtils.show(getActivity(), "即将上线");
-                }
+            public void onItemClick(View view, Task task) {
+
+               if (StringUtils.isNullOrEmpty(task.getType_detail())) {
+
+                   ToastUtils.show(getActivity(), "即将上线");
+
+               } else {
+                   String url;
+                   switch (Integer.valueOf(task.getType())) {
+                       case 3:
+                           ToastUtils.show(getActivity(), task.getType_detail());
+                           break;
+                       case 1:
+                           if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+                                Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
+                                RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
+                               break;
+                           } else {
+                               url = task.getType_detail() + "/uid/" + Cookies.getUserId();
+                               Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+                               intent.putExtra("detail", url);
+                               startActivity(intent);
+                               break;
+                           }
+                       case 2:
+                           url = task.getType_detail();
+                           Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+                           intent.putExtra("detail", url);
+                           startActivity(intent);
+                           break;
+                   }
+               }
             }
         });
         return adapter;

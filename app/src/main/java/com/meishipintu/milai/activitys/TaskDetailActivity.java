@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
-import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.utils.Immersive;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -66,7 +65,7 @@ public class TaskDetailActivity extends BaseActivity {
                 }
             }
         });
-        wv.loadUrl(url + "/uid/" + Cookies.getUserId());
+        wv.loadUrl(url);
 //        wv.loadUrl(url + "/uid/112233");
     }
 

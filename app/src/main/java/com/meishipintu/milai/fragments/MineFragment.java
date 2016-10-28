@@ -190,7 +190,11 @@ public class MineFragment extends Fragment {
                             tvMotto.setText(userDetailInfo.getSignature());
                         }
                         if (!StringUtils.isNullOrEmpty(userDetailInfo.getUrl())) {
-                            picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(civHead);
+                            if (userDetailInfo.getUrl().startsWith("http")) {
+                                picasso.load(userDetailInfo.getUrl()).into(civHead);
+                            } else {
+                                picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(civHead);
+                            }
                         }
                     }
                 });

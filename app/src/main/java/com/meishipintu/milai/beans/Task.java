@@ -12,8 +12,8 @@ public class Task implements Serializable{
     private String start_time;
     private String end_time;
     private String sub_name;
-    private String type;
-    private String type_detail;
+    private String type;//1:正常活动、2：外部活动、3：空
+    private String type_detail;//空的时候里面字段为显示字段。其他时候是地址。
     private String logo;
 
     public String getStart_time() {

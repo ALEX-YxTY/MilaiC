@@ -297,7 +297,11 @@ public class UserInfoSettingActivity extends BaseActivity {
         tvTel.setText(userDetailInfo.getTel());
         Log.i("test", "userinfonow:" + userDetailInfo.toString());
         if (!StringUtils.isNullOrEmpty(userDetailInfo.getUrl())) {
-            picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(ivHeadView);
+            if (userDetailInfo.getUrl().startsWith("http")) {
+                picasso.load(userDetailInfo.getUrl()).into(ivHeadView);
+            } else {
+                picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(ivHeadView);
+            }
         }
         if (!StringUtils.isNullOrEmpty(userDetailInfo.getName())) {
             etNickName.setHint(userDetailInfo.getName());

@@ -52,7 +52,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, task.getType_detail(), "");
+                listener.onItemClick(v, task);
             }
         });
     }
@@ -64,7 +64,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder>{
 
 
     public interface TaskOnItemClickListener{
-        void onItemClick(View view, String detail, String shareTitle);
+        void onItemClick(View view, Task task);
     }
 }
 
