@@ -68,13 +68,13 @@ public class MyCouponAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.tvName.setText(coupon.getName());
             holder.tvTime.setText(coupon.getEndTime());
             if (coupon.isMi()) {
-                holder.tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
+                holder.tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
                 holder.tvYuan.setVisibility(View.GONE);
                 holder.tvMi.setVisibility(View.VISIBLE);
                 holder.tvCondition.setVisibility(View.GONE);
                 holder.tvNumber.setText(coupon.getMi_desc());
             } else {
-                holder.tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
+                holder.tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
                 holder.tvCondition.setVisibility(View.VISIBLE);
                 holder.tvCondition.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0)
                         + "元使用");

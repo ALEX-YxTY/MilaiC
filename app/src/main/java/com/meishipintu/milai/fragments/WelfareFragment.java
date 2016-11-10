@@ -37,8 +37,8 @@ import rx.schedulers.Schedulers;
  */
 public class WelfareFragment extends BaseFragment {
 
-    private static final int LOAD_SUCCESS = 1;
     private static final int COMPRESS_BITMAP_OK = 2;
+
     private static WelfareFragment instance;
     private Handler mhandler;
     private MyWelfareAdapter adapter;
@@ -89,35 +89,41 @@ public class WelfareFragment extends BaseFragment {
         return instance;
     }
 
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_task_welfare, container, false);
-//        ButterKnife.bind(this, view);
-//        //恢复显示时直接调用adapter
-//        if (list == null) {
-//            list = new ArrayList<>();
-//        }
-//        adapter = new MyWelfareAdapter(getContext(), list, new MyWelfareAdapter.OnWelfareItemClickListener() {
-//            @Override
-//            public void onItemClickListener(int position, Welfare welfare) {
-//                //获取屏幕截图
-//                View viewCache = getActivity().getWindow().getDecorView();  //  获取屏幕view
-//
-//                getWindowBitmap(viewCache);
-//
-//                intent = new Intent(getContext(), WelfareDetailActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("welfare", welfare);
-//                intent.putExtras(bundle);
-//            }
-//        });
-//        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-//        rv.setItemAnimator(new DefaultItemAnimator());
-//        rv.setAdapter(adapter);
-//        return view;
-//    }
+    //
+    //    @Nullable
+    //    @Override
+    //    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    //        View view = inflater.inflate(R.layout.fragment_task_welfare, container, false);
+    //        ButterKnife.bind(this, view);
+    //        //恢复显示时直接调用adapter
+    //        if (list == null) {
+    //            list = new ArrayList<>();
+    //        }
+    //        adapter = new MyWelfareAdapter(getContext(), list, new MyWelfareAdapter.OnWelfareItemClickListener() {
+    //            @Override
+    //            public void onItemClickListener(int position, Welfare welfare) {
+    //                //获取屏幕截图
+    //                View viewCache = getActivity().getWindow().getDecorView();  //  获取屏幕view
+    //
+    //                getWindowBitmap(viewCache);
+    //
+    //                intent = new Intent(getContext(), WelfareDetailActivity.class);
+    //                Bundle bundle = new Bundle();
+    //                bundle.putSerializable("welfare", welfare);
+    //                intent.putExtras(bundle);
+    //            }
+    //        });
+    //        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+    //        rv.setItemAnimator(new DefaultItemAnimator());
+    //        rv.setAdapter(adapter);
+    //        return view;
+    //    }
+
+    //重写父类方法，设置不同背景色
+    @Override
+    public void setBackGround(View view) {
+        view.setBackgroundColor(getResources().getColor(R.color.white));
+    }
 
     //获取屏幕截图方法
     private void getWindowBitmap(final View viewCache) {
@@ -171,14 +177,14 @@ public class WelfareFragment extends BaseFragment {
     public void getData(final Handler handler, final int parameter) {
         mhandler=handler;
         switch (parameter){
-            case 1:
-                currentPage=1;
-                break;
-            case 2:
+            case ConstansUtils.REFRESH:
+                if (!mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(true);
+                }
                 list.clear();
                 currentPage=1;
                 break;
-            case 3:
+            case ConstansUtils.LOAD_MORE:
                 currentPage++;
                 break;
         }
@@ -214,7 +220,7 @@ public class WelfareFragment extends BaseFragment {
                             }
                             else {
                                 list.addAll( welfares);
-                                handler.sendEmptyMessage(LOAD_SUCCESS);
+                                handler.sendEmptyMessage(ConstansUtils.LOAD_SUCCESS);
                                 mSwipeRefreshLayout.setRefreshing(false);
                                 myProgressBar.setVisibility(View.INVISIBLE);
                                 Log.e("testa", "调成功");

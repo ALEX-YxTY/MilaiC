@@ -32,4 +32,8 @@ public class ConstansUtils {
     public static final int COUPON_USABLE = 22;                 //未使用
     public static final int COUPON_USAD = 33;                   //已使用
 
+    public static final int LOAD_SUCCESS = 1;                  //登录成功
+    public static final int LOAD_MORE = 2;                     //加载更多
+    public static final int REFRESH = 1;                       //重新刷新数据
+
 }

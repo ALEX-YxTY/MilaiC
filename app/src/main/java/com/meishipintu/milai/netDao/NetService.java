@@ -1,5 +1,7 @@
 package com.meishipintu.milai.netDao;
 
+import android.support.annotation.Nullable;
+
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.BindTelInfo;
 import com.meishipintu.milai.beans.ExchangeRiceLog;
@@ -96,7 +98,7 @@ public interface NetService {
     //获取抢米页面信息
     @FormUrlEncoded
     @POST("merchant/Activity/mi_manage")
-    Observable<HttpResult<List<Task>>> getTaskHttp(@Field("cityid") int cityId, @Field("page") int page);
+    Observable<HttpResult<List<Task>>> getTaskHttp(@Field("cityid") int cityId, @Field("page") int page,@Nullable @Field ("uid") String uid);
 
     //获取通知页面信息
     @POST("merchant/Activity/getPushInfo")
@@ -107,6 +109,15 @@ public interface NetService {
     @POST("merchant/Activity/getUserRice")
     Observable<ResponseBody> getMiHttp(@Field("uid") String uid);
 
+    //点赞
+    @FormUrlEncoded
+    @POST("merchant/Activity/doLikes")
+    Observable<ResponseBody> getLikesHttp(@Field("uid") String uid,@Field("mid") String mid);
+
+    //点赞
+    @FormUrlEncoded
+    @POST("merchant/Activity/doForward")
+    Observable<ResponseBody> getdoForwardHttp(@Field("uid") String uid,@Field("mid") String mid,@Field("type") String type);
     //获取抢米记录
     @FormUrlEncoded
     @POST("merchant/Activity/getUserGrabRiceLog")

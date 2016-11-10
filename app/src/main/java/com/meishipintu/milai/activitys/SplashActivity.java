@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.Immersive;
 
-import cn.jpush.android.api.JPushInterface;
+import static com.meishipintu.milai.application.Cookies.getShowGuide;
 
 public class SplashActivity extends BaseActivity {
 
@@ -22,7 +21,8 @@ public class SplashActivity extends BaseActivity {
             switch (msg.what) {
                 case 0:
                     //TODO 测试
-                    if (false) {
+                    //判断是否是第一次登陆APP
+                    if (getShowGuide()) {
                         intent.setClass(SplashActivity.this, GuideActivity.class);
                         startActivity(intent);
                         SplashActivity.this.finish();

@@ -212,8 +212,54 @@ public class NetApi {
         });
     }
 
-    public Observable<List<Task>> getTask(int cityId, int page) {
-        return netService.getTaskHttp(cityId,page).map(new MyResultFunc<List<Task>>());
+    public Observable<List<Task>> getTask(int cityId, int page,String uid) {
+        return netService.getTaskHttp(cityId,page,uid).map(new MyResultFunc<List<Task>>());
+    }
+
+    public Observable<String> likes(String uid,String mid) {
+        return netService.getLikesHttp(uid,mid).map(new Func1<ResponseBody, String>() {
+            @Override
+            public String call(ResponseBody responseBody) {
+                try {
+                    JSONObject jsonObject = new JSONObject(responseBody.string());
+                    if (jsonObject.getInt("status") == 1) {
+                        Log.i("task",jsonObject+"");
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        return data.getString("likes");
+                    } else {
+                        throw new RuntimeException(jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return "";
+            }
+        });
+    }
+
+    public Observable<String> doForward(String uid,String mid,String type) {
+        return netService.getdoForwardHttp(uid,mid,type).map(new Func1<ResponseBody, String>() {
+            @Override
+            public String call(ResponseBody responseBody) {
+                try {
+                    JSONObject jsonObject = new JSONObject(responseBody.string());
+                    if (jsonObject.getInt("status") == 1) {
+                        Log.i("task",jsonObject+"");
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        return data.getString("forward");
+                    } else {
+                        throw new RuntimeException(jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return "";
+            }
+        });
     }
 
     public Observable<String> getMi(String uid) {

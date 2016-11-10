@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.MainActivity;
+import com.meishipintu.milai.utils.ConstansUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +32,8 @@ public abstract class BaseFragment extends Fragment {
 
     float downX = 0;    //按下时 的X坐标
     float downY = 0; //按下时 的Y坐标
-    private int a = 0;//防止 getData(handler,1)被重复调用
-    private static int b;//判断时候当前显示为最后一页
-    private static final int LOAD_SUCCESS = 1;
+
+    private boolean firstRefreshing = true;//避免viewPage切换过程中多次刷新
     public MainActivity.MyTouchListener myTouchListener;
     public LinearLayoutManager layoutManager;
 
@@ -60,7 +60,7 @@ public abstract class BaseFragment extends Fragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case LOAD_SUCCESS:
+                case ConstansUtils.LOAD_SUCCESS:
 
                     if (mSwipeRefreshLayout.isRefreshing()) {
                         mSwipeRefreshLayout.setRefreshing(false);
@@ -86,8 +86,10 @@ public abstract class BaseFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(fragment.getActivity()));
         BaseFragment.this.isVisible();
         rv.setAdapter(adapter);
-        if (++a <= 1)//避免在切换到minefragment再切回taskfragment时候重复调用
-            getData(handler, 1);
+        if (firstRefreshing) {
+            refreshType(ConstansUtils.REFRESH);
+            firstRefreshing = false;
+        }
 
 
 //----------------------分割线已下是设置下拉的---------------------------------
@@ -97,7 +99,7 @@ public abstract class BaseFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getData(handler, 2);
+                refreshType(ConstansUtils.REFRESH);
             }
         });
 //-----------------------------分割线已上是设置下拉的--------------------------------
@@ -106,15 +108,21 @@ public abstract class BaseFragment extends Fragment {
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
-
-
+        setBackGround(view);
         return view;
+    }
+
+    public void setBackGround(View view) {
+        view.setBackgroundColor(getResources().getColor(R.color.background_task));
+    }
+
+    public void refreshType(int type) {
+        getData(handler, type);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
 
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -178,12 +186,12 @@ public abstract class BaseFragment extends Fragment {
                                 if (fragment instanceof TaskFragment) {
                                     myProgressBar.setVisibility(View.VISIBLE);
                                     //fragment instanceof TaskFragment判断是谁调用的。
-                                    TaskFragment.getInstance().getData(handler, 3);
+                                    TaskFragment.getInstance().refreshType(ConstansUtils.LOAD_MORE);
                                     break;
 
                                 } else if (fragment instanceof WelfareFragment) {
                                     myProgressBar.setVisibility(View.VISIBLE);
-                                    WelfareFragment.getInstance().getData(handler, 3);
+                                    WelfareFragment.getInstance().refreshType(ConstansUtils.LOAD_MORE);
                                     break;
                                 }
                             }

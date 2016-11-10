@@ -127,7 +127,7 @@ public class ExchangeActivity extends BaseActivity{
                     @Override
                     public void onNext(String string) {
 
-                                        tvBalance.setText(string+"米");
+                       tvBalance.setText(string+"米");
 
                     }
 

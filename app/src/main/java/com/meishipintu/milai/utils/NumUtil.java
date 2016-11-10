@@ -17,4 +17,12 @@ public class NumUtil {
     public static String NumberFormatFromDouble(double d, int m) {
         return String.format("%." + m + "f", d);
     }
+
+    public static String NumberFormatAuto(double d) {
+        if (d % 1> 0.1d) {
+            return String.format("%.1f", d);
+        } else {
+            return String.format("%.0f", d);
+        }
+    }
 }

@@ -195,6 +195,7 @@ public class MineFragment extends Fragment {
                             } else {
                                 picasso.load(ConstansUtils.URL + userDetailInfo.getUrl()).into(civHead);
                             }
+                            Log.e("微信过来的",userDetailInfo.getUrl());
                         }
                     }
                 });

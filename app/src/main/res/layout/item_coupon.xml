@@ -16,8 +16,8 @@
 
              <RelativeLayout
                     android:id="@+id/circle"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="77dp"
+                    android:layout_height="77dp"
                     android:background="@drawable/shape_cicrle"
                  android:layout_alignParentTop="true">
 
@@ -33,14 +33,14 @@
                             android:layout_marginBottom="7dp"
                             android:layout_alignBottom="@+id/tv_money"
                             android:textColor="@color/red_orange"
-                            android:text="￥"/>
+                            android:text="¥"/>
                         <TextView
                             android:id="@+id/tv_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/tv_76"
+                            android:textSize="@dimen/tv_64"
                             android:textColor="@color/orange"
-                            android:text="10"/>
+                            android:text="100"/>
 
 
                         <TextView
@@ -68,7 +68,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/tv_46"
+                        android:textSize="@dimen/tv_45"
                         android:textColor="@color/black"
                         android:text="若客咖啡"/>
                     <TextView
@@ -76,9 +76,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_30"
-                        android:textSize="@dimen/tv_45"
+                        android:textSize="@dimen/tv_43"
                         android:layout_below="@+id/tv_name"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:text="8000 2312 5246"/>
 
             </RelativeLayout>

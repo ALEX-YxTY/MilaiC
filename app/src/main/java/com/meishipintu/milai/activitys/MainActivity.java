@@ -353,8 +353,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     adapter.notifyDataSetChanged();
                     //擦除缓存
                     Cookies.clearUserInfo();
-                    //还原登录参数
-//                    Cookies.setAutoLogin(true);
+                    //刷新首页的数据
+                    taskFragment.refreshType(ConstansUtils.REFRESH);
                     //解绑Jpush
                     JPushInterface.setAliasAndTags(this, "", null);
 
@@ -382,6 +382,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     //写入缓存
                     Cookies.clearUserInfo();
                     Cookies.setUserInfo(userInfo);
+                    //刷新首页的数据
+                    taskFragment.refreshType(ConstansUtils.REFRESH);
 //                    if (!savePassword) {
 //                        Cookies.setAutoLogin(false);
 //                    }

@@ -49,4 +49,8 @@ public class LoadingProgressDialog extends Dialog {
         animation.cancel();
         super.dismiss();
     }
+    @Override
+    public void show() {
+        super.show();
+    }
 }

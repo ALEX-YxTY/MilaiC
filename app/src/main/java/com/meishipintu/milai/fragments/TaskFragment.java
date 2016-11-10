@@ -32,7 +32,6 @@ import rx.schedulers.Schedulers;
  */
 public class TaskFragment extends BaseFragment  {
 
-    private static final int LOAD_SUCCESS = 1;
     private static TaskFragment instance;
     private MyTaskAdapter adapter;
     private ArrayList<Task> list=new ArrayList<>();
@@ -62,15 +61,14 @@ public class TaskFragment extends BaseFragment  {
     @Override
     public void getData(final Handler handler , final int parameter) {
         switch (parameter){
-            case 1:
-                currentPage=1;
-                mSwipeRefreshLayout.setRefreshing(true);
-                break;
-            case 2:
+            case ConstansUtils.REFRESH:
+                if (!mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(true);
+                }
                 list.clear();
                 currentPage=1;
                 break;
-            case 3:
+            case ConstansUtils.LOAD_MORE:
                 currentPage++;
                 break;
         }
@@ -80,7 +78,7 @@ public class TaskFragment extends BaseFragment  {
         }
             netApi = NetApi.getInstance();
             //首次加载只加载第一页
-            netApi.getTask(cityId, currentPage)
+            netApi.getTask(cityId, currentPage,Cookies.getUserId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<List<Task>>() {
@@ -106,7 +104,7 @@ public class TaskFragment extends BaseFragment  {
                             }
                             else {
                                 list.addAll(tasks);
-                                handler.sendEmptyMessage(LOAD_SUCCESS);
+                                handler.sendEmptyMessage(ConstansUtils.LOAD_SUCCESS);
                                 mSwipeRefreshLayout.setRefreshing(false);
                                 myProgressBar.setVisibility(View.INVISIBLE);
                                 Log.e("test3", list.size() + "");
@@ -153,6 +151,7 @@ public class TaskFragment extends BaseFragment  {
                    }
                }
             }
+
         });
         return adapter;
 

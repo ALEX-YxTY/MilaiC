@@ -15,6 +15,36 @@ public class Task implements Serializable{
     private String type;//1:正常活动、2：外部活动、3：空
     private String type_detail;//空的时候里面字段为显示字段。其他时候是地址。
     private String logo;
+    private String likes;
+    private String islikes;
+    private String forward;
+
+
+    public String getForward() {
+        return forward;
+    }
+
+    public void setForward(String forward) {
+        this.forward = forward;
+    }
+
+
+    public String getIslikes() {
+        return islikes;
+    }
+
+    public void setIslikes(String islikes) {
+        this.islikes = islikes;
+    }
+
+
+    public String getLisks() {
+        return likes;
+    }
+
+    public void setLisks(String lisks) {
+        this.likes = likes;
+    }
 
     public String getStart_time() {
         return start_time;
@@ -80,6 +110,7 @@ public class Task implements Serializable{
         this.logo = logo;
     }
 
+
     @Override
     public String toString() {
         return "Task{" +
@@ -91,6 +122,11 @@ public class Task implements Serializable{
                 ", type='" + type + '\'' +
                 ", type_detail='" + type_detail + '\'' +
                 ", logo='" + logo + '\'' +
+                ", likes='" + likes + '\'' +
+                ", islikes='" + islikes + '\'' +
+                ", forward='" + forward + '\'' +
                 '}';
     }
+
+
 }

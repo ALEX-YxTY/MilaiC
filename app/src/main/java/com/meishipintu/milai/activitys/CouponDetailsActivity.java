@@ -72,11 +72,11 @@ public class CouponDetailsActivity extends BaseActivity {
 //        }
         if (coupon.isMi()) {
             tv1.setVisibility(View.INVISIBLE);
-            tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 0));
+            tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
             tvValue.setVisibility(View.GONE);
             tv2.setVisibility(View.VISIBLE);
         } else {
-            tvMoney.setText(NumUtil.NumberFormatFromDouble(coupon.getValue(), 1));
+            tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
             tvValue.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0) + "元使用");
         }
         tvTime.setText("有效期至：" + coupon.getEndTime());

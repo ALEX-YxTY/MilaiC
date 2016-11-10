@@ -1,5 +1,8 @@
 package com.meishipintu.milai;
 
+import android.util.Log;
+import com.meishipintu.milai.utils.NumUtil;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,8 +13,8 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-
+        String result = NumUtil.NumberFormatAuto(100.0);
+        assertEquals(result, "33.3");
     }
 
 
