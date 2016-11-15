@@ -17,6 +17,7 @@ import com.meishipintu.milai.tasks.MyAsy;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.SystemUtils;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,7 +85,7 @@ public class SettingActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(SettingActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
                     }
 
                     @Override

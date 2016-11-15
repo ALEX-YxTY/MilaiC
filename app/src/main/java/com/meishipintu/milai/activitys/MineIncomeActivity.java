@@ -115,7 +115,8 @@ public class MineIncomeActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(MineIncomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(MineIncomeActivity.this,"获取米数失败，请检查网络");
                     }
 
                     @Override
@@ -146,7 +147,8 @@ public class MineIncomeActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
-                        ToastUtils.show(MineIncomeActivity.this, e.getMessage());
+                        Log.i("test", "error:"+e.getMessage());
+                        ToastUtils.show(MineIncomeActivity.this,"获取数据失败，请检查网络");
                     }
 
                     @Override

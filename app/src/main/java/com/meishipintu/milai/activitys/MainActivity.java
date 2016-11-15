@@ -25,6 +25,8 @@ import com.meishipintu.milai.adapter.MyFragmentPageAdapter;
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.application.RxBus;
 import com.meishipintu.milai.beans.AppInfo;
+import com.meishipintu.milai.beans.Uid;
+import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.fragments.LoginFragment;
 import com.meishipintu.milai.fragments.MineFragment;
@@ -59,7 +61,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private ArrayList<Fragment> fragmentList;
     private MyFragmentPageAdapter adapter;
     private NetApi netApi;
-    private long exitTime = 0l;         //标注点击返回按钮的时间，初始值为0
+    private long exitTime = 0L;         //标注点击返回按钮的时间，初始值为0
 
     public boolean isLogging = false;       //判断用户是否登录中
 
@@ -67,9 +69,9 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private WelfareFragment welfareFragment;
     private LoginFragment loginFragment;
     private MineFragment mineFragment;
-    private Subscription subscription;      //标注和消息总线的连接情况
+    private Subscription rxBusSubscription;      //标注和消息总线的连接情况
 
-    private String fileDir = "";
+    private String fileDir;
 
     @BindView(R.id.tv_location)
     TextView tvLocation;
@@ -167,7 +169,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         netApi = NetApi.getInstance();
         initUI();
         checkVersion();
-        subscription = RxBus.getDefault().getObservable(Integer.class).subscribe(new Action1<Integer>() {
+        rxBusSubscription = RxBus.getDefault().getObservable(Integer.class).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
                 if (integer == ConstansUtils.LOGIN_FIRST) {
@@ -180,9 +182,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private void initUI() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initFragment();
-        //设置初始情况
-        selectFragment(0);
+        checkLogging();
     }
 
     private void checkVersion() {
@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
                     }
 
                     @Override
@@ -256,16 +256,53 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         new MyAsy(MainActivity.this).execute(fileDir);
     }
 
+    //判断当前uid账户是否存在
+    private void checkLogging() {
+        if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+            //默认状态载入fragment
+            Cookies.clearUserInfo();
+            initFragment();
+        } else {
+            netApi.getUserDetailInfo(new Uid(Cookies.getUserId()))
+                    .observeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Subscriber<UserDetailInfo>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.i("test", "error:"+e.getMessage());
+                            //默认状态载入fragment
+                            Cookies.clearUserInfo();
+                            initFragment();
+                        }
+
+                        @Override
+                        public void onNext(UserDetailInfo userDetailInfo) {
+                            if (StringUtils.isNullOrEmpty(userDetailInfo.getTel())) {       //当前uid可用
+                                //判定此账号可登录，并修改当前状态
+                                isLogging = true;
+                            } else {
+                                //uid不可用，擦除储存信息
+                                Cookies.clearUserInfo();
+                            }
+                            initFragment();
+                        }
+                    });
+        }
+    }
+
     private void initFragment() {
         taskFragment = TaskFragment.getInstance();
         welfareFragment = WelfareFragment.getInstance();
         fragmentList = new ArrayList<>();
         fragmentList.add(taskFragment);
         fragmentList.add(welfareFragment);
-        if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+        if (isLogging) {
             mineFragment = MineFragment.getInstance();
             fragmentList.add(mineFragment);
-            isLogging = true;       //状态为正在登录
             //绑定Jpush
             JPushInterface.setAliasAndTags(this, Cookies.getUserId(), null);
         } else {
@@ -274,7 +311,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
         }
         //设置储存的离线fragment数量
-//        viewPager.setOffscreenPageLimit(3);
+        //viewPager.setOffscreenPageLimit(3);
         adapter = new MyFragmentPageAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -293,6 +330,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
             }
         });
+        //设置初始情况
+        selectFragment(0);
     }
 
     //选择页面并调整radioGroup
@@ -398,7 +437,20 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                 break;
             case ConstansUtils.SCAN_MAIN:
                 if (resultCode == RESULT_OK) {
-                    Toast.makeText(this, data.getStringExtra("dynamicId"),Toast.LENGTH_SHORT).show();
+                    String result = data.getStringExtra("dynamicId");
+                    if (!result.startsWith("http://a.milaipay.com/")) {
+                        Toast.makeText(this, data.getStringExtra("dynamicId"), Toast.LENGTH_SHORT).show();
+                    } else if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+                        Toast.makeText(this, R.string.login_please, Toast.LENGTH_SHORT).show();
+                        RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
+                        break;
+                    } else {
+                        String url = data.getStringExtra("dynamicId") + "/uid/" + Cookies.getUserId();
+                        Intent intent = new Intent(this, TaskDetailActivity.class);
+                        intent.putExtra("detail", url);
+                        startActivity(intent);
+                        break;
+                    }
                 }
                 break;
             case ConstansUtils.SELECT_CITY:
@@ -419,8 +471,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     //解除与总线的绑定
     @Override
     protected void onDestroy() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
+        if (!rxBusSubscription.isUnsubscribed()) {
+            rxBusSubscription.unsubscribe();
         }
         super.onDestroy();
     }

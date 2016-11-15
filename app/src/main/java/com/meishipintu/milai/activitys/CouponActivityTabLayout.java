@@ -3,6 +3,7 @@ package com.meishipintu.milai.activitys;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.meishipintu.milai.R;
@@ -113,7 +114,8 @@ public class CouponActivityTabLayout extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.show(CouponActivityTabLayout.this, e.getMessage());
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(CouponActivityTabLayout.this,"获取卡券信息失败，请检查网络");
                     }
 
                     @Override

@@ -178,13 +178,18 @@ public class MineFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(getActivity(),"获取信息失败，请检查网络");
                     }
 
                     @Override
                     public void onNext(UserDetailInfo userDetailInfo) {
                         Log.i("test", "Mine:onGetResult" + userDetailInfo);
-                        tvUserName.setText(userDetailInfo.getName());
+                        if (StringUtils.isNullOrEmpty(userDetailInfo.getName())) {
+                            tvUserName.setText(R.string.anonymous);
+                        } else {
+                            tvUserName.setText(userDetailInfo.getName());
+                        }
                         tvTel.setText(userDetailInfo.getTel());
                         if (!StringUtils.isNullOrEmpty(userDetailInfo.getSignature())) {
                             tvMotto.setText(userDetailInfo.getSignature());

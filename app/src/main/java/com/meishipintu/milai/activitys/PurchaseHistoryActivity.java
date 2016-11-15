@@ -15,6 +15,7 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.ConsumeRecordInfo;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.Immersive;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class PurchaseHistoryActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(PurchaseHistoryActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        ToastUtils.show(PurchaseHistoryActivity.this,"获取记录失败，请检查网络");
                     }
 
                     @Override

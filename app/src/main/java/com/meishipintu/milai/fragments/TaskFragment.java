@@ -88,7 +88,8 @@ public class TaskFragment extends BaseFragment  {
 
                         @Override
                         public void onError(Throwable e) {
-                            Toast.makeText(getActivity(), "无网络链接", Toast.LENGTH_SHORT).show();
+                            Log.i("test", e.getMessage());
+                            ToastUtils.show(getActivity(), "获取信息失败，请检查网络");
                             mSwipeRefreshLayout.setRefreshing(false);
                             myProgressBar.setVisibility(View.INVISIBLE);
                             currentPage=1;//页面初始化
@@ -111,7 +112,7 @@ public class TaskFragment extends BaseFragment  {
                             }
                         }
                     });
-        Log.e("test4", currentPage+"");
+        Log.i("test4", currentPage+"");
     }
 
     @Override

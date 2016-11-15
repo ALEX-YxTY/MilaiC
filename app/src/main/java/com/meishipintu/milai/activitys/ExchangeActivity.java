@@ -12,6 +12,7 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Exchange;
 import com.meishipintu.milai.beans.Welfare;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.utils.ToastUtils;
 import com.meishipintu.milai.views.CircleImageView;
 import com.meishipintu.milai.views.ExchangAlertdiaog;
 import com.squareup.picasso.Picasso;
@@ -94,14 +95,13 @@ public class ExchangeActivity extends BaseActivity{
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(ExchangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        ToastUtils.show(ExchangeActivity.this, "兑换错误，请检查网络");
                         exchangAlertdiaog.dismiss();
-
                     }
 
                     @Override
                     public void onNext(String s) {
-                        Log.e("Msgs", s);
+                        Log.i("Msgs", s);
                         Toast.makeText(ExchangeActivity.this, s, Toast.LENGTH_SHORT).show();
                         exchangAlertdiaog.dismiss();
                         Intent intent = new Intent(ExchangeActivity.this, CouponActivityTabLayout.class);
@@ -119,8 +119,8 @@ public class ExchangeActivity extends BaseActivity{
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Toast.makeText(ExchangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
+                        Toast.makeText(ExchangeActivity.this, "获取米数失败，请检查网络", Toast.LENGTH_SHORT).show();
 
                     }
 

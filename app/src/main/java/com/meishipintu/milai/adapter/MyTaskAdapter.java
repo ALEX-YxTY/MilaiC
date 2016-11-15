@@ -172,7 +172,8 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.show(context,e.getMessage());
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(context,"点赞失败，请检查网络");
                     }
 
                     @Override
@@ -196,7 +197,8 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.show(context, e.getMessage());
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(context,"转发失败，请检查网络");
                     }
 
                     @Override

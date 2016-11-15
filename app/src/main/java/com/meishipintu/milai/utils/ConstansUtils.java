@@ -6,7 +6,7 @@ package com.meishipintu.milai.utils;
 public class ConstansUtils {
     public final static String URL = "http://a.milaipay.com/";
 
-    public final static int TIME_DELAYED = 2000;        //splash页延时常量2s
+    public final static int TIME_DELAYED = 3000;        //splash页延时常量2s
 
     public static final int LOGGING_SITUATION = 2000;           //登入登出的RequestCode
     public static final int LOG_OUT = 2001;                     //退出登录ResultCode

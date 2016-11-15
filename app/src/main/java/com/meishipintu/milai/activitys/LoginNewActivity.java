@@ -16,6 +16,7 @@ import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.tasks.MyTimeDelayTask;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.StringUtils;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,13 +56,6 @@ public class LoginNewActivity extends BaseActivity {
                     Log.i("test", "loginInfo:mobile," + mobile + ",verify," + verify);
                     netApi.loginNew(mobile, verify).subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            //开始前启动等待dialog
-                            .doOnSubscribe(new Action0() {
-                                @Override
-                                public void call() {
-                                    //showDialog
-                                }
-                            })
                             .subscribeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Subscriber<UserInfo>() {
                                 @Override
@@ -73,8 +67,8 @@ public class LoginNewActivity extends BaseActivity {
                                 @Override
                                 public void onError(Throwable e) {
                                     //dismiss Dialog
-                                    Toast.makeText(LoginNewActivity.this, "登陆失败" + e.getMessage()
-                                            , Toast.LENGTH_SHORT).show();
+                                    Log.i("test", "error:"+e.getMessage());
+                                    Toast.makeText(LoginNewActivity.this, "登陆失败" , Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -107,8 +101,8 @@ public class LoginNewActivity extends BaseActivity {
 
                             @Override
                             public void onError(Throwable e) {
-                                Toast.makeText(LoginNewActivity.this, e.getMessage()
-                                        , Toast.LENGTH_SHORT).show();
+                                Log.i("test", "error:" + e.getMessage());
+                                ToastUtils.show(LoginNewActivity.this,"获取验证码失败，请检查网络");
                             }
 
                             @Override

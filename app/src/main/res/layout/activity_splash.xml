@@ -11,5 +11,16 @@
         android:layout_height="match_parent"
         android:src="@drawable/start_page" />
 
+    <Button
+        android:id="@+id/bt_skip"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:background="@color/skip_button"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:textSize="16dp"
+        android:visibility="invisible"
+        android:text="跳  过"/>
 
 </RelativeLayout>

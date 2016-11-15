@@ -262,6 +262,33 @@ public class NetApi {
         });
     }
 
+    public Observable<List<String>> startPicture() {
+        return netService.getstartpictureHttp().map(new Func1<ResponseBody, List<String>>() {
+            @Override
+            public  List<String> call(ResponseBody responseBody) {
+            try {
+                JSONObject jsonObject = new JSONObject(responseBody.string());
+                if (jsonObject.getInt("status") == 1) {
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    JSONArray img = data.getJSONArray("img");
+                    List<String> pictureList = new ArrayList<>();
+                    for (int i = 0; i < img.length(); i++) {
+                        pictureList.add(img.getString(i));
+
+                    }
+                    return pictureList;
+                } else {
+                    throw new RuntimeException(jsonObject.getString("msg"));
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+    });
+    }
+
     public Observable<String> getMi(String uid) {
         return netService.getMiHttp(uid).map(new Func1<ResponseBody, String>() {
             @Override
@@ -321,26 +348,29 @@ public class NetApi {
                     if (jsonObject.getInt("status") == 1) {
                         JSONArray data = jsonObject.getJSONArray("data");
                         List<Coupon> couponList = new ArrayList<>();
+                        JSONObject json;
                         for (int i = 0; i < data.length(); i++) {
-                            JSONObject json = (JSONObject) data.get(i);
-                            Coupon coupon = new Coupon();
-                            coupon.setCouponSn(json.getString("coupon_sn"));
-                            coupon.setMi_desc(json.getString("mi_desc"));
-                            coupon.setTitle(json.getString("title"));
-                            coupon.setDescription(json.getString("description"));
-                            coupon.setShare_img(json.getString("share_img"));
-                            coupon.setName(json.getString("name"));
-                            coupon.setValue(json.getDouble("value"));
-                            coupon.setMinPrice(json.getDouble("min_price"));
-                            coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
-                            coupon.setMi(json.getInt("is_mi") ==1);
-                            coupon.setCouponShow(json.getString("couponShow"));
-                            if (finalStatus == 4) {
-                                coupon.setMachineCode(json.getString("ticket_number"));
-                                coupon.setIsMachineCode(json.getInt("is_ticket") > 0);
-                                coupon.setMachineCodeUsed(json.getLong("use_time") > 0);
+                            json = (JSONObject) data.get(i);
+                            if (!(json.getDouble("value") < 0)) {
+                                Coupon coupon = new Coupon();
+                                coupon.setCouponSn(json.getString("coupon_sn"));
+                                coupon.setMi_desc(json.getString("mi_desc"));
+                                coupon.setTitle(json.getString("title"));
+                                coupon.setDescription(json.getString("description"));
+                                coupon.setShare_img(json.getString("share_img"));
+                                coupon.setName(json.getString("name"));
+                                coupon.setValue(json.getDouble("value"));
+                                coupon.setMinPrice(json.getDouble("min_price"));
+                                coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
+                                coupon.setMi(json.getInt("is_mi") == 1);
+                                coupon.setCouponShow(json.getString("couponShow"));
+                                if (finalStatus == 4) {
+                                    coupon.setMachineCode(json.getString("ticket_number"));
+                                    coupon.setIsMachineCode(json.getInt("is_ticket") > 0);
+                                    coupon.setMachineCodeUsed(json.getLong("use_time") > 0);
+                                }
+                                couponList.add(coupon);
                             }
-                            couponList.add(coupon);
                         }
                         return Observable.just(couponList);
                     } else {

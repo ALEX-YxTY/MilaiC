@@ -38,7 +38,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 
@@ -76,6 +75,7 @@ dependencies {
     compile files('libs/mta-sdk-1.6.2.jar')
     //jpush
     compile 'cn.jiguang:jpush:2.1.9'
+//    compile files('libs/jpush-android-2.0.6.jar')
     //修改全局字体的库
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     //roundImageView

@@ -118,6 +118,11 @@ public interface NetService {
     @FormUrlEncoded
     @POST("merchant/Activity/doForward")
     Observable<ResponseBody> getdoForwardHttp(@Field("uid") String uid,@Field("mid") String mid,@Field("type") String type);
+
+    //图片地址获取
+    @POST("merchant/Activity/getIndexImg")
+    Observable<ResponseBody> getstartpictureHttp();
+
     //获取抢米记录
     @FormUrlEncoded
     @POST("merchant/Activity/getUserGrabRiceLog")
@@ -153,7 +158,7 @@ public interface NetService {
     @POST("http://b.milaipay.com/test/getSystem")
     Observable<HttpResult<AppInfo>> getSystemLHttp(@Field("app_type") int app_type);
 
-    //    //上传头像
+    //上传头像
     @Multipart
     @POST("mspt/member_detail/adduserpic")
     Observable<ResponseBody> addHeaderPicHttp(@Part MultipartBody.Part file1, @Part("uid") RequestBody uid);

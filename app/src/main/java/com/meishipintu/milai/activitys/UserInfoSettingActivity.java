@@ -17,6 +17,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -88,6 +90,7 @@ public class UserInfoSettingActivity extends BaseActivity {
     @BindView(R.id.et_signature)
     EditText etSignature;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +120,8 @@ public class UserInfoSettingActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(UserInfoSettingActivity.this, "获取信息失败，请检查网络");
                     }
 
                     @Override
@@ -192,7 +196,8 @@ public class UserInfoSettingActivity extends BaseActivity {
 
                         @Override
                         public void onError(Throwable e) {
-                            Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.i("test", "error:" + e.getMessage());
+                            ToastUtils.show(UserInfoSettingActivity.this,"保存用户头像失败，请检查网络");
                         }
 
                         @Override
@@ -214,7 +219,8 @@ public class UserInfoSettingActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(UserInfoSettingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(UserInfoSettingActivity.this, "保存用户信息失败，请检查网络");
                     }
 
                     @Override

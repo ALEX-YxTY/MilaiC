@@ -21,6 +21,7 @@ import com.meishipintu.milai.adapter.MyWelfareAdapter;
 import com.meishipintu.milai.beans.Welfare;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.ConstansUtils;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -195,18 +196,15 @@ public class WelfareFragment extends BaseFragment {
                     .subscribe(new Subscriber<List<Welfare>>() {
                         @Override
                         public void onCompleted() {
-                            Log.e("-----------------------","掉成功了");
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.e("-----------------------","失败了");
-                            Toast.makeText(getActivity(), "无网络链接", Toast.LENGTH_SHORT).show();
                             mSwipeRefreshLayout.setRefreshing(false);
                             myProgressBar.setVisibility(View.INVISIBLE);
                             currentPage=1;//页面初始化
                             Log.i("test", "e:" + e.toString());
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            ToastUtils.show(getActivity(),"获取信息失败，请检查网络");
                         }
 
                         @Override

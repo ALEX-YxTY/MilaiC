@@ -14,6 +14,7 @@ import com.meishipintu.milai.adapter.MyNoticeAdapter;
 import com.meishipintu.milai.beans.Notice;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.Immersive;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,8 @@ public class NoticeActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(NoticeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("test", "error:" + e.getMessage());
+                        ToastUtils.show(NoticeActivity.this,"获取信息失败");
                     }
 
                     @Override
