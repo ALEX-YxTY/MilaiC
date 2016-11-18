@@ -21,6 +21,7 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.DateUtils;
+import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.utils.ToastUtils;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
@@ -132,7 +133,11 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             @Override
             public void onClick(View v) {
                 if ("3".equals(task.getType())) {
-                    ToastUtils.show(context, task.getType_detail());
+                    if (StringUtils.isNullOrEmpty(task.getType_detail())) {
+                        ToastUtils.show(context, "即将上线");
+                    } else {
+                        ToastUtils.show(context, task.getType_detail());
+                    }
                 } else {
                     final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
                             { SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,};

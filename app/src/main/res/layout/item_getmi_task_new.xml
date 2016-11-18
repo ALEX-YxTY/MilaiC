@@ -28,7 +28,8 @@
             android:textSize="@dimen/tv_50"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
         <TextView
             android:id="@id/tv_time"
             android:layout_width="wrap_content"
@@ -44,7 +45,8 @@
             android:layout_marginTop="10dp"
             android:textSize="@dimen/tv_45"
             android:text="曼度广场发券啦"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

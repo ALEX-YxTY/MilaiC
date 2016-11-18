@@ -13,13 +13,13 @@
 
     <Button
         android:id="@+id/bt_skip"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
         android:background="@color/skip_button"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
-        android:textSize="16dp"
+        android:textSize="@dimen/tv_39"
         android:visibility="invisible"
         android:text="跳  过"/>
 

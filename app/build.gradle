@@ -9,8 +9,8 @@ android {
         applicationId "com.meishipintu.milai"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 16
-        versionName "1.2.2"
+        versionCode 17
+        versionName "1.2.3"
 
         ndk() {
             moduleName "jnitest"

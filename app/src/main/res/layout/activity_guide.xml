@@ -10,5 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
+    
+    <Button
+        android:id="@+id/bt_over"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_158"
+        android:background="@color/transparent"/>
 
 </RelativeLayout>

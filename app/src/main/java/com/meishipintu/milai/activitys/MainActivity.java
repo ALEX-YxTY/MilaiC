@@ -53,6 +53,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
+import static com.meishipintu.milai.application.Cookies.getShowGuide;
+
 public class MainActivity extends BaseActivity implements WelfareFragment.LoggingStatusListener{
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
@@ -177,6 +179,11 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                 }
             }
         });
+        //TODO 测试
+        //判断是否是第一次登陆APP
+        if (Cookies.getShowGuide()) {
+            startActivity(new Intent(MainActivity.this, GuideActivity.class));
+        }
     }
 
     private void initUI() {
@@ -264,8 +271,8 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
             initFragment();
         } else {
             netApi.getUserDetailInfo(new Uid(Cookies.getUserId()))
-                    .observeOn(Schedulers.io())
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<UserDetailInfo>() {
                         @Override
                         public void onCompleted() {
@@ -281,7 +288,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
                         @Override
                         public void onNext(UserDetailInfo userDetailInfo) {
-                            if (StringUtils.isNullOrEmpty(userDetailInfo.getTel())) {       //当前uid可用
+                            if (!StringUtils.isNullOrEmpty(userDetailInfo.getTel())) {       //当前uid可用
                                 //判定此账号可登录，并修改当前状态
                                 isLogging = true;
                             } else {

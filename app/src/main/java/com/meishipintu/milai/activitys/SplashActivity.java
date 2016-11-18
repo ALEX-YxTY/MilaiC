@@ -37,15 +37,8 @@ public class SplashActivity extends BaseActivity {
             Intent intent = new Intent();
             switch (msg.what) {
                 case 0:
-                    //TODO 测试
-                    //判断是否是第一次登陆APP
-                    if (getShowGuide()) {
-                        intent.setClass(SplashActivity.this, GuideActivity.class);
-                    } else {
-                        intent.setClass(SplashActivity.this, MainActivity.class);
-                    }
+                    intent.setClass(SplashActivity.this, MainActivity.class);
                     break;
-
             }
             startActivity(intent);
             SplashActivity.this.finish();

@@ -1,10 +1,9 @@
 package com.meishipintu.milai.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.jpush.android.api.JPushInterface;
 
 public class GuideActivity extends BaseActivity {
 
@@ -29,11 +27,10 @@ public class GuideActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Immersive.immersive(0x99999999,0,this);
+        Immersive.immersive(0x99999999, 0, this);
         setContentView(R.layout.activity_guide);
         ButterKnife.bind(this);
         initViewPager();
-
     }
 
     private void initViewPager() {
@@ -44,14 +41,7 @@ public class GuideActivity extends BaseActivity {
         view3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 测试用
-//                if (Cookies.getCityId() == 0) {
-//                    startActivity(new Intent(GuideActivity.this, CitySelectActivity.class));
-//                }else{
-                    startActivity(new Intent(GuideActivity.this, MainActivity.class));
-//                }
-                GuideActivity.this.finish();
-                Cookies.setShowGuide(false);
+                startMainActivity();
             }
         });
         viewlist.add(view1);
@@ -91,4 +81,16 @@ public class GuideActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startMainActivity();
+    }
+
+    public void startMainActivity() {
+        if (Cookies.getCityId() == 0) {
+            startActivity(new Intent(GuideActivity.this, CitySelectActivity.class));
+        }
+        GuideActivity.this.finish();
+        Cookies.setShowGuide(false);
+    }
 }

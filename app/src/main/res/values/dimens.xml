@@ -78,6 +78,9 @@
     <dimen name="margin_142">63dp</dimen>
     <dimen name="margin_148">65dp</dimen>
     <dimen name="margin_154">69dp</dimen>
+    <dimen name="margin_158">70dp</dimen>
+    <dimen name="margin_162">71dp</dimen>
+    <dimen name="margin_168">72dp</dimen>
     <dimen name="margin_184">82dp</dimen>
     <dimen name="margin_200">89dp</dimen>
     <dimen name="margin_216">96dp</dimen>
