@@ -58,10 +58,10 @@ public class CouponActivityTabLayout extends BaseActivity {
         initFragment();
         //初始化tabLayout和viewpager
         initTabAndViewPager();
-        //初始化显示选项卡
-        if(getIntent().getBooleanExtra("showCanUse", false)){
-            vPager.setCurrentItem(1);               //显示未使用
-        }
+//        //初始化显示选项卡
+//        if(getIntent().getBooleanExtra("showCanUse", false)){
+//            vPager.setCurrentItem(0);               //显示未使用
+//        }
     }
 
     private void initFragment() {
@@ -82,11 +82,11 @@ public class CouponActivityTabLayout extends BaseActivity {
         bundleUsed.putInt("coupon_type", ConstansUtils.COUPON_USAD);
         usedCouponFragment.setArguments(bundleUsed);
 
-        machinecouponsFragment =new CouponFragment();
-        Bundle bundleMachine = new Bundle();
-        bundleMachine.putSerializable("data", (Serializable) machinecoupons);
-        bundleMachine.putInt("coupon_type", ConstansUtils.COUPON_MACHINE_CODE);
-        machinecouponsFragment.setArguments(bundleMachine);
+//        machinecouponsFragment =new CouponFragment();
+//        Bundle bundleMachine = new Bundle();
+//        bundleMachine.putSerializable("data", (Serializable) machinecoupons);
+//        bundleMachine.putInt("coupon_type", ConstansUtils.COUPON_MACHINE_CODE);
+//        machinecouponsFragment.setArguments(bundleMachine);
     }
 
     private void initTabAndViewPager() {
@@ -94,7 +94,7 @@ public class CouponActivityTabLayout extends BaseActivity {
 
         CouponFragmentAdapter pagerAdapter = new CouponFragmentAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment( machinecouponsFragment,"提货码");
+//        pagerAdapter.addFragment( machinecouponsFragment,"提货码");
         pagerAdapter.addFragment(couponFragment,"未使用");
         pagerAdapter.addFragment(usedCouponFragment,"已使用");
 
@@ -120,6 +120,8 @@ public class CouponActivityTabLayout extends BaseActivity {
 
                     @Override
                     public void onNext(List<Coupon> coupons) {
+                        Log.i("UID------------", Cookies.getUserId()+"");
+
                         switch (page){
                             case 0:    //机器码
                                 machinecoupons.clear();
@@ -162,7 +164,7 @@ public class CouponActivityTabLayout extends BaseActivity {
     protected void onResume() {
         super.onResume();
         //初始化数据
-        getData(0);
+        getData(1);
     }
 }
 

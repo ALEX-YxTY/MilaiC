@@ -131,7 +131,7 @@ public class UserInfoSettingActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.iv_back, R.id.save, R.id.iv_head_view})
+    @OnClick({R.id.iv_back, R.id.save, R.id.rl_head_view})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -140,7 +140,7 @@ public class UserInfoSettingActivity extends BaseActivity {
             case R.id.save:
                 onSave();
                 break;
-            case R.id.iv_head_view:
+            case R.id.rl_head_view:
                 tempFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "avator.jpg");
                 new ChooseHeadViewDialog(this, R.style.CustomDialog, new ChooseHeadViewDialog.OnItemClickListener() {
                     @Override

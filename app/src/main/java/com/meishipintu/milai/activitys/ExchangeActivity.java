@@ -76,15 +76,16 @@ public class ExchangeActivity extends BaseActivity{
                         View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                gatdata();
-
+                                gatExchange();
                             }
                         });
                 exchangAlertdiaog.show();
                 break;
         }
     }
-    public void gatdata() {
+
+    //执行兑换操作
+    public void gatExchange() {
         netApi.getExchange(id, Tel).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {
@@ -109,6 +110,7 @@ public class ExchangeActivity extends BaseActivity{
                     }
                 });
     }
+
     public void getMi() {
         netApi.getMi(Cookies.getUserId()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -126,9 +128,7 @@ public class ExchangeActivity extends BaseActivity{
 
                     @Override
                     public void onNext(String string) {
-
                        tvBalance.setText(string+"米");
-
                     }
 
                 });

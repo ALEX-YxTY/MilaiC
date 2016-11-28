@@ -192,6 +192,7 @@ public class WelfareDetailActivity extends BaseActivity {
                 break;
             case R.id.change:
                 if (isLogging) {
+                    //  flag标注跳转位置 1-机器码，2-未使用，3-兑换页, 4-不跳转
                     if (welfare.getFlag() != 4) {
                         Intent intent;
                         if (welfare.getFlag() == 3) {
@@ -202,9 +203,9 @@ public class WelfareDetailActivity extends BaseActivity {
                             intent.putExtras(bundle);
                         } else {
                             intent = new Intent(WelfareDetailActivity.this, CouponActivityTabLayout.class);
-                            if (welfare.getFlag() == 2) {
-                                intent.putExtra("showCanUse", true);
-                            }
+//                            if (welfare.getFlag() == 2) {
+//                                intent.putExtra("showCanUse", true);
+//                            }
                         }
                         startActivity(intent);
                         finish();

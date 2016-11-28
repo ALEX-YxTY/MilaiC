@@ -46,7 +46,7 @@ public interface NetService {
 
     //手机号登录新接口
     @FormUrlEncoded
-    @POST("merchant/Activity/mobile_login")
+    @POST("mspt/Activity/mobile_login")
     Observable<HttpResult<UserInfo>> loginHttpNew(@Field("mobile") String mobile, @Field("verify") String verify);
 
     //用类型传参时要添加头部信息
@@ -87,62 +87,62 @@ public interface NetService {
 
     //获取Welfare页面信息
     @FormUrlEncoded
-    @POST("merchant/Activity/index ")
+    @POST("mspt/Activity/index ")
     Observable<HttpResult<List<Welfare>>> getWelfareHttp(@Field("cityid") int cityId, @Field("page") int page);
 
     //获取Exchange页面信息
     @FormUrlEncoded
-    @POST("/merchant/Activity/exchange_goods")
+    @POST("mspt/Activity/exchange_goods")
     Observable<ResponseBody> getExchangeHttp(@Field("activity_id") String activity_id, @Field("mobile") String mobile);
 
     //获取抢米页面信息
     @FormUrlEncoded
-    @POST("merchant/Activity/mi_manage")
+    @POST("mspt/Activity/mi_manage")
     Observable<HttpResult<List<Task>>> getTaskHttp(@Field("cityid") int cityId, @Field("page") int page,@Nullable @Field ("uid") String uid);
 
     //获取通知页面信息
-    @POST("merchant/Activity/getPushInfo")
+    @POST("mspt/Activity/getPushInfo")
     Observable<HttpResult<List<Notice>>> getNoticeHttp();
 
     //获取我的米
     @FormUrlEncoded
-    @POST("merchant/Activity/getUserRice")
+    @POST("mspt/Activity/getUserRice")
     Observable<ResponseBody> getMiHttp(@Field("uid") String uid);
 
     //点赞
     @FormUrlEncoded
-    @POST("merchant/Activity/doLikes")
+    @POST("mspt/Activity/doLikes")
     Observable<ResponseBody> getLikesHttp(@Field("uid") String uid,@Field("mid") String mid);
 
     //点赞
     @FormUrlEncoded
-    @POST("merchant/Activity/doForward")
+    @POST("mspt/Activity/doForward")
     Observable<ResponseBody> getdoForwardHttp(@Field("uid") String uid,@Field("mid") String mid,@Field("type") String type);
 
     //图片地址获取
-    @POST("merchant/Activity/getIndexImg")
+    @POST("mspt/Activity/getIndexImg")
     Observable<ResponseBody> getstartpictureHttp();
 
     //获取抢米记录
     @FormUrlEncoded
-    @POST("merchant/Activity/getUserGrabRiceLog")
+    @POST("mspt/Activity/getUserGrabRiceLog")
     Observable<HttpResult<List<GrabRiceLog>>> getMiLogHttp(@Field("uid") String uid);
 
     //获取兑换米记录
     @FormUrlEncoded
-    @POST("merchant/Activity/exchange_log")
+    @POST("mspt/Activity/exchange_log")
     Observable<HttpResult<List<ExchangeRiceLog>>> getExchangeLogHttp(@Field("uid") String uid);
 
     //获取消费记录
     @FormUrlEncoded
-    @POST("merchant/Activity/getShoppingRecords ")
+    @POST("mspt/Activity/getShoppingRecords ")
     Observable<ResponseBody> getConsumeLogHttp(@Field("uid") String uid
             , @Field("page") int page);
 
 
     //获取我的商户券
     @FormUrlEncoded
-    @POST("merchant/Activity/getUserCoupon")
+    @POST("mspt/Activity/getUserCoupon")
     Observable<ResponseBody> getCouponHttp(@Field("uid") String uid, @Field("status") int status);
 
 

@@ -53,8 +53,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-import static com.meishipintu.milai.application.Cookies.getShowGuide;
-
 public class MainActivity extends BaseActivity implements WelfareFragment.LoggingStatusListener{
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;

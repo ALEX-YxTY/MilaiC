@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 17
-        versionName "1.2.3"
+        versionName "1.2.4"
 
         ndk() {
             moduleName "jnitest"
@@ -21,6 +21,11 @@ android {
                 JPUSH_APPKEY : "2c928c993cc6eb1e9e639927", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default"
         ]
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 
     sourceSets {
