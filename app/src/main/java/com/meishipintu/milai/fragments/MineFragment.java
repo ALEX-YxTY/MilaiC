@@ -16,7 +16,6 @@ import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.CouponActivityTabLayout;
 import com.meishipintu.milai.activitys.MineIncomeActivity;
 import com.meishipintu.milai.activitys.NoticeActivity;
-import com.meishipintu.milai.activitys.PaymentActivity;
 import com.meishipintu.milai.activitys.UserInfoSettingActivity;
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Uid;
@@ -61,9 +60,9 @@ public class MineFragment extends Fragment {
     @OnClick(R.id.rl_use_mi)
     void useMi() {
         //用米支付页面
-        Intent intent = new Intent(getContext(), PaymentActivity.class);
-        startActivity(intent);
-//        ToastUtils.show(getActivity(), "此功能暂未开放，敬请期待");
+//        Intent intent = new Intent(getContext(), PaymentActivity.class);
+//        startActivity(intent);
+        ToastUtils.show(getActivity(), "此功能暂未开放，敬请期待");
     }
 
     @OnClick(R.id.rl_use_coupon)
