@@ -83,14 +83,14 @@ public class MyAsy extends AsyncTask<String,String,File> {
                 byte[] buf = new byte[1024];
                 conn.connect();
                 //计算文件长度
-                final int lenghtOfFile = conn.getContentLength();//改
+                final int lenghtOfFile = conn.getContentLength();
                 Activity activity = (Activity) context;
-                activity.runOnUiThread(new Runnable() {//改
-                    @Override//改
-                    public void run() {//改
-                        mProgressDialog.setMax(lenghtOfFile);//改
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressDialog.setMax(lenghtOfFile);
                     }
-                });//改
+                });
                 float all=lenghtOfFile/1024/1024.0f;
 
                 double count = 0;

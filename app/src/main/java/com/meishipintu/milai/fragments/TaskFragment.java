@@ -120,6 +120,7 @@ public class TaskFragment extends BaseFragment  {
         adapter = new MyTaskAdapter(list, getActivity(), new MyTaskAdapter.TaskOnItemClickListener() {
             @Override
             public void onItemClick(View view, Task task) {
+                Log.i("test", "task is :" + task.toString());
 
                if (StringUtils.isNullOrEmpty(task.getType_detail())) {
 
@@ -137,7 +138,7 @@ public class TaskFragment extends BaseFragment  {
                                 RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
                                break;
                            } else {
-                               url = task.getType_detail() + "/uid/" + Cookies.getUserId();
+                               url = task.getRedbag_url() + "/uid/" + Cookies.getUserId();
                                Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                                intent.putExtra("detail", url);
                                startActivity(intent);

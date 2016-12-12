@@ -18,7 +18,23 @@ public class Task implements Serializable{
     private String likes;
     private String islikes;
     private String forward;
+    private String redbag_url;//红包地址
 
+    public String getLikes() {
+        return likes;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+
+    public String getRedbag_url() {
+        return redbag_url;
+    }
+
+    public void setRedbag_url(String redbag_url) {
+        this.redbag_url = redbag_url;
+    }
 
     public String getForward() {
         return forward;
@@ -125,6 +141,7 @@ public class Task implements Serializable{
                 ", likes='" + likes + '\'' +
                 ", islikes='" + islikes + '\'' +
                 ", forward='" + forward + '\'' +
+                ", redbag_url='" + redbag_url + '\'' +
                 '}';
     }
 
