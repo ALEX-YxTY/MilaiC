@@ -169,6 +169,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         netApi = NetApi.getInstance();
         initUI();
         checkVersion();
+        //注册时间监听RxBus
         rxBusSubscription = RxBus.getDefault().getObservable(Integer.class).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {

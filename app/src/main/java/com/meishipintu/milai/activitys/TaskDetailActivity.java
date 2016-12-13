@@ -11,7 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
+import com.meishipintu.milai.application.Cookies;
+import com.meishipintu.milai.application.RxBus;
+import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.Immersive;
+import com.meishipintu.milai.utils.StringUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -24,7 +28,7 @@ import butterknife.OnClick;
 public class TaskDetailActivity extends BaseActivity {
 
     String shareTitle;
-    String url;
+    String mainUrl;
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -40,7 +44,7 @@ public class TaskDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_task_detail);
         ButterKnife.bind(this);
         tvTitle.setText(R.string.app_name);
-        url = getIntent().getStringExtra("detail");
+        mainUrl = getIntent().getStringExtra("detail");
         shareTitle = getIntent().getStringExtra("shareTitle");
     }
 
@@ -48,11 +52,29 @@ public class TaskDetailActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         //webview在onResume中初始化以解决onPause中webview被暂定的问题
-        initWebView(url);
+        initWebView(mainUrl);
     }
 
     private void initWebView(String url) {
-        wv.setWebViewClient(new WebViewClient());
+        wv.setWebViewClient(new WebViewClient(){
+            //在webview中点击url链接时会调用此接口
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("http://a.milaipay.com")) {
+                    if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+                        Toast.makeText(TaskDetailActivity.this, R.string.login_please, Toast.LENGTH_SHORT).show();
+                        RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
+                        TaskDetailActivity.this.finish();
+                    } else {
+                        url = url + "/uid/" + Cookies.getUserId();
+                        view.loadUrl(url);
+                    }
+                    return true;
+                } else {
+                    return super.shouldOverrideUrlLoading(view, url);
+                }
+            }
+        });
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -66,7 +88,7 @@ public class TaskDetailActivity extends BaseActivity {
             }
         });
         wv.loadUrl(url);
-//        wv.loadUrl(url + "/uid/112233");
+//        wv.loadUrl(mainUrl + "/uid/112233");
     }
 
 
@@ -95,7 +117,7 @@ public class TaskDetailActivity extends BaseActivity {
                         .withText("惊喜好米抢不停")
 //                        .withText(shareTitle)
                         .withTitle("第二十三届中国国际广告节")
-                        .withTargetUrl(url)
+                        .withTargetUrl(mainUrl)
                         .withMedia(new UMImage(this, BitmapFactory.decodeResource(getResources()
                                 , R.drawable.icon_small)))
                         .setListenerList(umShareListener)
