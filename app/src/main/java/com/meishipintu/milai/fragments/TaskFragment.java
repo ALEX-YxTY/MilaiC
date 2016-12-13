@@ -136,19 +136,31 @@ public class TaskFragment extends BaseFragment  {
                            if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
                                 Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
                                 RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
-                               break;
                            } else {
-                               url = task.getRedbag_url() + "/uid/" + Cookies.getUserId();
+                               url = task.getType_detail() + "/uid/" + Cookies.getUserId();
                                Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                                intent.putExtra("detail", url);
                                startActivity(intent);
-                               break;
                            }
+                           break;
                        case 2:
-                           url = task.getType_detail();
-                           Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-                           intent.putExtra("detail", url);
-                           startActivity(intent);
+                           if (StringUtils.isNullOrEmpty(task.getRedbag_url())) {
+                               url = task.getType_detail();
+                               Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+                               intent.putExtra("detail", url);
+                               startActivity(intent);
+                           } else {
+                               //有redbag_url地址的，为公司内部活动但未软文链接，此时按type=1判断,url使用redbag-url
+                               if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+                                   Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
+                                   RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
+                               } else {
+                                   url = task.getRedbag_url() + "/uid/" + Cookies.getUserId();
+                                   Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
+                                   intent.putExtra("detail", url);
+                                   startActivity(intent);
+                               }
+                           }
                            break;
                    }
                }
