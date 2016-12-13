@@ -3,6 +3,7 @@ package com.meishipintu.milai.activitys;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
+
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.application.RxBus;
 import com.meishipintu.milai.utils.ConstansUtils;
+
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.StringUtils;
 import com.umeng.socialize.ShareAction;
@@ -125,6 +128,42 @@ public class TaskDetailActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (wv.canGoBack()) {
+            wv.goBack();
+        } else {
+            super.onBackPressed();
+        }
+
+    }
+
+    //---修改时间20161202
+//---HTML页面通过JS可以调用此方法获取用户UID
+//---JS写法<input type="button"  value="点击调用java代码" onclick="window.android.startInterface()" />
+    @JavascriptInterface
+    public void startInterface(){
+        //调用JS方法
+        wv.loadUrl("javascript:javacalljswith('"+ Cookies.getUserId()+"')");
+    }
+//--JS写法<input type="button"  value="点击调用java代码并传递参数" onclick="window.android.startFunction('参数')"  />
+
+    @JavascriptInterface
+    public void startFunction(final String text){
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+//text保存HTML返回来的参数
+
+            }
+        });
+
+    }
+
+//---修改时间20161202
+
 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
