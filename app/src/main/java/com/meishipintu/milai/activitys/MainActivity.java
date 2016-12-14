@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
     private Subscription rxBusSubscription;      //标注和消息总线的连接情况
 
     private String fileDir;
+    private String versionName;
 
     @BindView(R.id.tv_location)
     TextView tvLocation;
@@ -218,6 +219,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
                                         fileDir = appInfo.getApp_file();
+                                        versionName = appInfo.getApp_version_name();
                                         downloadWapper();
                                     }
                                 });
@@ -259,7 +261,7 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
                     .Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_STORAGE_PERMISSION);
             return;
         }
-        new MyAsy(MainActivity.this).execute(fileDir);
+        new MyAsy(MainActivity.this,versionName).execute(fileDir);
     }
 
     //判断当前uid账户是否存在

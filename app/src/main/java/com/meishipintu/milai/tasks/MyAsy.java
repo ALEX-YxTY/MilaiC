@@ -23,10 +23,12 @@ import java.net.URL;
  */
 public class MyAsy extends AsyncTask<String,String,File> {
 
+    private String versionCode;
     private Context context;
     private ProgressDialog mProgressDialog;
 
-    public MyAsy(Context context) {
+    public MyAsy(Context context,String versionCode) {
+        this.versionCode = versionCode;
         this.context = context;
         this.mProgressDialog = new ProgressDialog(context);
     }
@@ -67,11 +69,11 @@ public class MyAsy extends AsyncTask<String,String,File> {
     @Override
     protected File doInBackground(String... params) {
         final String fileName = "milai_c.apk";
-        File tmpFile = new File("/sdcard/milai");
+        File tmpFile = new File("/sdcard/milai/"+versionCode);
         if (!tmpFile.exists()) {
             tmpFile.mkdir();
         }
-        final File file = new File("/sdcard/milai/" + fileName);
+        final File file = new File("/sdcard/milai/"+versionCode+"/" + fileName);
 
         try {
             URL url = new URL(params[0]);

@@ -1,6 +1,9 @@
 package com.meishipintu.milai.fragments;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,10 +23,13 @@ import android.widget.ProgressBar;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.MainActivity;
+import com.meishipintu.milai.receiver.AutoReceiver;
 import com.meishipintu.milai.utils.ConstansUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
@@ -90,6 +96,8 @@ public abstract class BaseFragment extends Fragment {
             refreshType(ConstansUtils.REFRESH);
             firstRefreshing = false;
         }
+
+
 
 
 //----------------------分割线已下是设置下拉的---------------------------------

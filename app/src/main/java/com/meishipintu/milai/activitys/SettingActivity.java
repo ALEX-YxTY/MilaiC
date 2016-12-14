@@ -101,7 +101,7 @@ public class SettingActivity extends BaseActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        new MyAsy(SettingActivity.this).execute(appInfo.getApp_file());
+                                        new MyAsy(SettingActivity.this,appInfo.getApp_version_name()).execute(appInfo.getApp_file());
                                     }
                                 });
                                 builder.setNegativeButton("稍后再说", null);
