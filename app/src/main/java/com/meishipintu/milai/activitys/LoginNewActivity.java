@@ -60,13 +60,13 @@ public class LoginNewActivity extends BaseActivity {
                             .subscribe(new Subscriber<UserInfo>() {
                                 @Override
                                 public void onCompleted() {
-                                    //dismiss Dialog
+                                    task.cancel(true);
                                     LoginNewActivity.this.finish();
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    //dismiss Dialog
+                                    task.cancel(true);
                                     Log.i("test", "error:"+e.getMessage());
                                     Toast.makeText(LoginNewActivity.this, "登陆失败" , Toast.LENGTH_SHORT).show();
                                 }
@@ -79,7 +79,6 @@ public class LoginNewActivity extends BaseActivity {
                                     bundle.putSerializable("user_info", userInfo);
                                     intent.putExtras(bundle);
                                     setResult(ConstansUtils.LOG_IN, intent);
-                                    onBackPressed();
                                 }
                             });
                 }
@@ -133,6 +132,12 @@ public class LoginNewActivity extends BaseActivity {
             etTel.setText(Cookies.getUserName());
         }
         netApi = NetApi.getInstance();
+    }
+
+    @Override
+    protected void onPause() {
+        task.cancel(true);
+        super.onPause();
     }
 
     @Override

@@ -41,7 +41,7 @@
     <string name="second_password_input_different">两次密码输入不一致</string>
     <string name="login_other">其他方式登录</string>
 
-
+    <string name="skip">跳 过</string>
     <string name="back">返回</string>
     <string name="old_recomenr">往期推荐</string>
     <string name="share">分享</string>

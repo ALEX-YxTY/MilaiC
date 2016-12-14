@@ -9,8 +9,8 @@ android {
         applicationId "com.meishipintu.milai"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 18
-        versionName "1.2.4"
+        versionCode 20
+        versionName "1.2.6"
 
         ndk() {
             moduleName "jnitest"
@@ -72,6 +72,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.+'
     //高德定位
     compile files('libs/AMap_Location_V2.8.0_20160811.jar')
+    //友盟
     compile files('libs/umeng_social_sdk.jar')
     compile files('libs/SocialSDK_WeiXin_1.jar')
     compile files('libs/SocialSDK_WeiXin_2.jar')

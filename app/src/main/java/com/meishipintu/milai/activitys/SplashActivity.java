@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.tasks.MyTimeDelaySplashTask;
+import com.meishipintu.milai.tasks.MyTimeDelayTask;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.Immersive;
 import com.meishipintu.milai.utils.ToastUtils;
@@ -29,6 +31,7 @@ import static com.meishipintu.milai.application.Cookies.getShowGuide;
 public class SplashActivity extends BaseActivity {
     private NetApi netApi;
     private List<String> pictureList=new ArrayList<>();
+    private MyTimeDelaySplashTask task;
 
     private Handler handler = new Handler(){
         @Override
@@ -60,11 +63,15 @@ public class SplashActivity extends BaseActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (task != null && !task.isCancelled()) {
+                    task.cancel(true);
+                }
                 handler.removeMessages(0);
                 handler.sendEmptyMessage(0);
             }
         });
     }
+
     private void startpicture(final ImageView imageView, final Button skip, final Picasso picasso){
         netApi.startPicture()
                 .subscribeOn(Schedulers.io())
@@ -86,9 +93,16 @@ public class SplashActivity extends BaseActivity {
                         picasso.load( pictureList.get(0)).into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {
-                                skip.setVisibility(View.VISIBLE);
-                                handler.removeMessages(0);      //清除之前的
-                                handler.sendEmptyMessageDelayed(0, ConstansUtils.TIME_DELAYED);
+                                handler.removeMessages(0);      //清除之前的默认计时
+//                                handler.sendEmptyMessageDelayed(0, ConstansUtils.TIME_DELAYED);
+                                //启动一个倒计时任务
+                                task = new MyTimeDelaySplashTask(3, skip, SplashActivity.this, new MyTimeDelaySplashTask.DoOnPostExecute() {
+                                    @Override
+                                    public void doOnPostExecute() {
+                                        handler.sendEmptyMessage(0);
+                                    }
+                                });
+                                task.execute();
                             }
 
                             @Override
