@@ -8,13 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.application.Cookies;
@@ -46,14 +43,17 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     private List<Task> list;
     private Context context;
-    private TaskOnItemClickListener listener;
+    private TaskOnItemClickListener itemClickListener;
+    private TaskAlarmListener alarmlistener;
     private Picasso picasso;
     private NetApi netApi;
 
-    public MyTaskAdapter(List<Task> list, Context context, TaskOnItemClickListener listener) {
+    public MyTaskAdapter(List<Task> list, Context context, TaskAlarmListener alarmlistener
+            , TaskOnItemClickListener listener) {
         this.list = list;
         this.context = context;
-        this.listener = listener;
+        this.itemClickListener = listener;
+        this.alarmlistener = alarmlistener;
         picasso = Picasso.with(context);
         netApi = NetApi.getInstance();
     }
@@ -61,12 +61,16 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_getmi_task_new, parent, false);
+
         return new TaskViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(final TaskViewHolder holder, final int position) {
         final Task task = list.get(position);
+        final String[] data = {task.getId(), task.getTitle(), task.getStart_time()};//AutoReceiver通知栏参数
+
         Log.i("tasktoString", task.toString());
         holder.tvTitle.setText(task.getTitle());
         holder.tvTime.setText(DateUtils.getTimePeriodWithSlash(task.getStart_time()
@@ -74,22 +78,19 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         holder.tvLikes.setText(task.getLisks());
         holder.tvForward.setText(task.getForward());
         holder.tvContent.setText(task.getSub_name());
-        if ("1".equals(task.getIslikes())) {
-            holder.iblikes.setImageResource(R.drawable.isdolikes);
-//            holder.btDianzan.setClickable(false);
-        } else {
-            holder.iblikes.setImageResource(R.drawable.dolikes);
-//            holder.btDianzan.setClickable(true);
-        }
+        holder.iblikes.setImageResource("1".equals(task.getIslikes())?R.drawable.isdolikes:R.drawable.dolikes);
+        holder.ivAlarm.setImageResource(Cookies
+                .getAlarm(task.getId()) ?R.drawable.btn_remind_sel_xhdp:R.drawable.btn_remind_nor_xhdp);
         picasso.load("http://" + task.getLogo()).placeholder(R.drawable.bg_erweima).into(holder.ivTask);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, task);
+                itemClickListener.onItemClick(v, task);
             }
         });
 
-        holder.iblikes.setOnClickListener(new View.OnClickListener() {
+        holder.btDianzan.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -100,10 +101,34 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     holder.iblikes.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_scale));
                     doLikes(holder, task);
                     Log.i("task01", task + "");
-//                holder.iblikes.setClickable(false);
                 }
             }
         });
+
+        //外部广告不需要提醒
+        if ("3".equals(task.getType())) {
+            holder.ivAlarm.setVisibility(View.GONE);
+        } else {
+            //定时提醒功能
+            holder.ivAlarm.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (Cookies.getAlarm(task.getId())) {
+                        //关闭定时提醒
+                        Cookies.setAlarm(task.getId(), false);
+                        alarmlistener.cancelAlarm(task);
+                        holder.ivAlarm.setImageResource(R.drawable.btn_remind_nor_xhdp);
+                    } else {
+                        //开启定时提醒
+                        holder.ivAlarm.setImageResource(R.drawable.btn_remind_sel_xhdp);
+                        holder.ivAlarm.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_scale));
+                        Cookies.setAlarm(task.getId(), true, task.getTitle());
+                        alarmlistener.setAlarm(task);
+                    }
+                }
+            });
+        }
 
         final UMShareListener umShareListener = new UMShareListener() {
             @Override
@@ -114,17 +139,17 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     type = "2";//朋友圈
                 }
                 doForward(holder, task, type);
-                ToastUtils.show(context,"分享成功");
+                ToastUtils.show(context, "分享成功");
             }
 
             @Override
             public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                ToastUtils.show(context,"分享失败");
+                ToastUtils.show(context, "分享失败");
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
-                ToastUtils.show(context,"取消分享");
+                ToastUtils.show(context, "取消分享");
             }
         };
 
@@ -140,7 +165,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     }
                 } else {
                     final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
-                            { SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,};
+                            {SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,};
                     new ShareAction((Activity) context).setDisplayList(displaylist)
                             .withTitle("下载关注米来")
                             .withText("支付级数字营销传播者")
@@ -152,17 +177,11 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 }
             }
         });
-
-
     }
 
     @Override
     public int getItemCount() {
         return list.size();
-    }
-
-    public interface TaskOnItemClickListener {
-        void onItemClick(View view, Task task);
     }
 
     //点赞调用
@@ -178,7 +197,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     @Override
                     public void onError(Throwable e) {
                         Log.i("test", "error:" + e.getMessage());
-                        ToastUtils.show(context,"点赞失败，请检查网络");
+                        ToastUtils.show(context, "点赞失败，请检查网络");
                     }
 
                     @Override
@@ -203,7 +222,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     @Override
                     public void onError(Throwable e) {
                         Log.i("test", "error:" + e.getMessage());
-                        ToastUtils.show(context,"转发失败，请检查网络");
+                        ToastUtils.show(context, "转发失败，请检查网络");
                     }
 
                     @Override
@@ -214,6 +233,19 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 });
 
     }
+
+    //task点击接口
+    public interface TaskOnItemClickListener {
+        void onItemClick(View view, Task task);
+    }
+
+    //闹铃提醒点击接口
+    public interface TaskAlarmListener {
+        void setAlarm(Task task);
+
+        void cancelAlarm(Task task);
+    }
+
 }
 
 class TaskViewHolder extends RecyclerView.ViewHolder {
@@ -234,6 +266,12 @@ class TaskViewHolder extends RecyclerView.ViewHolder {
     TextView tvLikes;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.iv_alarm)
+    ImageView ivAlarm;
+    @BindView(R.id.bt_dianzan)
+    RelativeLayout btDianzan;
+    @BindView(R.id.bt_zf)
+    RelativeLayout btZf;
 
     public TaskViewHolder(View itemView) {
         super(itemView);

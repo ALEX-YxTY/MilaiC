@@ -251,7 +251,19 @@
                 <category android:name="com.meishipintu.milai" />
             </intent-filter>
         </receiver>
+        <!-- 推送通知栏 -->
+        <receiver
+            android:name=".receiver.AutoReceiver"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="AutoReceiver" />
+            </intent-filter>
+        </receiver>
 
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

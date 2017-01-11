@@ -8,9 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.meishipintu.milai.R;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,24 +50,21 @@ public class MyAsy extends AsyncTask<String,String,File> {
     @Override
     protected void onPostExecute(final File file) {
         mProgressDialog.dismiss();
-        AlertDialog.Builder builder=new AlertDialog.Builder(context,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).setTitle("下载完成").setMessage("新版本已经下载完成，是否安装？")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        if (file != null) {
+            AlertDialog.Builder builder=new AlertDialog.Builder(context,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).setTitle("下载完成").setMessage("新版本已经下载完成，是否安装？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                        installApk(context,file);
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.show();
-
-        //MyApplication.getInstance().exit();
-
+                            installApk(context,file);
+                            dialog.dismiss();
+                        }
+                    }).setNegativeButton("取消", null);
+            builder.show();
+        }else {
+            Toast.makeText(context, R.string.network_error, Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     @Override
@@ -74,74 +75,64 @@ public class MyAsy extends AsyncTask<String,String,File> {
             tmpFile.mkdir();
         }
         final File file = new File("/sdcard/milai/"+versionCode+"/" + fileName);
-
+        URL url;
         try {
-            URL url = new URL(params[0]);
-            try {
-                HttpURLConnection conn = (HttpURLConnection) url
-                        .openConnection();
+            url = new URL(params[0]);
+            HttpURLConnection conn = (HttpURLConnection) url
+                    .openConnection();
+            conn.connect();
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                Log.i("test", "网络错误，service return：" + conn.getResponseCode()
+                        + ";" + conn.getResponseMessage());
+            } else {
                 InputStream is = conn.getInputStream();
                 FileOutputStream fos = new FileOutputStream(file);
-                byte[] buf = new byte[1024];
-                conn.connect();
-                //计算文件长度
-                final int lenghtOfFile = conn.getContentLength();
-                Activity activity = (Activity) context;
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProgressDialog.setMax(lenghtOfFile);
-                    }
-                });
-                float all=lenghtOfFile/1024/1024.0f;
-
-                double count = 0;
-                int len1 = 0;
-                int  total = 0;//改
-                if (conn.getResponseCode() >= 400) {
-                    Toast.makeText(context, "连接超时", Toast.LENGTH_SHORT)
-                            .show();
-                } else {
-                    while (count <= 100) {
-                        if (is != null) {
-                            int numRead = is.read(buf);
-                            if (numRead <= 0) {
-                                break;
-                            } else {
-                                len1 = numRead;
-                                total += len1; //total = total + len1
-//                                    publishProgress("" + total*100/lenghtOfFile);
-                                mProgressDialog.setProgress(total);//改
-                                float percent=total/1024/1024.0f;
-                                mProgressDialog.setProgressNumberFormat(String.format("%.2fMb/%.2fMb",percent,all));
-//                                    publishProgress("" + (int)((total*100)/lenghtOfFile));
-                                fos.write(buf, 0, numRead);
-                            }
-
-                        } else {
-                            break;
+                try {
+                    is = conn.getInputStream();
+                    fos = new FileOutputStream(file);
+                    byte[] buf = new byte[1024];
+                    //计算文件长度
+                    final int lenghtOfFile = conn.getContentLength();
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressDialog.setMax(lenghtOfFile);
                         }
-
+                    });
+                    float all = lenghtOfFile / 1024 / 1024.0f;
+                    int numRead;
+                    int total = 0;
+                    while ((numRead = is.read(buf)) != -1) {
+                        total += numRead;
+                        mProgressDialog.setProgress(total);
+                        float percent = total / 1024 / 1024.0f;
+                        mProgressDialog.setProgressNumberFormat(String.format("%.2fMb/%.2fMb", percent, all));
+                        fos.write(buf, 0, numRead);
                     }
+
+                    return file;
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    fos.flush();
+                    fos.close();
+                    is.close();
                 }
-
-                conn.disconnect();
-                fos.close();
-                is.close();
-            } catch (IOException e) {
-
-                e.printStackTrace();
             }
-        } catch (MalformedURLException e) {
-
+            conn.disconnect();
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return file;
+        return null;
     }
 
     protected void onProgressUpdate(String... progress) {
-
         mProgressDialog.setProgress(Integer.parseInt(progress[0]));
     }
 

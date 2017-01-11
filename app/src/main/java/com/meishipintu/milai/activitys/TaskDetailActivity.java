@@ -94,7 +94,6 @@ public class TaskDetailActivity extends BaseActivity {
 //        wv.loadUrl(mainUrl + "/uid/112233");
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -140,14 +139,14 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
     //---修改时间20161202
-//---HTML页面通过JS可以调用此方法获取用户UID
-//---JS写法<input type="button"  value="点击调用java代码" onclick="window.android.startInterface()" />
+    //---HTML页面通过JS可以调用此方法获取用户UID
+    //---JS写法<input type="button"  value="点击调用java代码" onclick="window.android.startInterface()" />
     @JavascriptInterface
     public void startInterface(){
         //调用JS方法
         wv.loadUrl("javascript:javacalljswith('"+ Cookies.getUserId()+"')");
     }
-//--JS写法<input type="button"  value="点击调用java代码并传递参数" onclick="window.android.startFunction('参数')"  />
+    //--JS写法<input type="button"  value="点击调用java代码并传递参数" onclick="window.android.startFunction('参数')"  />
 
     @JavascriptInterface
     public void startFunction(final String text){
@@ -162,7 +161,7 @@ public class TaskDetailActivity extends BaseActivity {
 
     }
 
-//---修改时间20161202
+    //---修改时间20161202
 
 
     private UMShareListener umShareListener = new UMShareListener() {

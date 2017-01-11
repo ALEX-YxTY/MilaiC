@@ -325,7 +325,6 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -335,7 +334,6 @@ public class MainActivity extends BaseActivity implements WelfareFragment.Loggin
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
         //设置初始情况

@@ -31,7 +31,7 @@ public class Cookies {
         editor.commit();
     }
 
-    public static int getCityId(){
+    public static int getCityId() {
         return MilaiApplication.getSingleton().getSp().getInt("city_id", 0);
     }
 
@@ -56,13 +56,14 @@ public class Cookies {
         editor.putString("url", url);
         editor.commit();
     }
+
     public static void setUserInfo(UserInfo userInfo) {
         SharedPreferences.Editor editor = MilaiApplication.getSingleton().getSp().edit();
         editor.putString("user_id", userInfo.getUid());
         editor.putString("user_name", userInfo.getName());
-        editor.putInt("sex",userInfo.getSex());
-        editor.putString("tel",userInfo.getTel());
-        editor.putInt("from",userInfo.getFrom());
+        editor.putInt("sex", userInfo.getSex());
+        editor.putString("tel", userInfo.getTel());
+        editor.putInt("from", userInfo.getFrom());
         editor.putString("url", userInfo.getUrl());
         editor.commit();
     }
@@ -110,9 +111,10 @@ public class Cookies {
         SharedPreferences sp = MilaiApplication.getSingleton().getSp();
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("auto_login", b);
+        editor.apply();
     }
 
-    public static boolean getAutoLogin(){
+    public static boolean getAutoLogin() {
         SharedPreferences sp = MilaiApplication.getSingleton().getSp();
         return sp.getBoolean("auto_login", true);
     }
@@ -121,4 +123,28 @@ public class Cookies {
         SharedPreferences sp = MilaiApplication.getSingleton().getSp();
         return sp.getString("user_name", "");
     }
+
+    public static void setAlarm(String id, boolean Alarm) {
+        SharedPreferences.Editor editor = MilaiApplication.getSingleton().getSp().edit();
+        editor.putBoolean("task"+id, Alarm);
+        editor.apply();
+    }
+
+    public static void setAlarm(String id, boolean alarm, String title) {
+        SharedPreferences.Editor editor = MilaiApplication.getSingleton().getSp().edit();
+        editor.putBoolean("task"+id, alarm);
+        editor.putString("task" + id + "title", title);
+        editor.apply();
+    }
+
+    public static boolean getAlarm(String id) {
+        SharedPreferences sp = MilaiApplication.getSingleton().getSp();
+        return sp.getBoolean("task"+id, false);
+    }
+
+    public static String getTaskTitle(int id) {
+        SharedPreferences sp = MilaiApplication.getSingleton().getSp();
+        return sp.getString("task" + id + "title", "");
+    }
+
 }

@@ -477,7 +477,7 @@
     <string name="nearby">附近</string>
 
     <!-- 错误信息 -->
-    <string name="network_error">网络错误</string>
+    <string name="network_error">网络错误，情稍后重试</string>
 
     <!-- 首页 -->
     <string name="qr_scan">扫一扫</string>

@@ -108,7 +108,19 @@
                     android:layout_marginBottom="@dimen/margin_26"
                     />
             </RelativeLayout>
-
+            <ImageView
+                android:id="@+id/iv_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_remind_nor_xhdp"
+                android:background="@color/white"
+                android:layout_marginRight="@dimen/margin_46"
+                android:paddingBottom="@dimen/margin_30"
+                android:paddingRight="@dimen/margin_30"
+                android:paddingLeft="@dimen/margin_30"
+                android:paddingTop="@dimen/margin_15"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/bt_zf"/>
 
         </RelativeLayout>
 

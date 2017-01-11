@@ -1,9 +1,6 @@
 package com.meishipintu.milai.fragments;
 
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,13 +20,11 @@ import android.widget.ProgressBar;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.activitys.MainActivity;
-import com.meishipintu.milai.receiver.AutoReceiver;
+import com.meishipintu.milai.service.MyService;
 import com.meishipintu.milai.utils.ConstansUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by Administrator on 2016/9/6 0006.
@@ -42,7 +37,6 @@ public abstract class BaseFragment extends Fragment {
     private boolean firstRefreshing = true;//避免viewPage切换过程中多次刷新
     public MainActivity.MyTouchListener myTouchListener;
     public LinearLayoutManager layoutManager;
-
 
     @BindView(R.id.rv)
     RecyclerView rv;
@@ -79,7 +73,6 @@ public abstract class BaseFragment extends Fragment {
         }
     };
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
@@ -97,9 +90,6 @@ public abstract class BaseFragment extends Fragment {
             firstRefreshing = false;
         }
 
-
-
-
 //----------------------分割线已下是设置下拉的---------------------------------
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
                 android.R.color.holo_red_light, android.R.color.holo_orange_light,
@@ -111,7 +101,6 @@ public abstract class BaseFragment extends Fragment {
             }
         });
 //-----------------------------分割线已上是设置下拉的--------------------------------
-
 
         mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
@@ -215,6 +204,17 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    //这个方法是代替fragment.isVisible()的。判断当前显示页面的
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()) {
+            gesture();//开启上拉触发
+        } else {
+            if(myTouchListener!=null&&getActivity()!=null) {
+                ((MainActivity) getActivity()).unRegisterMyTouchListener(myTouchListener);//关闭上拉触发
+            }
+        }
+    }
 
 }
 

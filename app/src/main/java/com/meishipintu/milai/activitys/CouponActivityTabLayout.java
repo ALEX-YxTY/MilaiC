@@ -81,7 +81,6 @@ public class CouponActivityTabLayout extends BaseActivity {
         bundleUsed.putSerializable("data", (Serializable) usedcoupons);
         bundleUsed.putInt("coupon_type", ConstansUtils.COUPON_USAD);
         usedCouponFragment.setArguments(bundleUsed);
-
 //        machinecouponsFragment =new CouponFragment();
 //        Bundle bundleMachine = new Bundle();
 //        bundleMachine.putSerializable("data", (Serializable) machinecoupons);
@@ -90,8 +89,6 @@ public class CouponActivityTabLayout extends BaseActivity {
     }
 
     private void initTabAndViewPager() {
-        vPager = (ViewPager) findViewById(R.id.viewPager);
-
         CouponFragmentAdapter pagerAdapter = new CouponFragmentAdapter(getSupportFragmentManager());
 
 //        pagerAdapter.addFragment( machinecouponsFragment,"提货码");

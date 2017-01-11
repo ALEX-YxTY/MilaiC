@@ -59,27 +59,6 @@ public class WelfareFragment extends BaseFragment {
         listener = (LoggingStatusListener) context;
     }
 
-    //    private Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case LOAD_SUCCESS:
-//                    adapter.notifyDataSetChanged();
-//                    break;
-//                case COMPRESS_BITMAP_OK:
-//                    if (intent != null) {
-////                        intent.putExtra("bitmap", afterCompress);
-//                        intent.putExtra("bitmap", bitmapByte);
-//                        startActivity(intent);
-//                    }
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    };
-
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -89,36 +68,6 @@ public class WelfareFragment extends BaseFragment {
         }
         return instance;
     }
-
-    //
-    //    @Nullable
-    //    @Override
-    //    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    //        View view = inflater.inflate(R.layout.fragment_task_welfare, container, false);
-    //        ButterKnife.bind(this, view);
-    //        //恢复显示时直接调用adapter
-    //        if (list == null) {
-    //            list = new ArrayList<>();
-    //        }
-    //        adapter = new MyWelfareAdapter(getContext(), list, new MyWelfareAdapter.OnWelfareItemClickListener() {
-    //            @Override
-    //            public void onItemClickListener(int position, Welfare welfare) {
-    //                //获取屏幕截图
-    //                View viewCache = getActivity().getWindow().getDecorView();  //  获取屏幕view
-    //
-    //                getWindowBitmap(viewCache);
-    //
-    //                intent = new Intent(getContext(), WelfareDetailActivity.class);
-    //                Bundle bundle = new Bundle();
-    //                bundle.putSerializable("welfare", welfare);
-    //                intent.putExtras(bundle);
-    //            }
-    //        });
-    //        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-    //        rv.setItemAnimator(new DefaultItemAnimator());
-    //        rv.setAdapter(adapter);
-    //        return view;
-    //    }
 
     //重写父类方法，设置不同背景色
     @Override
@@ -255,18 +204,6 @@ public class WelfareFragment extends BaseFragment {
 
     public interface LoggingStatusListener {
         boolean getLoggingStatus();
-    }
-    public void setUserVisibleHint(boolean isVisibleToUser) {//这个方法是代替fragment.isVisible()的。判断当前显示页面的
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if(getUserVisibleHint()) {
-            gesture();//开启上拉触发
-        } else {
-            if(myTouchListener!=null&&getActivity()!=null) {
-                ((MainActivity) this.getActivity()).unRegisterMyTouchListener(myTouchListener);
-            }
-
-        }
     }
 
 }

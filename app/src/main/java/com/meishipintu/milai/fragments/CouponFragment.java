@@ -28,7 +28,6 @@ public class CouponFragment extends Fragment {
     private List<Coupon> coupon;
     private int coupon_type;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  LayoutInflater.from(getActivity()).inflate(R.layout.activity_coupon, null);
@@ -47,7 +46,6 @@ public class CouponFragment extends Fragment {
         rv.setItemAnimator(new DefaultItemAnimator());
         adapter = new MyCouponAdapter(getActivity(), coupon, coupon_type);
         rv.setAdapter(adapter);
-
     }
 
     public void refreshUI() {

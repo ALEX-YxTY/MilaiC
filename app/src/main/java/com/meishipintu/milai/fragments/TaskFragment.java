@@ -1,21 +1,29 @@
 package com.meishipintu.milai.fragments;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
-import com.meishipintu.milai.activitys.MainActivity;
 import com.meishipintu.milai.activitys.TaskDetailActivity;
 import com.meishipintu.milai.adapter.MyTaskAdapter;
 import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.application.RxBus;
 import com.meishipintu.milai.beans.Task;
 import com.meishipintu.milai.netDao.NetApi;
+import com.meishipintu.milai.service.MyService;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.StringUtils;
 import com.meishipintu.milai.utils.ToastUtils;
@@ -30,7 +38,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Administrator on 2016/8/8.
  */
-public class TaskFragment extends BaseFragment  {
+public class TaskFragment extends BaseFragment implements MyTaskAdapter.TaskAlarmListener {
 
     private static TaskFragment instance;
     private MyTaskAdapter adapter;
@@ -38,8 +46,15 @@ public class TaskFragment extends BaseFragment  {
     private NetApi netApi;
     private int currentPage = 1;
     private int cityId = 385;     //nj
+    private MyService mService;
 
-
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container
+            , @Nullable Bundle savedInstanceState) {
+        startAndBindService();
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     public static TaskFragment getInstance() {
         if (instance == null) {
@@ -117,7 +132,7 @@ public class TaskFragment extends BaseFragment  {
 
     @Override
     public RecyclerView.Adapter getAdapter() {
-        adapter = new MyTaskAdapter(list, getActivity(), new MyTaskAdapter.TaskOnItemClickListener() {
+        adapter = new MyTaskAdapter(list,getActivity(),this, new MyTaskAdapter.TaskOnItemClickListener() {
             @Override
             public void onItemClick(View view, Task task) {
                 Log.i("test", "task is :" + task.toString());
@@ -144,23 +159,10 @@ public class TaskFragment extends BaseFragment  {
                            }
                            break;
                        case 2:
-//                           if (StringUtils.isNullOrEmpty(task.getRedbag_url())) {
                                url = task.getType_detail();
                                Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                                intent.putExtra("detail", url);
                                startActivity(intent);
-//                           } else {
-//                               //有redbag_url地址的，为公司内部活动但未软文链接，此时按type=1判断,url使用redbag-url
-//                               if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
-//                                   Toast.makeText(getActivity(), R.string.login_please, Toast.LENGTH_SHORT).show();
-//                                   RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
-//                               } else {
-//                                   url = task.getRedbag_url() + "/uid/" + Cookies.getUserId();
-//                                   Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-//                                   intent.putExtra("detail", url);
-//                                   startActivity(intent);
-//                               }
-//                           }
                            break;
                    }
                }
@@ -171,16 +173,40 @@ public class TaskFragment extends BaseFragment  {
 
     }
 
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+    public void startAndBindService(){
+        //启动并绑定servie
+        Intent serviceIntent = new Intent(getActivity(), MyService.class);
+        getActivity().startService(serviceIntent);
+        getActivity().bindService(serviceIntent, connection, Context. BIND_AUTO_CREATE);
+    }
 
-        if(getUserVisibleHint()) {
-            gesture();//开启上拉触发
-        } else {
-            if(myTouchListener!=null&&getActivity()!=null) {
-                ((MainActivity) getActivity()).unRegisterMyTouchListener(myTouchListener);//关闭上拉触发
-            }
+    ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.i("test", "service disconnected");
+            mService = null;
+        }
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i("test","service connected");
+            MyService.MyBind myBind = (MyService.MyBind) service;
+            mService = myBind.getMyService();
+        }
+    };
+
+    @Override
+    public void setAlarm(Task task) {
+        if (mService != null) {
+            mService.setAlarm(task);
+            Log.i("test", "setAlarm is set");
         }
     }
 
+    @Override
+    public void cancelAlarm(Task task) {
+        if (mService != null) {
+            mService.cancelAlarm(task);
+            Log.i("test", "setAlarm is canceled");
+        }
+    }
 }
