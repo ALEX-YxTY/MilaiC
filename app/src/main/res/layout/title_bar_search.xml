@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/rl_title_location_scan"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <!--title_bar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="#4a4a4a"
+            android:text="取消"
+            />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tv_cancel"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_search_back"
+            android:drawableLeft="@drawable/icon_list_search"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:hint="帮你找到感兴趣的活动"
+            android:drawablePadding="10dp"
+            android:textColorHint="#999999"
+            android:textColor="#99000000"
+            android:textCursorDrawable="@drawable/shape_cursor_black"
+            android:textSize="15sp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+
+</LinearLayout>

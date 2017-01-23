@@ -75,7 +75,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         holder.tvTitle.setText(task.getTitle());
         holder.tvTime.setText(DateUtils.getTimePeriodWithSlash(task.getStart_time()
                 , task.getEnd_time()));
-        holder.tvLikes.setText(task.getLisks());
+        holder.tvLikes.setText(task.getLikes());
         holder.tvForward.setText(task.getForward());
         holder.tvContent.setText(task.getSub_name());
         holder.iblikes.setImageResource("1".equals(task.getIslikes())?R.drawable.isdolikes:R.drawable.dolikes);

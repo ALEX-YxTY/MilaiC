@@ -95,11 +95,35 @@
     <color name="transparent_40_off_gray">#90887c75</color>
     <color name="light_gray">#f0ece9</color>
     <color name="black">#000000</color>
+    <color name="black_light">#cc000000</color>
     <color name="transparent_white">#dfff</color>
     <color name="tv_gray">#959595</color>
     <color name="tv_title_gray">#434343</color>
     <color name="tv_gray_normal">#7d7d7d</color>
     <color name="gray_background">#f0ece9</color>
     <color name="background_task">#f9f5f3</color>
+    <color name="divider">#eeeeee</color>
+    <color name="divider_transparent">#26ffffff</color>
+    <color name="test">#ff00ff00</color>
 
+
+
+    <!--主题色-橙-->
+    <color name="orange_back" >#F2A564</color>
+    <color name="orange_fore" >#F09A49</color>
+    <color name="orange_bottom" >#F07549</color>
+    <!--主题色-蓝-->
+    <color name="blue_back" >#76B1F1</color>
+    <color name="blue_fore" >#72B4FC</color>
+    <color name="blue_bottom" >#7274FC</color>
+    <!--主题色-粉-->
+    <color name="pink_back" >#F4869E</color>
+    <color name="pink_fore" >#EB7289</color>
+    <color name="pink_bottom" >#FF5C5C</color>
+    <!--主题色-青-->
+    <color name="green_back" >#67C0D3</color>
+    <color name="green_fore" >#4CB5CA</color>
+    <color name="green_bottom" >#00A9B2</color>
+
+    <color name="text_black">#9921242A</color>
 </resources>

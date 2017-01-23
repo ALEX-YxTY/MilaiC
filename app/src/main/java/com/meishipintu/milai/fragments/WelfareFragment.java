@@ -15,8 +15,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.meishipintu.milai.R;
-import com.meishipintu.milai.activitys.MainActivity;
-import com.meishipintu.milai.activitys.WelfareDetailActivity;
 import com.meishipintu.milai.adapter.MyWelfareAdapter;
 import com.meishipintu.milai.beans.Welfare;
 import com.meishipintu.milai.netDao.NetApi;
@@ -181,22 +179,22 @@ public class WelfareFragment extends BaseFragment {
         adapter = new MyWelfareAdapter(getContext(), list, new MyWelfareAdapter.OnWelfareItemClickListener() {
             @Override
             public void onItemClickListener(int position, Welfare welfare) {
-                Log.e("-----------------------","有没有到这");
-                //获取屏幕截图
-                View viewCache = getActivity().getWindow().getDecorView();  //  获取屏幕view
-
-                getWindowBitmap(viewCache);
-                intent = new Intent(getContext(), WelfareDetailActivity.class);
-                intent.putExtra("bitmap", bitmapByte);
-                //获取登录状态
-//                MainActivity mainActivity = (MainActivity) instance.getActivity();
-//                intent.putExtra("isLogging", mainActivity.isLogging);
-                intent.putExtra("isLogging", listener.getLoggingStatus());
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("welfare", welfare);
-                intent.putExtras(bundle);
-                getActivity().startActivityForResult(intent, ConstansUtils.IS_LOGGING);
+//                Log.e("-----------------------","有没有到这");
+//                //获取屏幕截图
+//                View viewCache = getActivity().getWindow().getDecorView();  //  获取屏幕view
+//
+//                getWindowBitmap(viewCache);
+//                intent = new Intent(getContext(), WelfareDetailActivity.class);
+//                intent.putExtra("bitmap", bitmapByte);
+//                //获取登录状态
+////                MainActivity mainActivity = (MainActivity) instance.getActivity();
+////                intent.putExtra("isLogging", mainActivity.isLogging);
+//                intent.putExtra("isLogging", listener.getLoggingStatus());
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("welfare", welfare);
+//                intent.putExtras(bundle);
+//                getActivity().startActivityForResult(intent, ConstansUtils.IS_LOGGING);
             }
         });
         return adapter;

@@ -28,7 +28,6 @@ import rx.schedulers.Schedulers;
 
 public class NoticeActivity extends BaseActivity {
 
-
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.rv)

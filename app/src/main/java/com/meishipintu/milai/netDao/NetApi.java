@@ -216,6 +216,30 @@ public class NetApi {
         return netService.getTaskHttp(cityId,page,uid).map(new MyResultFunc<List<Task>>());
     }
 
+    public Observable<Task> getEachTask(String mid, String uid) {
+        return netService.getEachActivityHttp(mid, uid).map(new MyResultFunc<List<Task>>())
+                .flatMap(new Func1<List<Task>, Observable<Task>>() {
+                    @Override
+                    public Observable<Task> call(List<Task> tasks) {
+                        return Observable.from(tasks);
+                    }
+                });
+    }
+
+    public Observable<Task> getTaskNew(String uid, int flag) {
+        //flag = 1,首页活动， flag=2,所有活动
+        return netService.getTaskHttpNew(uid,flag).map(new MyResultFunc<List<Task>>()).flatMap(new Func1<List<Task>, Observable<Task>>() {
+            @Override
+            public Observable<Task> call(List<Task> tasks) {
+                return Observable.from(tasks);
+            }
+        });
+    }
+
+    public Observable<List<Task>> getMyLikes(String uid) {
+        return netService.getMyLikesHttp(uid).map(new MyResultFunc<List<Task>>());
+    }
+
     public Observable<String> likes(String uid,String mid) {
         return netService.getLikesHttp(uid,mid).map(new Func1<ResponseBody, String>() {
             @Override
@@ -332,15 +356,72 @@ public class NetApi {
 
     /**
      * @param uid
-     * @param status 1- 未使用 2-已使用 3-已过期 4-机器码
+     * @param status 1- 未使用    2-机器码   3-已使用  4-已过期
      * @return
      */
-    public Observable<List<Coupon>> getCoupon(String uid, int status){
-        if (status == 0) {
-            status = 4;
-        }
+    public Observable<List<Coupon>> getCoupon(String uid, final int status){
+
         final int finalStatus = status;
         return netService.getCouponHttp(uid, status).flatMap(new Func1<ResponseBody, Observable<List<Coupon>>>() {
+            @Override
+            public Observable<List<Coupon>> call(ResponseBody responseBody) {
+                try {
+                    JSONObject jsonObject = new JSONObject(responseBody.string());
+                    if (jsonObject.getInt("status") == 1) {
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        if (status == 2) {
+                            Log.d(ConstansUtils.APP_NAME, "data:" + data.toString());
+                        }
+                        List<Coupon> couponList = new ArrayList<>();
+                        JSONObject json;
+                        for (int i = 0; i < data.length(); i++) {
+                            json = (JSONObject) data.get(i);
+                            if (!(json.getDouble("value") < 0)) {
+                                Coupon coupon = new Coupon();
+                                coupon.setCouponSn(json.getString("coupon_sn"));
+                                coupon.setMi_desc(json.getString("mi_desc"));
+                                coupon.setTitle(json.getString("title"));
+                                coupon.setDescription(json.getString("description"));
+                                coupon.setShare_img(json.getString("share_img"));
+                                coupon.setName(json.getString("name"));
+                                coupon.setValue(json.getDouble("value"));
+                                coupon.setMinPrice(json.getDouble("min_price"));
+                                coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
+                                coupon.setMi(json.getInt("is_mi") == 1);
+                                coupon.setCouponShow(json.getString("couponShow"));
+                                if (finalStatus == 4) {
+                                    coupon.setMachineCode(json.getString("ticket_number"));
+                                    coupon.setIsMachineCode(json.getInt("is_ticket") > 0);
+                                    coupon.setMachineCodeUsed(json.getLong("use_time") > 0);
+                                }
+                                if (finalStatus == 2) {
+                                    coupon.setTemp_flag(json.getString("tmp_flag"));
+                                }
+                                couponList.add(coupon);
+                            }
+                        }
+                        return Observable.just(couponList);
+                    } else {
+                        throw new RuntimeException(jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e.getMessage());
+                } catch (IOException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * @param uid
+     * @param status 1- 可使用    2-不可用
+     * @return
+     */
+    public Observable<List<Coupon>> getCouponNew(String uid, final int status){
+
+        final int finalStatus = status;
+        return netService.getCouponNewHttp(uid, status).flatMap(new Func1<ResponseBody, Observable<List<Coupon>>>() {
             @Override
             public Observable<List<Coupon>> call(ResponseBody responseBody) {
                 try {
@@ -364,10 +445,8 @@ public class NetApi {
                                 coupon.setEndTime(DateUtils.getDateFormat(json.getString("end_time")));
                                 coupon.setMi(json.getInt("is_mi") == 1);
                                 coupon.setCouponShow(json.getString("couponShow"));
-                                if (finalStatus == 4) {
-                                    coupon.setMachineCode(json.getString("ticket_number"));
-                                    coupon.setIsMachineCode(json.getInt("is_ticket") > 0);
-                                    coupon.setMachineCodeUsed(json.getLong("use_time") > 0);
+                                if (finalStatus == 2) {
+                                    coupon.setTemp_flag(json.getString("tmp_flag"));
                                 }
                                 couponList.add(coupon);
                             }
@@ -383,6 +462,15 @@ public class NetApi {
                 }
             }
         });
+    }
+
+    /**
+     * @param uid  type=1 时可不填
+     * @param type 1- 所有活动    2- 收藏活动
+     * @return
+     */
+    public Observable<List<Task>> searchActivty(int type, String keyword, String uid) {
+        return netService.searchActivityHttp(type, keyword, uid).map(new MyResultFunc<List<Task>>());
     }
 
     public Observable<String> getVerifyCode(GetVCodeRequest getVCodeRequest) {
@@ -520,7 +608,7 @@ public class NetApi {
         });
     }
 
-    public Observable<String> addHeaderPicHttp(File photeFile, String uid) {
+    public Observable<String> addHeaderPic(File photeFile, String uid) {
         //将file类型转化为MultipartBody.part类型
         RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/*"), photeFile);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("picture", "avator.jpg", photoRequestBody);

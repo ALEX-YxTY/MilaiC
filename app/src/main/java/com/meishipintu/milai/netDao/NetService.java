@@ -100,6 +100,17 @@ public interface NetService {
     @POST("mspt/Activity/mi_manage")
     Observable<HttpResult<List<Task>>> getTaskHttp(@Field("cityid") int cityId, @Field("page") int page,@Nullable @Field ("uid") String uid);
 
+
+    //获取首页活动和所有活动
+    @FormUrlEncoded
+    @POST("mspt/Activity/mi_manage_new")
+    Observable<HttpResult<List<Task>>> getTaskHttpNew(@Field("uid") String uid, @Field("flags") int flag);
+
+    //获取收藏的活动
+    @FormUrlEncoded
+    @POST("mspt/Activity/myLikes")
+    Observable<HttpResult<List<Task>>> getMyLikesHttp(@Field("uid") String uid);
+
     //获取通知页面信息
     @POST("mspt/Activity/getPushInfo")
     Observable<HttpResult<List<Notice>>> getNoticeHttp();
@@ -145,6 +156,10 @@ public interface NetService {
     @POST("mspt/Activity/getUserCoupon")
     Observable<ResponseBody> getCouponHttp(@Field("uid") String uid, @Field("status") int status);
 
+    //获取我的商户券
+    @FormUrlEncoded
+    @POST("mspt/Activity/getUserCouponNew")
+    Observable<ResponseBody> getCouponNewHttp(@Field("uid") String uid, @Field("status") int status);
 
     //用类型传参时要添加头部信息
     //获取验证码
@@ -163,4 +178,15 @@ public interface NetService {
     @POST("mspt/member_detail/adduserpic")
     Observable<ResponseBody> addHeaderPicHttp(@Part MultipartBody.Part file1, @Part("uid") RequestBody uid);
 
+    //新闻搜索
+    @FormUrlEncoded
+    @POST("mspt/Activity/search")
+    Observable<HttpResult<List<Task>>> searchActivityHttp(@Field("type") int type
+            , @Field("keyword") String keyword, @Nullable @Field("uid") String uid);
+
+    //获取单条活动信息
+    @FormUrlEncoded
+    @POST("mspt/Activity/getAcDetail")
+    Observable<HttpResult<List<Task>>> getEachActivityHttp(@Field("id") String mid
+            , @Nullable @Field("uid") String uid);
 }

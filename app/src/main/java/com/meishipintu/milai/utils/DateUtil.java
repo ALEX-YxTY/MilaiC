@@ -154,4 +154,5 @@ public class DateUtil {
         String date = sDateFormat.format(new java.util.Date());
         return date;
     }
+
 }

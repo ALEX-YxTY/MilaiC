@@ -33,11 +33,11 @@ public class MilaiApplication extends Application {
         JPushInterface.init(this);
         JPushInterface.setPushTime(this, null, 0, 23);
         //设置默认字体
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/fflt.TTF")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath("fonts/fflt.TTF")
+//                .setFontAttrId(R.attr.fontPath)
+//                .build()
+//        );
 
     }
 

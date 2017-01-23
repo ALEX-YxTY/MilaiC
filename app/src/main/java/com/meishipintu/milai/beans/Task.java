@@ -19,6 +19,60 @@ public class Task implements Serializable{
     private String islikes;
     private String forward;
     private String redbag_url;//红包地址
+    private String shopname;
+    private String ac_detail;
+    private String shop_detail;
+    private String flag;        //1-首页活动和轮播图，2-全部活动
+    private String detail_img;  //内页图片
+    private String is_banner;   // 1-表示轮播图，2-非轮播图
+
+    public String getShopname() {
+        return shopname;
+    }
+
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
+    }
+
+    public String getAc_detail() {
+        return ac_detail;
+    }
+
+    public void setAc_detail(String ac_detail) {
+        this.ac_detail = ac_detail;
+    }
+
+    public String getShop_detail() {
+        return shop_detail;
+    }
+
+    public void setShop_detail(String shop_detail) {
+        this.shop_detail = shop_detail;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getDetail_img() {
+        return detail_img;
+    }
+
+    public void setDetail_img(String detail_img) {
+        this.detail_img = detail_img;
+    }
+
+    public String getIs_banner() {
+        return is_banner;
+    }
+
+    public void setIs_banner(String is_banner) {
+        this.is_banner = is_banner;
+    }
 
     public String getLikes() {
         return likes;
@@ -53,14 +107,6 @@ public class Task implements Serializable{
         this.islikes = islikes;
     }
 
-
-    public String getLisks() {
-        return likes;
-    }
-
-    public void setLisks(String lisks) {
-        this.likes = likes;
-    }
 
     public String getStart_time() {
         return start_time;

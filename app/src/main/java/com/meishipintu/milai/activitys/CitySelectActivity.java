@@ -206,7 +206,7 @@ public class CitySelectActivity extends BaseActivity {
     @Override
     public boolean useSwipeBack() {
         //使用左滑返回
-        return true;
+        return false;
     }
 
     @OnClick({R.id.iv_back, R.id.local_city})

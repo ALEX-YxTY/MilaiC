@@ -23,6 +23,16 @@ public class ToastUtils {
         toast.show();
     }
 
+    public static void show(Context context, int resId) {
+        View toastView = View.inflate(context, R.layout.toast, null);
+        TextView tvToast = (TextView) toastView.findViewById(R.id.tv_toast);
+        tvToast.setText(context.getResources().getString(resId));
+        Toast toast = new Toast(context);
+        toast.setView(toastView);
+        toast.show();
+    }
+
+
     public static void show(Context context, String message, int drawableResouceId) {
         View toastView = View.inflate(context, R.layout.toast, null);
         TextView tvToast = (TextView) toastView.findViewById(R.id.tv_toast);

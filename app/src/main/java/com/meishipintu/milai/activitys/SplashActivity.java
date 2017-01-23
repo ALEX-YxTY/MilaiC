@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.meishipintu.milai.R;
+import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.tasks.MyTimeDelaySplashTask;
 import com.meishipintu.milai.tasks.MyTimeDelayTask;
@@ -40,7 +41,7 @@ public class SplashActivity extends BaseActivity {
             Intent intent = new Intent();
             switch (msg.what) {
                 case 0:
-                    intent.setClass(SplashActivity.this, MainActivity.class);
+                    intent.setClass(SplashActivity.this, HomepageActivity.class);
                     break;
             }
             startActivity(intent);
@@ -111,8 +112,6 @@ public class SplashActivity extends BaseActivity {
                         });
                     }
                 });
-
-
     }
 
 

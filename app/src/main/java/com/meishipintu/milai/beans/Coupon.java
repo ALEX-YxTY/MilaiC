@@ -16,11 +16,24 @@ public class Coupon implements Serializable{
     private String couponShow;
     private String machineCode;
     private String mi_desc;//我的米来米劵解释
-    private String title;//
-    private String description;//
-    private String share_img;//
+    private String title;
+    private String description;
+    private String share_img;
     private boolean isMachineCode;
     private boolean machineCodeUsed;
+    private String tmp_flag;            //1-已使用  2-已过期
+
+    public void setMachineCode(boolean machineCode) {
+        isMachineCode = machineCode;
+    }
+
+    public String getTemp_flag() {
+        return tmp_flag;
+    }
+
+    public void setTemp_flag(String temp_flag) {
+        this.tmp_flag = temp_flag;
+    }
 
     public String getMachineCode() {
         return machineCode;

@@ -8,4 +8,22 @@
         <item>深圳市</item>
         <item>广州市</item>
     </string-array>
+    <integer-array name="colorBackground">
+        <item>0xFFF2A564</item>
+        <item>0xFF76B1F1</item>
+        <item>0xFFF4869E</item>
+        <item>0xFF67C0D3</item>
+    </integer-array>
+    <integer-array name="colorForeground">
+        <item>0xFFF09A49</item>
+        <item>0xFF72B4FC</item>
+        <item>0xFFEB7289</item>
+        <item>0xFF4CB5CA</item>
+    </integer-array>
+    <integer-array name="colorBottom">
+        <item>0xFFF07549</item>
+        <item>0xFF7274FC</item>
+        <item>0xFFFF5C5C</item>
+        <item>0xFF00A9B2</item>
+    </integer-array>
 </resources>

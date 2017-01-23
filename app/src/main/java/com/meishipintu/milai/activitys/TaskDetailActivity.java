@@ -1,10 +1,14 @@
 package com.meishipintu.milai.activitys;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -30,8 +34,8 @@ import butterknife.OnClick;
 
 public class TaskDetailActivity extends BaseActivity {
 
-    String shareTitle;
-    String mainUrl;
+    private String mainUrl;
+    private int type;               //打开网页类型 1-红包页面 2-外链
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -47,8 +51,10 @@ public class TaskDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_task_detail);
         ButterKnife.bind(this);
         tvTitle.setText(R.string.app_name);
-        mainUrl = getIntent().getStringExtra("detail");
-        shareTitle = getIntent().getStringExtra("shareTitle");
+        Intent from = getIntent();
+        mainUrl = from.getStringExtra("detail");
+        type = from.getIntExtra("type", 0);      //默认红包
+        Log.d(ConstansUtils.APP_NAME, "getIntent type:" + type);
     }
 
     @Override
@@ -59,26 +65,36 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
     private void initWebView(String url) {
+        //重新设置websettings  
+        WebSettings s = wv.getSettings();
+        s.setJavaScriptEnabled(true);
+        s.setDomStorageEnabled(true);
+
+//        wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebViewClient(new WebViewClient(){
             //在webview中点击url链接时会调用此接口
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("http://a.milaipay.com")) {
+                Log.d(ConstansUtils.APP_NAME, "click url:" + url + " type:" + type);
+
+                if (url.startsWith("http://a.milaipay.com") && type == 2) {
+                    //米来的外部链接才需要拼uid
                     if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
                         Toast.makeText(TaskDetailActivity.this, R.string.login_please, Toast.LENGTH_SHORT).show();
                         RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
                         TaskDetailActivity.this.finish();
                     } else {
                         url = url + "/uid/" + Cookies.getUserId();
+                        Log.d(ConstansUtils.APP_NAME, "come if:" + url);
                         view.loadUrl(url);
                     }
                     return true;
                 } else {
+                    Log.d(ConstansUtils.APP_NAME, "come else:" + url);
                     return super.shouldOverrideUrlLoading(view, url);
                 }
             }
         });
-        wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -90,8 +106,8 @@ public class TaskDetailActivity extends BaseActivity {
                 }
             }
         });
+        Log.d(ConstansUtils.APP_NAME, "url:" + url);
         wv.loadUrl(url);
-//        wv.loadUrl(mainUrl + "/uid/112233");
     }
 
     @Override
@@ -137,32 +153,6 @@ public class TaskDetailActivity extends BaseActivity {
         }
 
     }
-
-    //---修改时间20161202
-    //---HTML页面通过JS可以调用此方法获取用户UID
-    //---JS写法<input type="button"  value="点击调用java代码" onclick="window.android.startInterface()" />
-    @JavascriptInterface
-    public void startInterface(){
-        //调用JS方法
-        wv.loadUrl("javascript:javacalljswith('"+ Cookies.getUserId()+"')");
-    }
-    //--JS写法<input type="button"  value="点击调用java代码并传递参数" onclick="window.android.startFunction('参数')"  />
-
-    @JavascriptInterface
-    public void startFunction(final String text){
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-//text保存HTML返回来的参数
-
-            }
-        });
-
-    }
-
-    //---修改时间20161202
-
 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override

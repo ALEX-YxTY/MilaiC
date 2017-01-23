@@ -87,9 +87,10 @@ public class GuideActivity extends BaseActivity {
     }
 
     public void startMainActivity() {
-        if (Cookies.getCityId() == 0) {
-            startActivity(new Intent(GuideActivity.this, CitySelectActivity.class));
-        }
+//        if (Cookies.getCityId() == 0) {
+//            startActivity(new Intent(GuideActivity.this, CitySelectActivity.class));
+//        }
+//        startActivity(new Intent(GuideActivity.this, HomepageActivity.class));
         GuideActivity.this.finish();
         Cookies.setShowGuide(false);
     }

@@ -108,7 +108,7 @@ public class LoginNewActivity extends BaseActivity {
                             public void onNext(String s) {
                                 verifyCode = s;
                                 //TODO 测试用
-//                                etVCode.setText(verifyCode);
+                                etVCode.setText(verifyCode);
                             }
                         });
                 break;
@@ -136,7 +136,9 @@ public class LoginNewActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
-        task.cancel(true);
+        if (task != null && !task.isCancelled()) {
+            task.cancel(true);
+        }
         super.onPause();
     }
 

@@ -70,15 +70,15 @@ public class CouponDetailsActivity extends BaseActivity {
 //        if (!StringUtils.isNullOrEmpty(Cookies.getUserUrl())) {
 //            picasso.load(ConstansUtils.URL + Cookies.getUserUrl()).into(headportrait);
 //        }
-        if (coupon.isMi()) {
-            tv1.setVisibility(View.INVISIBLE);
-            tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
-            tvValue.setVisibility(View.GONE);
-            tv2.setVisibility(View.VISIBLE);
-        } else {
+//        if (coupon.isMi()) {
+//            tv1.setVisibility(View.INVISIBLE);
+//            tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
+//            tvValue.setVisibility(View.GONE);
+//            tv2.setVisibility(View.VISIBLE);
+//        } else {
             tvMoney.setText(NumUtil.NumberFormatAuto(coupon.getValue()));
             tvValue.setText("满" + NumUtil.NumberFormatFromDouble(coupon.getMinPrice(), 0) + "元使用");
-        }
+//        }
         tvTime.setText("有效期至：" + coupon.getEndTime());
     }
 

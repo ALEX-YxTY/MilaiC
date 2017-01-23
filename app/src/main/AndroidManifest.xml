@@ -71,6 +71,12 @@
             android:name=".activitys.GuideActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentActivity" />
+        <!-- 新主页 -->
+        <activity
+            android:name=".activitys.HomepageActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- 主页 -->
         <activity
             android:name=".activitys.MainActivity"
@@ -94,11 +100,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- 登录页面 -->
-        <activity
-            android:name=".activitys.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
         <!-- 新登录页面 -->
         <activity
             android:name=".activitys.LoginNewActivity"
@@ -112,11 +113,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <!-- 忘记密码页面 -->
-        <activity
-            android:name=".activitys.ForgetPassWordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
         <!-- 用米地带详情页 -->
         <activity
             android:name=".activitys.WelfareDetailActivity"
@@ -152,12 +148,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
-        <!--兑换页面-->
+        <!-- 兑换页面 -->
         <activity
             android:name=".activitys.ExchangeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+        <!-- 活动详情 -->
+        <activity
+            android:name=".activitys.WelfareDetailNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- 我的券详情页面 -->
         <activity
             android:name=".activitys.CouponDetailsActivity"
@@ -169,10 +170,24 @@
             android:name=".activitys.NoticeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- 我的卡券 -->
+        <activity
+            android:name=".activitys.CouponNewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitys.CouponUsedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- 消费记录页面 -->
         <activity
             android:name=".activitys.PurchaseHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!-- 活动列表页面和收藏页面 -->
+        <activity
+            android:name=".activitys.ActivityList"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
@@ -181,6 +196,14 @@
             android:name=".activitys.BindTelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--搜索页面-->
+        <activity
+            android:name=".activitys.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateVisible"/>
+
 
         <!-- 高德定位 -->
         <meta-data
@@ -263,7 +286,8 @@
         <service
             android:name=".service.MyService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
     </application>
 
 </manifest>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/rl_title_location_scan"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <!--title_bar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:background="@color/white"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_menu"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ripple_effect"
+            >
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="22dp"
+                android:src="@drawable/icon_main_personal"
+                android:paddingLeft="@dimen/margin_22"
+                android:paddingRight="@dimen/margin_22"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_milai"/>
+
+        <RelativeLayout
+            android:id="@+id/iv_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ripple_effect"
+            >
+            <ImageView
+                android:layout_width="46dp"
+                android:layout_height="21dp"
+                android:src="@drawable/btn_scan"
+                android:paddingLeft="@dimen/margin_22"
+                android:paddingRight="@dimen/margin_22"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+
+</LinearLayout>

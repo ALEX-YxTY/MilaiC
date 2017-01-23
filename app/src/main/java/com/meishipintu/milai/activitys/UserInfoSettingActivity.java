@@ -6,9 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,9 +14,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -28,10 +23,8 @@ import android.widget.Toast;
 
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.application.Cookies;
-import com.meishipintu.milai.beans.LoginInfo;
 import com.meishipintu.milai.beans.Uid;
 import com.meishipintu.milai.beans.UserDetailInfo;
-import com.meishipintu.milai.beans.UserInfo;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.ConstansUtils;
 import com.meishipintu.milai.utils.DialogUtils;
@@ -44,16 +37,10 @@ import com.meishipintu.milai.views.CircleImageView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
-import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -186,7 +173,7 @@ public class UserInfoSettingActivity extends BaseActivity {
 
         //如果修改了头像，则上传头像
         if (headViewChanged) {
-            netApi.addHeaderPicHttp(tempFile,Cookies.getUserId()).subscribeOn(Schedulers.io())
+            netApi.addHeaderPic(tempFile,Cookies.getUserId()).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<String>() {
                         @Override
