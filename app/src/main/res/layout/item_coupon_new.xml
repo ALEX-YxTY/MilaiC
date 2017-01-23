@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:id="@+id/coupon"
+    android:orientation="horizontal"
+    android:layout_marginBottom="15dp"
+    android:background="@drawable/bg_ticket">
+    <RelativeLayout
+        android:id="@+id/rl_color"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:background="#20ffcfbe"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:id="@+id/tv_coupon"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="优惠券"
+            android:background="@drawable/shape_item_text_o"/>
+        <TextView
+            android:id="@+id/tv_lading"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:text="优惠券"
+            android:background="@drawable/shape_item_text_b"/>
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="45dp"
+           android:layout_centerInParent="true">
+           <TextView
+               android:id="@+id/tv_config"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/orange"
+               android:layout_alignParentBottom="true"
+               android:textSize="20sp"
+               android:text="¥"/>
+           <TextView
+               android:id="@+id/tv_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@id/tv_config"
+               android:layout_alignBaseline="@id/tv_config"
+               android:textSize="30sp"
+               android:textColor="#F44B00"
+               />
+       </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#90b56345"
+            android:textSize="13sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="5dp"
+        android:paddingTop="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:text="有效期至："/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_1"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tv_1"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:text="8888 8888 8888"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_used"
+            android:layout_width="75dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+
+
