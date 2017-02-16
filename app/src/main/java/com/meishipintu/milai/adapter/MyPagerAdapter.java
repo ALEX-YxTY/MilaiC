@@ -65,7 +65,13 @@ public class MyPagerAdapter extends PagerAdapter {
             holder.cv.setCardBackgroundColor(colorForegroundArray[position % colorForegroundArray.length]);
             holder.tvTime.setText(DateUtils.getAvalibleTime(task.getStart_time(), task.getEnd_time()));
             holder.tvCityTime.setText("【 南京 】 " + DateUtils.getTimeStringChinese(task.getStart_time()));
-//        holder.tvName.setText(task.getBusinessNname());
+            holder.tvName.setText(task.getShopname());
+            holder.ivForward.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RxBus.getDefault().send(ConstansUtils.MESSAGE_SHARE);
+                }
+            });
             picasso.load("http://" + task.getLogo()).placeholder(R.drawable.bg_erweima).into(holder.iv);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

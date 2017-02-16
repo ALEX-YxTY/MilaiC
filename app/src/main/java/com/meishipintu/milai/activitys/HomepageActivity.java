@@ -138,6 +138,8 @@ public class HomepageActivity extends AppCompatActivity {
             public void call(Integer integer) {
                 if (integer == ConstansUtils.LOGIN_FIRST) {
                     login();
+                } else if (integer == ConstansUtils.MESSAGE_SHARE) {
+                    share();
                 }
             }
         });
@@ -460,6 +462,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     //登录
     private void login() {
+        Log.d(ConstansUtils.APP_NAME, "login");
         Intent intent = new Intent(this, LoginNewActivity.class);
         startActivityForResult(intent, ConstansUtils.LOGGING_SITUATION);
         ToastUtils.show(this, "请先登录");
@@ -541,21 +544,7 @@ public class HomepageActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.tv_share:
-                //友盟分享
-                final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
-                        {
-                                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
-                                SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
-                        };
-                umShareListener = new UmListener(this);
-                new ShareAction(this).setDisplayList(displaylist)
-                        .withTitle("下载关注米来")
-                        .withText("支付级数字营销传播者")
-                        .withTargetUrl("http://a.milaipay.com/wap/share")
-                        .withMedia(new UMImage(this
-                                , BitmapFactory.decodeResource(getResources(), R.drawable.icon_small)))
-                        .setListenerList(umShareListener)
-                        .open();
+                share();
                 break;
             case R.id.iv_menu:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -577,6 +566,25 @@ public class HomepageActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    //调用分享
+    private void share() {
+        //友盟分享
+        final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
+                {
+                        SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
+                        SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
+                };
+        umShareListener = new UmListener(this);
+        new ShareAction(this).setDisplayList(displaylist)
+                .withTitle("下载关注米来")
+                .withText("支付级数字营销传播者")
+                .withTargetUrl("http://a.milaipay.com/wap/share")
+                .withMedia(new UMImage(this
+                        , BitmapFactory.decodeResource(getResources(), R.drawable.icon_small)))
+                .setListenerList(umShareListener)
+                .open();
     }
 
     @Override

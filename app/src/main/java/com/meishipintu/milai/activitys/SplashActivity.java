@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.meishipintu.milai.R;
-import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.tasks.MyTimeDelaySplashTask;
 import com.meishipintu.milai.tasks.MyTimeDelayTask;

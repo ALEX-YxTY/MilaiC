@@ -29,7 +29,6 @@ public class MilaiApplication extends Application {
         //初始化配置weixin、sina微博、qq&Qzone
         PlatformConfig.setWeixin("wx297bb17520e8b3f3","c4551debac64a9c78e6888494ebe9580");
         PlatformConfig.setQQZone("1104296053","HU2XYqtDf1PBhK8C");
-        JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         JPushInterface.setPushTime(this, null, 0, 23);
         //设置默认字体

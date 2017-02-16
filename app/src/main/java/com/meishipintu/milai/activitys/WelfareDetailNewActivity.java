@@ -158,8 +158,8 @@ public class WelfareDetailNewActivity extends AppCompatActivity {
                 if (StringUtils.isNullOrEmpty(data.getType_detail())) {
                     ToastUtils.show(this, "即将上线");
                 } else if (StringUtils.isNullOrEmpty(Cookies.getUserId())) {
-                    Toast.makeText(this, R.string.login_please, Toast.LENGTH_SHORT).show();
                     RxBus.getDefault().send(ConstansUtils.LOGIN_FIRST);
+                    this.finish();
                 } else {
                     String url = data.getType_detail() + "/uid/" + Cookies.getUserId();
                     Intent intent = new Intent(this, TaskDetailActivity.class);

@@ -38,4 +38,6 @@ public class ConstansUtils {
     public static final int LOAD_MORE = 2;                     //加载更多
     public static final int REFRESH = 1;                       //重新刷新数据
 
+    public static final int MESSAGE_SHARE = 9001;               //调用分享的Rxbus的message
+
 }

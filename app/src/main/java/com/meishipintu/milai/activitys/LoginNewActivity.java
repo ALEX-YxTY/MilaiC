@@ -108,7 +108,7 @@ public class LoginNewActivity extends BaseActivity {
                             public void onNext(String s) {
                                 verifyCode = s;
                                 //TODO 测试用
-                                etVCode.setText(verifyCode);
+//                                etVCode.setText(verifyCode);
                             }
                         });
                 break;

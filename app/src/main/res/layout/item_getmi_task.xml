@@ -98,7 +98,7 @@
                         android:text="米来"
                         android:textColor="@color/white"/>
                     <ImageView
-                        android:id="@+id/forwards"
+                        android:id="@+id/iv_forwards"
                         android:src="@drawable/icon_share"
                         android:layout_width="20dp"
                         android:layout_height="20dp"

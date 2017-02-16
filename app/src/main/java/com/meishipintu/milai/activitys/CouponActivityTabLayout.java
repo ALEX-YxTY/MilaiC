@@ -98,7 +98,6 @@ public class CouponActivityTabLayout extends BaseActivity {
         vPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(vPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-
     }
 
     private void getData(final int page) {

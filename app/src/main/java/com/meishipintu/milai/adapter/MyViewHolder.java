@@ -23,6 +23,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     public TextView tvName;
     public CardView cv;
     public TextView tvCityTime;
+    public ImageView ivForward;
 
     public MyViewHolder(View itemView) {
         super(itemView);
@@ -32,5 +33,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         tvName = (TextView) itemView.findViewById(R.id.tv_item_name);
         cv=(CardView) itemView.findViewById(R.id.cv);
         tvCityTime = (TextView) itemView.findViewById(R.id.tv_city_time);
+        ivForward = (ImageView) itemView.findViewById(R.id.iv_forwards);
     }
 }
