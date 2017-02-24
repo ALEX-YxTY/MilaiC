@@ -118,7 +118,7 @@
     <string name="male">男士</string>
     <string name="city_list">城市列表</string>
     <!-- http about -->
-    <string name="wifi_connect_failed">网络连接失败</string>
+    <string name="wifi_connect_failed">网络连接失败,请稍后重试</string>
     <string name="erro_acount">用户名 由2–32位字符组成</string>
     <string name="erro_http_request">网络请求失败, 代码%d</string>
     <string name="erro_pwd">密码由6–16位英文,数字,下划线和dot(.)符组成</string>

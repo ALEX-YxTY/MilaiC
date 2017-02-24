@@ -19,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,16 +32,11 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.application.RxBus;
 import com.meishipintu.milai.beans.AppInfo;
 import com.meishipintu.milai.beans.Task;
-import com.meishipintu.milai.beans.Uid;
-import com.meishipintu.milai.beans.UserDetailInfo;
 import com.meishipintu.milai.beans.UserInfo;
-import com.meishipintu.milai.fragments.LoginFragment;
-import com.meishipintu.milai.fragments.MineFragment;
 import com.meishipintu.milai.listener.UmListener;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.tasks.MyAsy;
 import com.meishipintu.milai.utils.ConstansUtils;
-import com.meishipintu.milai.utils.DateUtil;
 import com.meishipintu.milai.utils.DateUtils;
 import com.meishipintu.milai.utils.DialogUtils;
 import com.meishipintu.milai.utils.StringUtils;
@@ -173,12 +167,13 @@ public class HomepageActivity extends AppCompatActivity {
                     public void onCompleted() {
                         Log.d("debug", "banner size " + bannerList.size());
                         Log.d("debug", "data size " + dataList.size());
-                        initBannerAndDrawer();
+                        initBanner();
                         initViewPager();
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        ToastUtils.show(HomepageActivity.this,R.string.wifi_connect_failed);
                         Log.d("debug", "error:" + e.getMessage());
                     }
 
@@ -192,7 +187,71 @@ public class HomepageActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        initDrawer();
     }
+
+    //初始化DrawerLayout
+    private void initDrawer() {
+        //使Drawer拉出使下部不覆盖阴影
+        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                if (mainView == null) {
+                    mainView = mDrawerLayout.getChildAt(0);        //因为drawerLayout只有2个子view，所以第一个为mainView
+                }
+                mainView.setScaleY(1 - slideOffset / 5);
+                mainView.setScaleX(1 - slideOffset / 5);
+                mainView.setTranslationX(mainView.getMeasuredWidth() * (slideOffset * 0.7f));
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+            }
+        });
+        initMenu();
+    }
+
+    //初始化menu显示
+    private void initMenu() {
+        Log.d(ConstansUtils.APP_NAME, "uid:" + Cookies.getUserId() + ", url:" + Cookies.getUserUrl());
+        if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
+            tvName.setText(Cookies.getUserName());
+            tvName.setOnClickListener(null);
+            tvName.setTextColor(getResources().getColor(R.color.white));
+            tvName.setBackground(getResources().getDrawable(R.drawable.shape_dialog_round_small_orange));
+            tvTel.setText(StringUtils.stringWithSpaceTel(Cookies.getTel()));
+        } else {
+            tvName.setText("登录");
+            tvName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    login();
+                }
+            });
+            tvName.setTextColor(getResources().getColor(R.color.orange_bottom));
+            tvName.setBackground(getResources().getDrawable(R.drawable.shape_dialog_round_small));
+            tvTel.setText("");
+        }
+        String url = Cookies.getUserUrl();
+        if (url.startsWith("http")) {
+            picasso.load(url).into(civHeadView);
+        } else if (!StringUtils.isNullOrEmpty(url)) {
+            picasso.load(ConstansUtils.URL + url).into(civHeadView);
+        } else {
+            picasso.load(R.drawable.bg_mine_ava).into(civHeadView);
+        }
+    }
+
 
     //版本检查
     private void checkVersion() {
@@ -301,8 +360,8 @@ public class HomepageActivity extends AppCompatActivity {
         startActivityForResult(intent, ConstansUtils.SCAN_MAIN);
     }
 
-    //初始化菜单栏和轮播banner
-    private void initBannerAndDrawer() {
+    //初始化轮播banner
+    private void initBanner() {
         indicatorLayout.removeAllViews();
         //画小圆点
         for (int i = 0; i < bannerList.size(); i++) {
@@ -349,65 +408,6 @@ public class HomepageActivity extends AppCompatActivity {
             bannerAdapter.notifyDataSetChanged();
         }
         vpBanner.setCurrentItem(index);
-
-
-        //使Drawer拉出使下部不覆盖阴影
-        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                if (mainView == null) {
-                    mainView = mDrawerLayout.getChildAt(0);        //因为drawerLayout只有2个子view，所以第一个为mainView
-                }
-                mainView.setScaleY(1 - slideOffset / 5);
-                mainView.setScaleX(1 - slideOffset / 5);
-                mainView.setTranslationX(mainView.getMeasuredWidth() * (slideOffset * 0.7f));
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-            }
-        });
-        initMenu();
-    }
-
-    //初始化menu显示
-    private void initMenu() {
-        Log.d(ConstansUtils.APP_NAME, "uid:" + Cookies.getUserId() + ", url:" + Cookies.getUserUrl());
-        if (!StringUtils.isNullOrEmpty(Cookies.getUserId())) {
-            tvName.setText(Cookies.getUserName());
-            tvName.setOnClickListener(null);
-            tvName.setTextColor(getResources().getColor(R.color.white));
-            tvName.setBackground(getResources().getDrawable(R.drawable.shape_dialog_round_small_orange));
-            tvTel.setText(StringUtils.stringWithSpaceTel(Cookies.getTel()));
-        } else {
-            tvName.setText("登录");
-            tvName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    login();
-                }
-            });
-            tvName.setTextColor(getResources().getColor(R.color.orange_bottom));
-            tvName.setBackground(getResources().getDrawable(R.drawable.shape_dialog_round_small));
-            tvTel.setText("");
-        }
-        String url = Cookies.getUserUrl();
-        if (url.startsWith("http")) {
-            picasso.load(url).into(civHeadView);
-        } else if (!StringUtils.isNullOrEmpty(url)) {
-            picasso.load(ConstansUtils.URL + url).into(civHeadView);
-        } else {
-            picasso.load(R.drawable.bg_mine_ava).into(civHeadView);
-        }
     }
 
     //初始化数据

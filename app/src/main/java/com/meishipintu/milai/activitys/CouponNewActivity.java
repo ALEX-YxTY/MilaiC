@@ -14,6 +14,7 @@ import com.meishipintu.milai.application.Cookies;
 import com.meishipintu.milai.beans.Coupon;
 import com.meishipintu.milai.netDao.NetApi;
 import com.meishipintu.milai.utils.Immersive;
+import com.meishipintu.milai.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,7 @@ public class CouponNewActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        ToastUtils.show(CouponNewActivity.this, R.string.wifi_changing_network);
                     }
 
                     @Override
