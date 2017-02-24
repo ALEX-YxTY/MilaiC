@@ -70,7 +70,6 @@ public class TaskDetailActivity extends BaseActivity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
 
-//        wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebViewClient(new WebViewClient(){
             //在webview中点击url链接时会调用此接口
             @Override
