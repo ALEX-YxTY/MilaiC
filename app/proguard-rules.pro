@@ -16,7 +16,7 @@
 #   public *;
 #}
 
- -dontshrink
+-dontshrink
 
 #忽略警告
 -ignorewarnings
@@ -32,7 +32,6 @@
 -dontpreverify
  #混淆时是否记录日志
 -verbose
-
 ##记录生成的日志数据,gradle build时在本项目根目录输出##
 #apk 包内所有 class 的内部结构
 -dump proguard/class_files.txt
@@ -43,7 +42,7 @@
 #混淆前后的映射
 -printmapping proguard/mapping.txt
 # 抛出异常时保留代码行号
--keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable,InnerClasses
 # 指定混淆是采用的算法，后面的参数是一个过滤器
 # 这个过滤器是谷歌推荐的算法，一般不做更改
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
@@ -201,6 +200,10 @@
 -dontwarn cn.jpush.**
 -keep class cn.jpush.** { *; }
 
+# 保留R下面的资源  
+-keep class **.R$.**{ *; }
 
+#保持 native 方法不被混淆  
+-keepclasseswithmembernames class * {native <methods>;}
 
 

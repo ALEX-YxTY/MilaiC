@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.enrique.stackblur.StackBlurManager;
 import com.meishipintu.milai.R;
 import com.meishipintu.milai.beans.Welfare;
 import com.meishipintu.milai.utils.ConstansUtils;
@@ -44,7 +43,7 @@ public class WelfareDetailActivity extends BaseActivity {
     LinearLayout layout;
     private Bitmap bitmapBackground;
     private Bitmap afterBlur;
-    private StackBlurManager stackBlurManager;
+//    private StackBlurManager stackBlurManager;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -79,43 +78,43 @@ public class WelfareDetailActivity extends BaseActivity {
         picasso = Picasso.with(this);
         welfare = (Welfare) getIntent().getExtras().get("welfare");
         isLogging = getIntent().getBooleanExtra("isLogging", false);
-        blurBackground();
+//        blurBackground();
         initUi();
     }
 
-    private void blurBackground() {
-        new Thread() {
-            @Override
-            public void run() {
-                //取出图片
-                byte[] bis = getIntent().getByteArrayExtra("bitmap");
-                bitmapBackground = BitmapFactory.decodeByteArray(bis, 0, bis.length);
-//                bitmapBackground = getIntent().getParcelableExtra("bitmap");
-                Log.i("test", "bis.size:" + bitmapBackground.getByteCount());
-                //使用stackblur写
-                long startTime = System.currentTimeMillis();
-                stackBlurManager = new StackBlurManager(bitmapBackground);
-                afterBlur = stackBlurManager.process(30);
-                handler.sendEmptyMessage(BLUR_BITMAP_OK);
-                Log.i("test", "costtimeblur:" + (System.currentTimeMillis() - startTime));
-//                //sdk17以上才可用blur效果
-//                if (Build.VERSION.SDK_INT >= 17) {
-//                    rlWhole.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//                        @Override
-//                        public boolean onPreDraw() {
-//                            //及时清除listener，在只需要一次的情况下
-//                            rlWhole.getViewTreeObserver().removeOnPreDrawListener(this);
-//                            //允许保存图片缓存
-//                            rlWhole.buildDrawingCache();
-////                            rlWhole.setBackground(new BitmapDrawable(bitmapBackground));
-//                            blur();
-//                            return true;
-//                        }
-//                    });
-//                }
-            }
-        }.run();
-    }
+//    private void blurBackground() {
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                //取出图片
+//                byte[] bis = getIntent().getByteArrayExtra("bitmap");
+//                bitmapBackground = BitmapFactory.decodeByteArray(bis, 0, bis.length);
+////                bitmapBackground = getIntent().getParcelableExtra("bitmap");
+//                Log.i("test", "bis.size:" + bitmapBackground.getByteCount());
+//                //使用stackblur写
+//                long startTime = System.currentTimeMillis();
+//                stackBlurManager = new StackBlurManager(bitmapBackground);
+//                afterBlur = stackBlurManager.process(30);
+//                handler.sendEmptyMessage(BLUR_BITMAP_OK);
+//                Log.i("test", "costtimeblur:" + (System.currentTimeMillis() - startTime));
+////                //sdk17以上才可用blur效果
+////                if (Build.VERSION.SDK_INT >= 17) {
+////                    rlWhole.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+////                        @Override
+////                        public boolean onPreDraw() {
+////                            //及时清除listener，在只需要一次的情况下
+////                            rlWhole.getViewTreeObserver().removeOnPreDrawListener(this);
+////                            //允许保存图片缓存
+////                            rlWhole.buildDrawingCache();
+//////                            rlWhole.setBackground(new BitmapDrawable(bitmapBackground));
+////                            blur();
+////                            return true;
+////                        }
+////                    });
+////                }
+//            }
+//        }.run();
+//    }
 
     //毛玻璃效果核心代码
 //    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

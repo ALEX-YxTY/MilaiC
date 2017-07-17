@@ -1,1 +1,1 @@
-include ':app', ':zxing', ':StackBlur'
+include ':app', ':zxing'

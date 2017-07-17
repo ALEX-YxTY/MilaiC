@@ -3,7 +3,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "com.meishipintu.milai"
@@ -39,8 +39,23 @@ android {
             //设置混淆
             minifyEnabled true
             // 移除无用的resource文件
-//            shrinkResources true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions{
+        //lint 遇到 error 时继续 构建
+        abortOnError false
+        //build release 版本 时 开启lint 检测
+        checkReleaseBuilds false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+
+    signingConfigs{
+        release{
+            v2SigningEnabled false
         }
     }
 }
@@ -54,7 +69,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:support-v4:23.3.0'
     compile project(':zxing')
-    compile project(':StackBlur')
     //butterknife
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
     compile 'com.jakewharton:butterknife:8.1.0'

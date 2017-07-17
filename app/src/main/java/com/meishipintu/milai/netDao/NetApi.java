@@ -97,7 +97,6 @@ public class NetApi {
                 }
             }
         });
-
     }
 
     public Observable<UserInfo> loginNew(String mobile, String verify) {
@@ -612,7 +611,7 @@ public class NetApi {
         //将file类型转化为MultipartBody.part类型
         RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/*"), photeFile);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("picture", "avator.jpg", photoRequestBody);
-//        MultipartBody.Part uidPart = MultipartBody.Part.createFormData("uid", uid);
+        //MultipartBody.Part uidPart = MultipartBody.Part.createFormData("uid", uid);
         RequestBody uidRequest = RequestBody.create(null, uid);
         return netService.addHeaderPicHttp(photo, uidRequest).flatMap(new Func1<ResponseBody, Observable<String>>() {
             @Override
